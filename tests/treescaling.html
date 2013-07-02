@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  
+  <head>
+    <title>Freefall collapse test</title>
+    <meta name="author" content="David Anthony Hubber" />
+      <link rel="stylesheet" href="../style1.css" type="text/css" />
+  </head>
+  
+  <body>
+    
+    
+    <div id="container">
+
+      <div id="masthead">
+      
+      <div id="header"> <h1>SEREN</h1> </div>
+
+        <div id="navigation">
+	  <ul>
+	    <li><a href="../seren.html">Main</a></li>
+	    <li><a href="../features.html">Features</a></li>
+	    <li><a href="../doc.html">Documentation</a> </li>
+	    <li class="current_page_item"><a href="../tests.html">Tests</a> </li>
+	    <li><a href="../astrophysics.html">Astrophysics</a></li>
+            <li><a href="../papers.html">Papers</a> </li>
+	  </ul>
+	</div> 
+
+      </div>
+
+      <div id="content-wrapper">
+	<div id="content">
+	  <h3 class="post-title">Tree scaling test</h3>
+	  <p> A Barnes-Hut gravity tree is expected to scale as 
+	  O(N log N) where N is the total number of SPH particles 
+	  compared to O(N*N) for direct-sum gravity.   Here, we run a short 
+	  simulation of the collapse of a uniform-density sphere using 
+	  both direct-sum gravity and the Barnes-Hut gravity tree for 
+	  a large range of particle numbers.</p>
+
+	  <p> We demonstrate in the graph below that both the direct-sum 
+	  gravity and the tree follow the expected scaling laws for a wide 
+	  range in values of N (< 20,000), except at 
+	  low N where deviation is expected due to other overheads in SEREN 
+	  and low-resolution of the timing routines.  We can also see that 
+	  the tree becomes more efficient than direct-sum at a relatively 
+	  low particle number (~500) which is lower than the often-quoted 
+          number of several thousand.  This is probably due to the direct-sum 
+	  terms requiring more computational clock-cycles due to the need to 
+          include kernel-softening terms in the particle-particle calculation.
+
+          <br clear="all"> </br>
+	  <hr>
+
+	  <a href="SCALING.png"><img src="SCALING.png" alt="Tree scaling test" width="576" height="404" /></a>
+          
+
+	</div>
+	
+      </div>
+
+    </div>
+   
+  </body>
+  
+</html>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  
+  <head>
+    <title>Sedov blast wave test</title>
+    <meta name="author" content="David Anthony Hubber" />
+      <link rel="stylesheet" href="../style1.css" type="text/css" />
+  </head>
+  
+  <body>
+    
+    
+    <div id="container">
+
+      <div id="masthead">
+      
+      <div id="header"> <h1>SEREN</h1> </div>
+
+        <div id="navigation">
+	  <ul>
+	    <li><a href="../seren.html">Main</a></li>
+	    <li><a href="../features.html">Features</a></li>
+	    <li><a href="../doc.html">Documentation</a> </li>
+	    <li class="current_page_item"><a href="../tests.html">Tests</a> </li>
+	    <li><a href="../astrophysics.html">Astrophysics</a></li>
+            <li><a href="../papers.html">Papers</a> </li>
+	  </ul>
+	</div> 
+
+      </div>
+
+      <div id="content-wrapper">
+	<div id="content">
+	  <h2 class="post-title">Sedov blast wave test</h2>
+	  <p> The Sedov blast wave test (Sedov 1965?) is a classic strong 
+	  shock test used to test the ability of a code to model point 
+	  injections of energy (e.g. explosions).  
+	  </p>
+
+          <br clear="all"> </br>
+	  <hr>
+
+	  <a href="SEDOV1-3D-GRADH.png"><img src="SEDOV1-3D-GRADH.png" alt="Colliding flows shocktube test" width="300" height="225" /></a>
+          <h3>SEDOV1-3D-GRADH</h3>
+          <ul>
+            <li> 3-dimensions </li>
+            <li> 'grad-h' SPH formulation </li>
+            <li> Solve energy equation </li>
+            <li> Standard alpha-beta artificial viscosity </li>
+            <li> 2nd order Leapfrog kick-drift-kick integration scheme </li>
+            <li> Periodic wrapping in the x-, y- and z-dimensions </li>
+            <li> Global timesteps </li>
+          </ul>
+          
+	  <br clear="all"> </br>
+	  <hr>
+
+	  <a href="SEDOV2-3D-GRADH.png"><img src="SEDOV2-3D-GRADH.png" alt="Colliding flows shocktube test" width="300" height="225" /></a>
+          <h3>SEDOV2-3D-GRADH</h3>
+          <ul>
+            <li> 3-dimensions </li>
+            <li> 'grad-h' SPH formulation </li>
+            <li> Solve energy equation </li>
+            <li> Standard alpha-beta artificial viscosity </li>
+            <li> 2nd order Leapfrog kick-drift-kick integration scheme </li>
+            <li> Periodic wrapping in the x-, y- and z-dimensions </li>
+            <li> Individual timestepping WITHOUT neighbour-checking </li>
+          </ul>
+          
+	  <br clear="all"> </br>
+	  <hr>
+
+	  <a href="SEDOV3-3D-GRADH.png"><img src="SEDOV3-3D-GRADH.png" alt="Colliding flows shocktube test" width="300" height="225" /></a>
+          <h3>SEDOV3-3D-GRADH</h3>
+          <ul>
+            <li> 3-dimensions </li>
+            <li> 'grad-h' SPH formulation </li>
+            <li> Solve energy equation </li>
+            <li> Standard alpha-beta artificial viscosity </li>
+            <li> 2nd order Leapfrog kick-drift-kick integration scheme </li>
+            <li> Periodic wrapping in the x-, y- and z-dimensions </li>
+            <li> Individual timestepping WITH neighbour-checking </li>
+          </ul>
+          
+	  <br clear="all"> </br>
+	  <hr>
+
+
+	</div>
+	
+      </div>
+
+    </div>
+   
+    
+  </body>
+  
+</html>

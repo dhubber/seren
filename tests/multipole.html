@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  
+  <head>
+    <title>Colliding flows shocktube test</title>
+    <meta name="author" content="David Anthony Hubber" />
+      <link rel="stylesheet" href="../style1.css" type="text/css" />
+  </head>
+  
+  <body>
+    
+    
+    <div id="container">
+
+      <div id="masthead">
+      
+      <div id="header"> <h1>SEREN</h1> </div>
+
+        <div id="navigation">
+	  <ul>
+	    <li><a href="../seren.html">Main</a></li>
+	    <li><a href="../features.html">Features</a></li>
+	    <li><a href="../doc.html">Documentation</a> </li>
+	    <li class="current_page_item"><a href="../tests.html">Tests</a> </li>
+	    <li><a href="../astrophysics.html">Astrophysics</a></li>
+            <li><a href="../papers.html">Papers</a> </li>
+	  </ul>
+	</div> 
+
+      </div>
+
+      <div id="content-wrapper">
+	<div id="content">
+	  <h2 class="post-title">Multipole moments</h2>
+	  <p> SEREN uses a Barnes-Hut tree (<a href=http://adsabs.harvard.edu/abs/1986Natur.324..446B>Barnes & Hut 1986</a>)
+	    to efficiently calculate gravitational forces for all SPH 
+	    particles, as opposed to an expensive summation over all particles.
+            In order to improve both the accuracy and the efficiency of the 
+	    cell approximation in the tree, we add higher order multipole 
+	    moments to the gravitational force calculation.  We test here 
+	    i) the accuracy of the tree with and without the higher order 
+	    multipole moment terms, and ii) the obtained accuracy compared 
+	    to the cpu time taken to determine the most optimal choice of 
+	    the multipole moment order.
+	  </p>
+	    
+	  
+
+          <br clear="all"> </br>
+	  <hr>
+
+	  <a href="GEO1-NBODY.png"><img src="GEO1-NBODY.png" alt="Colliding flows shocktube test" width="480" height="180" /></a>
+          <h3>GEO1-NBODY</h3>
+          <ul>
+            <li> 3-dimensions </li>
+            <li> Barnes-Hut tree gravity </li>
+            <li> No kernel-softened gravity </li>
+            <li> Geometric cell opening criterion </li>
+            <li> Monopole-only, quadrupole and octupole expansions </li>
+          </ul>
+          
+	  <br clear="all"> </br>
+	  <hr>
+
+	  <a href="EIGEN1-NBODY.png"><img src="EIGEN1-NBODY.png" alt="Colliding flows shocktube test" width="480" height="180" /></a>
+          <h3>EIGEN1-NBODY</h3>
+          <ul>
+            <li> 3-dimensions </li>
+            <li> Barnes-Hut tree gravity </li>
+            <li> No kernel-softened gravity </li>
+            <li> Eigenvalue MAC </li>
+            <li> Quadrupole and octupole expansions </li>
+          </ul>
+          
+	  <br clear="all"> </br>
+	  <hr>
+
+	</div>
+	
+      </div>
+
+    </div>
+   
+    
+  </body>
+  
+</html>

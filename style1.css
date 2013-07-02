@@ -1,0 +1,165 @@
+/* STYLE1.CSS
+   D. A. Hubber - 1/10/2009
+   CSS for SEREN webpage and personal webpage
+   --------------------------------------------------------------------------*/
+
+
+/* Horizontal rule
+   --------------------------------------------------------------------------*/
+hr { 
+  color: black;
+}
+
+br {  
+  clear: all;
+}
+
+
+html,body {
+   height: 100%;
+}
+
+
+#container {
+   #border: 1px solid #000000;
+   min-height: 100%;
+   margin-bottom: -50px;
+   position: relative;
+}
+
+
+/* Master head
+   --------------------------------------------------------------------------*/
+#masthead {
+  position: absolute;
+  top: 0px;
+  padding: 0px;
+  width: 800px;
+}
+
+
+/* Header
+   --------------------------------------------------------------------------*/
+#header {
+  padding: 0px 0;	
+  text-align: left;
+}
+
+
+
+/* Navigation bar
+   --------------------------------------------------------------------------*/
+#navigation { 
+  /*float: left;
+     width: 800px;
+          font-size: 14px;*/
+  text-transform: uppercase;
+  font-size: 90%;
+}
+#navigation ul { 
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  padding-top: 1em;
+  border-bottom: solid 1px #000000;
+  /*border-bottom: solid 30px #711515; */
+}
+#navigation li { 
+  display: inline;
+}
+#navigation a:link, #navigation a:visited { 
+  padding: 0.4em 1em 0.0em 1em;
+  color: #000000;
+  background-color: #CCCCCC;
+  text-decoration: none;
+  border: 1px solid #000000;
+  border-bottom-style: none;
+}
+#navigation a:hover { 
+  padding: 0.4em 1em 0.0em 1em;
+  color: #FFFFFF;
+  background-color: #CC5050;
+  text-decoration: none;
+}
+
+#navigation ul li.current_page_item a:link, 
+#navigation ul li.current_page_item a:visited, 
+#navigation ul li.current_page_item a:hover, 
+#navigation ul li.current_page_item a:active
+{ 
+  padding: 0.4em 1em 0.0em 1em;
+  color: #FFFFFF;
+  background-color: #711515;
+  border: 1px solid #000000;
+  border-bottom-style: none;
+}
+
+
+/* Content
+   --------------------------------------------------------------------------*/
+#content { 
+  position: absolute;
+  top: 120px;
+  width: 800px;
+}
+
+#content .title {   
+}
+
+#content br {  
+  clear: all;
+}
+
+#content img {
+  float: right;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  margin-top: 0px;
+  margin-left: 10px;
+}
+
+#content table.ICtable {
+  caption-side: bottom;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #000000;
+  text-align: left;
+  font-family: Times New Roman;
+  font-style: normal;
+}
+
+#content table.ICtable td,
+#content table.ICtable th,
+#content table.ICtable tr
+{
+  width: 100px;
+  border: 1px solid #000000;
+}
+
+
+/* Sidebar
+   --------------------------------------------------------------------------*/
+#sidebar { 
+  /*margin-left: 0px;
+     margin-right: 190px;
+     border-right: solid 1px black;*/
+
+ }
+
+
+/* Footer
+   --------------------------------------------------------------------------*/
+.footer-spacer {
+  #border: 1px solid #000000;
+  height: 50px;
+  clear: both;
+}
+
+#footer { 
+  #border-top: solid 1px black;
+  clear: left;
+  height: 50px;
+  position: relative;
+}

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  
+  <head>
+    <title>Adiabatic Sod shocktube test</title>
+    <meta name="author" content="David Anthony Hubber" />
+      <link rel="stylesheet" href="../style1.css" type="text/css" />
+  </head>
+  
+  <body>
+    
+    
+    <div id="container">
+
+      <div id="masthead">
+      
+      <div id="header"> <h1>SEREN</h1> </div>
+
+        <div id="navigation">
+	  <ul>
+	    <li><a href="../seren.html">Main</a></li>
+	    <li><a href="../features.html">Features</a></li>
+	    <li><a href="../doc.html">Documentation</a> </li>
+	    <li class="current_page_item"><a href="../tests.html">Tests</a> </li>
+	    <li><a href="../astrophysics.html">Astrophysics</a></li>
+            <li><a href="../papers.html">Papers</a> </li>
+	  </ul>
+	</div> 
+
+      </div>
+
+      <div id="content-wrapper">
+	<div id="content">
+	  <h2 class="post-title">Adiabatic Sod shocktube test</h2>
+          <p> The Sod test (<a href=http://adsabs.harvard.edu/abs/1978JCoPh..27....1S>Sod 1978</a>)</li>) is a classic test of hydro-codes often 
+          run to demonstrate that a code correctly models hydrodynamical 
+	  interactions, in particular the formation of shocks.  
+	  In this particular test, we assume the gas interacts adiabatically, 
+	  i.e. work done by compression is converted into internal energy, 
+	  rather than imposing an isothermal or barotropic equation of state 
+	  which does not conserve energy.  The initial conditions for the 
+          left and right-hand states of the shocktube are described in the 
+          table below.  The ratio of specific heats for the gas is 1.4.  
+          The simulation is run until a time of t = 1.0 in each case.  
+          In all the figures showing the results of each test, we also display 
+          the semi-analytical results from a Riemann solver. </p>
+	  
+          <table class="ICtable">
+            <caption>Initial conditions for adiabatic Sod test</caption>
+	    <tr>
+              <th></th>
+              <th scope="col">x < 0</th>
+              <th scope="col">x > 0</th>
+            </tr>
+            <tr>
+              <th scope="row">&rho</th>
+              <th> 1.0 </th>
+              <th> 0.25 </th>
+            </tr>
+            <tr>
+              <th scope="row">P</th>
+              <th> 1.0 </th>
+              <th> 0.1795 </th>
+            </tr>
+            <tr>
+              <th scope="row">v<sub>x</sub></th>
+              <th> 0.0 </th>
+              <th> 0.0 </th>
+            </tr>
+          </table>
+
+          <p> The following code options are employed for all of the tests 
+          performed and described below. </p>
+
+          <ul>
+            <li> 3-dimensions </li>
+            <li> Dimensionless code units </li>
+            <li> M4 kernel with Thomas-Couchman modified gradient </li>
+            <li> 2nd order Leapfrog kick-drift-kick integration scheme </li>
+            <li> Periodic wrapping in the x-, y- and z-dimensions </li>
+            <li> Hydro forces only </li>
+            <li> Isothermal equation of state </li>
+            <li> Global timesteps </li>
+            <li> Barnes-Hut tree for neighbour-searching </li>
+          </ul>
+
+
+	  <br clear="all"></br>
+          <hr> </hr>
+
+	  <a href="ADSOD-3D-AB.png"><img src="ADSOD-3D-AB.png" alt="Adiabatic Sod shocktube test" width="320" height="240" /></a>
+          <h3>ADSOD-3D-AB</h3> 
+          <ul>
+            <li> 'grad-h' SPH formulation </li>
+            <li> Standard alpha-beta artificial viscosity </li>
+          </ul>
+
+	  <br clear="all"></br>
+	  <hr></hr>
+
+	  <a href="ADSOD-3D-AB-COND.png"><img src="ADSOD-3D-AB-COND.png" alt="Adiabatic Sod shocktube test" width="320" height="240" /></a>
+          <h3>ADSOD-3D-AB-COND</h3>
+          <ul>
+            <li> Standard SPH formulation </li>
+            <li> Standard alpha-beta artificial viscosity </li>
+            <li> Price (2008) artificial conductivity </li>
+          </ul>
+
+	  <br clear="all"></br>
+	  <hr>
+
+	  <a href="ADSOD-3D-GRADH-AB-COND.png"><img src="ADSOD-3D-GRADH-AB-COND.png" alt="Adiabatic Sod shocktube test" width="320" height="240" /></a>
+          <h3>ADSOD-3D-GRADH-AB-COND</h3>
+          <ul>
+            <li> 'grad-h' SPH formulation </li>
+            <li> Standard alpha-beta artificial viscosity </li>
+            <li> Price (2008) artificial conductivity </li>
+          </ul>
+
+	  <br clear="all"></br>
+	  <hr>
+
+	  <a href="ADSOD-3D-GRADH-MON-COND.png"><img src="ADSOD-3D-GRADH-MON-COND.png" alt="Adiabatic Sod shocktube test" width="320" height="240" /></a>
+          <h3>ADSOD-3D-GRADH-MON-COND</h3>
+          <ul>
+            <li> 'grad-h' SPH formulation </li>
+            <li> Monaghan (1997) artificial viscosity </li>
+            <li> Price (2008) artificial conductivity </li>
+          </ul>
+
+	  <br clear="all"></br>
+	  <hr>
+
+	  <a href="ADSOD-3D-GRADH-RIEMANN.png"><img src="ADSOD-3D-GRADH-RIEMANN.png" alt="Adiabatic Sod shocktube test" width="320" height="240" /></a>
+          <h3>ADSOD-3D-GRADH-RIEMANN</h3>
+          <ul>
+            <li> 'grad-h' SPH formulation </li>
+            <li> Riemann solver </li>
+          </ul>
+
+	  <br clear="all"></br>
+	  <hr>
+
+	  <a href="ADSOD-3D-GRADH-RIEMANN-COND.png"><img src="ADSOD-3D-GRADH-RIEMANN-COND.png" alt="Adiabatic Sod shocktube test" width="320" height="240" /></a>
+          <h3>ADSOD-3D-GRADH-RIEMANN-COND</h3>
+          <ul>
+            <li> 'grad-h' SPH formulation </li>
+            <li> Riemann solver </li>
+            <li> Price (2008) artificial conductivity </li>
+          </ul>
+
+	  <br clear="all"></br>
+          <hr>
+
+	</div>
+	
+      </div>
+
+    </div>
+   
+    
+  </body>
+  
+</html>

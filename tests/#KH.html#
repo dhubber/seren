@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  
+  <head>
+    <title>Kelvin-Helmholtz instability test</title>
+    <meta name="author" content="David Anthony Hubber" />
+      <link rel="stylesheet" href="../serenstyle.css" type="text/css" />
+  </head>
+  
+  <body>
+    
+    
+    <div id="container">
+
+      <div id="masthead">
+      
+      <div id="header"> <h1>SEREN</h1> </div>
+
+        <div id="navigation">
+	  <ul>
+	    <li><a href="../seren.html">Main</a></li>
+	    <li><a href="../features.html">Features</a></li>
+	    <li><a href="../doc.html">Documentation</a> </li>
+	    <li class="current_page_item"><a href="../tests.html">Tests</a> </li>
+	    <li><a href="../astrophysics.html">Astrophysics</a></li>
+            <li><a href="../papers.html">Papers</a> </li>
+	  </ul>
+	</div> 
+
+      </div>
+
+      <div id="content-wrapper">
+	<div id="content">
+	  <h2 class="post-title">Kelvin-Helmholtz instability test</h2>
+	  <p> The Kelvin-Helmholtz instability (KHI) is a classic 
+	    hydrodynamical instability which has been extensivily 
+	    investigated in recent years using both SPH and grid codes (e.g. 
+	    <a href=http://adsabs.harvard.edu/abs/2007MNRAS.380..963A>Agertz et al. 2007</a>, 
+	    <a href=http://adsabs.harvard.edu/abs/2008JCoPh.22710040P>Price 2008</a>, 
+	    <a href=http://adsabs.harvard.edu/abs/2010arXiv1006.1767V>Valcke et al. 2010</a>).  
+	  
+</p>
+
+
+	  <br clear="all"></br>
+          <hr> </hr>
+
+	  <a href="KHI10-M4-AC-00040.png"><img src="KHI10-M4-AC-00040.png" alt="Kelvin-Helmholtz instability test" width="240" height="120" /></a>
+          <h3>KHI10-M4-AC</h3> 
+          <ul>
+            <li> 'grad-h' SPH formulation </li>
+            <li> Monaghan (1997) artificial viscosity </li>
+            <li> M4-kernel </li>
+          </ul>
+
+
+	  <br clear="all"></br>
+          <hr> </hr>
+
+	  <a href="KHI10-QUINTIC-AC-00040.png"><img src="KHI10-QUINTIC-AC-00040.png" alt="Kelvin-Helmholtz instability test" width="240" height="12§0" /></a>
+          <h3>KHI10-QUINTIC-AC</h3> 
+          <ul>
+            <li> 'grad-h' SPH formulation </li>
+            <li> Monaghan (1997) artificial viscosity </li>
+            <li> Quintic kernel </li>
+          </ul>
+
+	</div>
+	
+      </div>
+
+    </div>
+   
+    
+  </body>
+  
+</html>

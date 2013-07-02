@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  
+  <head>
+    <title>Colliding flows shocktube test</title>
+    <meta name="author" content="David Anthony Hubber" />
+      <link rel="stylesheet" href="../style1.css" type="text/css" />
+  </head>
+  
+  <body>
+    
+    
+    <div id="container">
+
+      <div id="masthead">
+      
+      <div id="header"> <h1>SEREN</h1> </div>
+
+        <div id="navigation">
+	  <ul>
+	    <li><a href="../seren.html">Main</a></li>
+	    <li><a href="../features.html">Features</a></li>
+	    <li><a href="../doc.html">Documentation</a> </li>
+	    <li class="current_page_item"><a href="../tests.html">Tests</a> </li>
+	    <li><a href="../astrophysics.html">Astrophysics</a></li>
+            <li><a href="../papers.html">Papers</a> </li>
+	  </ul>
+	</div> 
+
+      </div>
+
+      <div id="content-wrapper">
+	<div id="content">
+	  <h2 class="post-title">Colliding flows shocktube test</h2>
+	  <p> The colliding flows test is a simple shocktube test used  
+	  to demonstrate that a code can correctly model high-Mach number  
+	  shocks formed due to the interaction of two colliding, bulk flows.  
+	  We use an isothermal equation of state (c = 1 in dimensionless 
+          units).  We run the simulation until a dimensionless time of 
+          t = 0.6 .</p>
+
+          <table class="ICtable">
+            <caption>Initial conditions for colliding flows test</caption>
+	    <tr>
+              <th></th>
+              <th scope="col">x < 0</th>
+              <th scope="col">x > 0</th>
+            </tr>
+            <tr>
+              <th scope="row">&rho</th>
+              <th> 1.0 </th>
+              <th> 1.0 </th>
+            </tr>
+            <tr>
+              <th scope="row">P</th>
+              <th> 1.0 </th>
+              <th> 1.0 </th>
+            </tr>
+            <tr>
+              <th scope="row">v<sub>x</sub></th>
+              <th> 4.0 </th>
+              <th> -4.0 </th>
+            </tr>
+          </table>
+
+          <p> We now state the code options selected for all of the tests 
+          performed using these initial conditions. </p> 
+          <ul>
+            <li> Dimensionless code units </li>
+            <li> 2nd order Leapfrog kick-drift-kick integration scheme </li>
+            <li> Periodic wrapping in the x-, y- and z-dimensions </li>
+            <li> Hydro forces only </li>
+            <li> Isothermal equation of state </li>
+            <li> Global timesteps </li>
+            <li> Barnes-Hut tree for neighbour-searching </li>
+          </ul>            
+
+          <br clear="all"> </br>
+
+	  <hr>
+
+	  <a href="COL-3D-AB.png"><img src="COL-3D-AB.png" alt="Colliding flows shocktube test" width="480" height="180" /></a>
+          <h3>COL-3D-AB</h3>
+          <ul>
+            <li> 3-dimensions </li>
+            <li> Standard alpha-beta artificial viscosity </li>
+          </ul>
+          
+	  <br clear="all"> </br>
+	  <hr>
+
+	  <a href="COL-3D-AB-BAL.png"><img src="COL-3D-AB-BAL.png" alt="Colliding flows shocktube test" width="480" height="180" /></a>
+          <h3>COL-3D-AB-BAL</h3>
+          <ul>
+            <li> 3-dimensions </li>
+            <li> Standard alpha-beta artificial viscosity </li>
+            <li> 'Balsara-switch' viscosity limiter </li>
+          </ul>
+          
+	  <br clear="all"> </br>
+	  <hr>
+
+	  <a href="COL-3D-AB-TD.png"><img src="COL-3D-AB-TD.png" alt="Colliding flows shocktube test" width="480" height="180" /></a>
+          <h3>COL-3D-AB-TD</h3>
+          <ul>
+            <li> 3-dimensions </li>
+            <li> Standard alpha-beta artificial viscosity </li>
+            <li> Time-dependent artificial viscosity </li>
+          </ul>
+          
+	  <br clear="all"> </br>
+	  <hr>
+
+
+	  <a href="COL-3D-MON.png"><img src="COL-3D-MON.png" alt="Colliding flows shocktube test" width="480" height="180" /></a>
+          <h3>COL-3D-MON</h3>
+          <ul>
+            <li> 3-dimensions </li>
+            <li> Monaghan (1997) viscosity </li>
+          </ul>
+          
+	  <br clear="all"> </br>
+	  <hr>
+
+	  <a href="COL-3D-RIEMANN.png"><img src="COL-3D-RIEMANN.png" alt="Colliding flows shocktube test" width="480" height="180" /></a>
+          <h3>COL-3D-RIEMANN</h3>
+          <ul>
+            <li> 3-dimensions </li>
+            <li> Standard SPH formulation </li>
+            <li> Riemann solver (no artificial viscosity) </li>
+          </ul>
+          
+	  <br clear="all"> </br>
+	  <hr>
+
+
+	</div>
+	
+      </div>
+
+    </div>
+   
+    
+  </body>
+  
+</html>

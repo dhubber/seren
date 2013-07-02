@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  
+  <head>
+    <title>SEREN : Features</title>
+    <meta name="author" content="David Anthony Hubber" />
+      <link rel="stylesheet" href="style1.css" type="text/css" />
+  </head>
+  
+  <body>
+    
+    <div id="container">
+      
+      <div id="masthead">
+	
+	<div id="header"> <h1>SEREN</h1> </div>
+	
+	<div id="navigation">
+	  <ul>
+	    <li><a href="seren.html">Main</a></li>
+	    <li class="current_page_item">
+	      <a href="features.html">Features</a></li>
+	    <li><a href="doc.html">Documentation</a> </li>
+	    <li><a href="tests.html">Tests</a> </li>
+	    <li><a href="astrophysics.html">Astrophysics</a></li>
+	    <li><a href="papers.html">Papers</a> </li>
+	  </ul>
+	</div> 
+	
+      </div>
+      
+      <div id="content">
+	<h2 class="post-title">Current features in SEREN</h2>
+	<ul>
+	  <li> 3 'flavours' of SPH : 
+	    <ul>
+	      <li> Standard SPH (e.g. 
+		<a href=http://adsabs.harvard.edu/abs/1992ARA%26A..30..543M>Monaghan 1992</a>)</li>
+	      <li> Conservative 'grad-h' SPH (e.g. 
+		<a href=http://adsabs.harvard.edu/abs/2002MNRAS.333..649S>Springel & Hernquist 2002</a>, 
+		<a href=http://adsabs.harvard.edu/abs/2004MNRAS.348..139P>Price & Monaghan 2004</a>)</li>
+	      <li> Godunov SPH 
+		(<a href=http://adsabs.harvard.edu/abs/2002JCoPh.179..238I>Inutsuka 2002</a>, 
+		<a href=http://adsabs.harvard.edu/abs/2003MNRAS.340...73C>Cha & Whitworth 2003</a>) </li>
+	    </ul>
+	  </li>
+	  <li> 1, 2 or 3 dimensions </li>
+	  <li> Gas, inter-cloud particles or boundary particles 
+	    (static or frog-marched)</li>
+	  <li> Barnes-Hut Octal tree for efficient neighbour finding 
+	    and calculation of gravitational forces 
+	    (<a href=http://adsabs.harvard.edu/abs/1986Natur.324..446B>Barnes & Hut 1986</a>)
+	  </li>
+	  <li> Periodic boundary conditions 
+	    (independent for each dimension) </li>
+	  <li> Ewald periodic gravity 
+	    (<a href=http://adsabs.harvard.edu/abs/1991ApJS...75..231H>Hernquist, Bouchet & Suto 1991</a>, 
+	    	    <a href=http://adsabs.harvard.edu/abs/1997MNRAS.292...11K>Klessen 1997</a>) </li>
+	  <li> Various integration schemes :
+	    <ul>
+              <li> 2nd order Leapfrog kick-drift-kick and drift-kick-drift </li>
+	      <li> 2nd order Runge-Kutta </li>
+            </ul>
+	  <li> Block timesteps and neighbour-timestep checking 
+	  for safety 
+	      (<a href=http://adsabs.harvard.edu/abs/2009ApJ...697L..99S>Saitoh & Makino 2009</a>) </li>
+	  <li> Various flavours of artificial dissipation : 
+            <ul>
+              <li> Standard alpha-beta artificial viscosity 
+		  (<a href=http://adsabs.harvard.edu/abs/1983JCoPh..52..374M>Monaghan & Gingold 1983</a>) </li>
+              <li> 'Riemann' artificial viscosity  
+		  (<a href=http://adsabs.harvard.edu/abs/1997JCoPh.136..298M>Monaghan 1997</a>) </li>
+              <li> Time-dependent artificial viscosity
+		  (<a href=http://adsabs.harvard.edu/abs/1997JCoPh.136...41M>Morris & Monaghan 1997</a>) </li>
+              <li> Balsara switch 
+		  (<a href=http://adsabs.harvard.edu/abs/1995JCoPh.121..357B>Balsara 1995</a>) </li>
+              <li> Artificial conductivity 
+		  (<a href=http://adsabs.harvard.edu/abs/2008JCoPh.22710040P>Price 2008</a>) </li>
+            </ul>
+          <li> Equations of state : 
+            <ul>
+              <li> Ideal-gas EoS with compressional heating </li>
+              <li> Isothermal equation of state </li>
+              <li> Polytropic equation of state </li>
+              <li> Barotropic equation of state </li>
+            </ul>
+	  <li> Radiative cooling approximation 
+	    (<a href=http://adsabs.harvard.edu/abs/2007A%26A...475...37S>Stamatellos et al. 2007</a>) </li>
+	  <li> HEALPix ionizing radiation 
+	    (<a href=http://adsabs.harvard.edu/abs/2009A%26A...497..649B>Bisbas et al. 2009</a>) </li>
+	  <li> Sink particles (<a href=http://adsabs.harvard.edu/abs/1995MNRAS.277..362B>Bate, Bonnell & Price 1995</a>) </li>
+	  <li> 4th-order Hermite integrator for N-body evolution 
+	    of star orbital properties (<a href=http://adsabs.harvard.edu/abs/1992PASJ...44..141M>Makino & Aarseth 1992</a>) and automatic calculation 
+	  of binary properties </li>
+	  <li> Parallelized using OpenMP </li>
+	  <li> Produces output compatable with the 
+	    <a href=http://users.monash.edu.au/~dprice/splash/>SPLASH</a> visualisation program. </li>
+	</ul>
+	
+	<h2 class="post-title">Features in development</h2>
+	<ul>
+	  <li> MPI parallelization (McLeod et al. in prep) </li>
+          <li> Hybrid N-body/SPH mode (Hubber et al. in prep) </li>
+	  <li> Grouped neighbour and gravity tree walks </li>
+	  <li> Ideal MHD (<a href=http://adsabs.harvard.edu/abs/2004MNRAS.348..123P>Price & Monaghan 2004</a>) </li>
+	  <li> Hybrid radiative-cooling/flux-limited diffusion 
+	    (<a href=http://adsabs.harvard.edu/abs/2009MNRAS.394..882F>Forgan et al. 2009</a>) </li>
+	  <li> New sinks with smooth accretion from particles (Hubber et al. in prep) </li>
+	  <li> Removal of unconsequential, 'escaping' particles </li>
+	</ui>
+
+      </div>
+
+    </div>
+
+    </div>
+
+  </body>
+  
+</html>

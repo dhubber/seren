@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  
+  <head>
+    <title>SEREN homepage</title>
+    <meta name="author" content="David Anthony Hubber" />
+      <link rel="stylesheet" href="style1.css" type="text/css" />
+  </head>
+  
+  <body>
+    
+    
+    <div id="container">
+
+      <div id="masthead">
+	      
+      <div id="header"> <h1>SEREN</h1> </div>
+
+        <div id="navigation">
+	  <ul>
+	    <li><a href="seren.html">Main</a></li>
+	    <li><a href="features.html">Features</a></li>
+	    <li><a href="doc.html">Documentation</a> </li>
+	    <li><a href="tests.html">Tests</a> </li>
+	    <li class="current_page_item">
+	      <a href="astrophysics.html">Astrophysics</a></li>
+            <li><a href="papers.html">Papers</a> </li>
+	  </ul>
+	</div> 
+
+      </div>
+
+      <div id="content-wrapper">
+	<div id="content">
+	  <h2 class="post-title">Astrophysics</h2>
+	  <p> SEREN was designed with solving astrophysical problems such as 
+	  star formation and planet formation in mind.  Although SEREN can 
+	  be used as a generic SPH code to simulate different types of 
+	  astrophysical phenomena, the incorporated algorithms are 
+	  specialist routines to investigate a particular facit or star 
+	  formation.  We briefly discuss the kinds of simulations performed 
+	  using SEREN, the physics and algorithms used in each simulation, 
+	  and the relevance of the simulations to astrophysics.</p>
+  
+	  <h2 class="post-title">Turbulent Molecular Cloud Cores</h2>
+	  <p> Observations of the morphology and line-width profiles of 
+	    star-forming regions suggest that the motion the gas is turbulent, 
+	    rather than quiescent (e.g. 
+	    <a href=http://adsabs.harvard.edu/abs/1981MNRAS.194..809L>Larson 1981</a>).
+	    While the origin of astrophysical turbulence is hotly debated 
+	    (e.g. hydrodynamical instabilities, magneto-hydrodynamic 
+	    instabilities, radiative and 
+	    mechanical feedback, etc..), the effects of turbulence in 
+	    molecular clouds can be studied using hydrodynamical simulations.
+	    Various authors have studied various instances of turbulence 
+	    in star formation using SPH such as driven turbulence in 
+	    molecular clouds and undriven turbulence in 
+	    star-forming cores.
+	  </p>
+
+	  
+	  <h2 class="post-title">Planetary Disks</h2>
+	  <p> Planets are believed to form from dusty gas disks that condense 
+	    from the ambient material the protostar itself is being formed. 
+	    Prestellar cores typically have a small amount of angular 
+	    momentum.  As the prestellar core collapses, angular momentum 
+	    must be conserved unless there is some mechanism that can transfer 
+	    some angular momentum to external material (e.g. jets).  Low 
+	    angular momentum gas will form the central protostar.  High 
+	    angular momentum gas cannot collapse and forms a centrifugally 
+	    supported disk.  Depending on various factors, this disk may 
+	    fragment to form secondary objects such as lower mass companion 
+	    stars, brown dwarfs or planets, or simply disperse slowly due 
+	    to accretion onto the central protostar and evaporation.
+	  </p>
+
+
+	  <h2 class="post-title">Triggered Star Formation</h2>
+	  <p> Star formation is a complicated non-linear process where 
+	    feedback from the formation of other stars can, depending on 
+	    many factors, either trigger the formation of a new generation 
+	    of stars or supress any subsequent formation by destroying the 
+	    natal cloud. Feedback in star formation can be due to i) winds 
+	    from the atmospheres of new protostars, ii) highly collomated 
+	    bipolar jets, iii) ionizing UV radiation from high-mass 
+	    protostars.  
+	  </p>
+
+	  <p> SEREN uses the HEALPix algorithm to model the ionizing flux 
+	    from high-mass stars 
+	    (<a href=http://adsabs.harvard.edu/abs/2009A%26A...497..649B>Bisbas et al. 2009</a>).  
+	  </p>
+  
+	  <h3 class="post-title"></h3>
+	  
+	</div>
+	
+      </div>
+      
+    </div>
+
+  </body>
+  
+</html>
