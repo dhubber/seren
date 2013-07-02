@@ -1,0 +1,28 @@
+==============================================================================
+ic_bondi_hoyle.F90 parameters file
+==============================================================================
+Contains all input parameters to create ICs using ic_bondi_hoyle.
+(Note : Do not add or delete any lines from this file.  Otherwise it will 
+not be read in correctly by ic_bondi_hoyle)
+==============================================================================
+File parameters
+==============================================================================
+500000_UDS.df.dat   ! Input file
+dragon_form             ! Input file format
+ICBH1-R0.0625-ISO.sf.dat    ! Output file
+seren_form              ! Output file format
+==============================================================================
+Polytrope parameters
+==============================================================================
+.true.    		! (isothermal)
+pc                      ! Length unit
+m_sun                   ! Mass unit
+g_cm3       		! Density unit
+km_s                    ! Velocity unit
+1.0000001               ! Ratio of specific heats (gamma)
+1.0      		! Density of ambient gas (rhogas)
+1.0 			! Mean gas particle mass in units of (mu_bar)
+1.0                     ! Sound speed of gas (agas)
+0.0625                    ! Sink radius
+1.0                     ! Central object mass (msink)
+500.0                   ! Total (dimensionless) mass of cloud

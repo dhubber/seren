@@ -1,0 +1,20 @@
+==============================================================================
+ic_spitzer.F90 parameters file
+==============================================================================
+Contains all input parameters to create initial conditions using ic_spitzer.
+(Note : Do not add or delete any lines from this file.  Otherwise it will 
+not be read in correctly by ic_spitzer)
+==============================================================================
+File parameters
+==============================================================================
+51200_UDS.df.dat      	! Input file
+dragon_form             ! Input file format
+ICWIND1.sf.dat     	! Output file
+seren_form        	! Output file format
+==============================================================================
+Polytrope parameters
+==============================================================================
+pc                      ! Length unit
+m_sun                   ! Mass unit
+1.0               	! Size of cloud
+1000.0     		! Mass of cloud

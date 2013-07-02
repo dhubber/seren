@@ -1,0 +1,21 @@
+==============================================================================
+ic_radtest.F90 parameters file
+==============================================================================
+Contains all input parameters to create initial conditions using ic_radtest.
+(Note : Do not add or delete any lines from this file.  Otherwise it will 
+not be read in correctly by ic_radtest)
+==============================================================================
+File parameters
+==============================================================================
+100000_UDS.df.dat  	! Input sphere file
+dragon_form       	! Input file format
+ICRAD3.df.dat    	! Output filename
+dragon_form      	! Output file format
+==============================================================================
+Cloud parameters
+==============================================================================
+1.0        		! Total gas mass of cloud
+m_sun      		! Mass unit
+0.048482      		! Radius of gas cloud (not including boundary)
+pc            		! Length unit
+1.666666666		! gamma (ratio of specific heats)

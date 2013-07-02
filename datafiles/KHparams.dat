@@ -1,0 +1,14 @@
+ICKHI10-10-1-M4.sf.dat         	! Output file name
+seren_form       		! Output file format
+1136 360    			! nx1, nx2
+568 180   	         	! ny1, ny2
+0.5 -0.5     			! vx1, vx2
+10.0 1.0     			! rho1, rho2
+2.5 2.5      			! Press1, Press2
+-0.5 0.5    			! x-periodic dimensions
+-0.5 0.5     			! y-periodic dimensions
+1.2               		! h_fac
+1.666666666           		! gamma
+arepo    			! Perturbation mode
+0.1     			! Perturbation amplitude
+0.5     			! Perturbation wavelength

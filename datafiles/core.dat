@@ -1,0 +1,29 @@
+==============================================================================
+ic_core.F90 parameters file
+==============================================================================
+Contains all input parameters to create initial conditions using ic_core.
+(Note : Do not add or delete any lines from this file.  Otherwise it will 
+not be read in correctly by ic_core)
+==============================================================================
+File parameters
+==============================================================================
+12800_UDS.df.dat      	! Input file
+dragon_form             ! Input file format
+ICCORE1.sf.dat           ! Output file
+seren_form              ! Output file format
+==============================================================================
+Polytrope parameters
+==============================================================================
+pc                      ! Length unit
+m_sun                   ! Mass unit
+g_cm3       		! Density unit
+km_s                    ! Velocity unit
+uniform     		! Density profile : 'plummer','powerlaw','uniform'
+4.6875E-16     		! Central density of core (rho0)
+2       	       	! Size of core (rcore, au)
+20626.5       		! Size of cloud (radmax, au)
+0.0       		! Power law for density (pofr)
+1.0      		! Mass of core (if 'uniform' selected)
+0.0                     ! Mass of gas envelope surrounding main core
+0.0                     ! Mass of IcM envelope surrounding gas
+0.0                     ! Size of boundary particle zone (in h)

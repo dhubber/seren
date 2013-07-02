@@ -1,0 +1,45 @@
+==============================================================================
+ic_add_pert.F90 parameters file
+==============================================================================
+Contains all input parameters to create initial conditions using ic_vel_pert.
+(Note : Do not add or delete any lines from this file.  Otherwise it will 
+not be read in correctly by ic_vel_pert)
+==============================================================================
+File parameters
+==============================================================================
+12800_UDS.df.dat      		! Input filename
+dragon_form  			! Input file format
+ICROT1-12800.sf.dat           	! Output filename
+seren_form     		! Output file format
+==============================================================================
+Density perturbation parameters
+==============================================================================
+none            		! Mode of density perturbation (densmode)
+0.0             		! Amplitude of azimuthal pert. (amp)
+2             			! Mode of azimuthal pert. (mpert)
+1.0        			! Density enhancement factor (fenhance)
+1.0 1.0 1.0    			! Triaxial stretching factor (rstretch)
+==============================================================================
+Turbulent velocity field parameters
+==============================================================================
+4.0            			! Turbulent velocity power spectrum
+0.000               		! Ratio of turb to grav energy
+32             			! No. of grid points for vel field
+2100000            		! Random No. seed 1
+2200000            		! Random No. seed 2
+==============================================================================
+Radial velocity field parameters
+==============================================================================
+none            		! Radial velocity mode (velradmode)
+-0.2                             ! Radial velocity gradient (dvdr)
+0.002          			! Ratio of radial to grav energy (erad)
+==============================================================================
+Rotational velocity field parameters
+==============================================================================
+energy      			! Rotational mode (velrotmode)
+0.0         			! Angular momentum (angmom)
+m_sunau2_yr      		! angular momentum unit (angmomunit)
+-0.5        			! Angular velocity power law (angpower)
+0.0             		! Angular velocity (angvel)
+rad_s      			! angular velocity unit (angvelunit)
+0.05          			! Ratio of rot. to grav. energy (erot)

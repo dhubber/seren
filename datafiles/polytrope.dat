@@ -1,0 +1,31 @@
+==============================================================================
+ic_polytrope.F90 parameters file
+==============================================================================
+Contains all input parameters to create initial conditions using ic_polytrope.
+(Note : Do not add or delete any lines from this file.  Otherwise it will 
+not be read in correctly by ic_polytrope)
+==============================================================================
+File parameters
+==============================================================================
+250000_UDS.df.dat      	! Input file
+dragon_form             ! Input file format
+250000_POLY.sf.dat          ! Output file
+seren_form             ! Output file format
+==============================================================================
+Polytrope parameters
+==============================================================================
+.TRUE.              	! Isothermal eqn (TRUE) or Lane-Emden eqn (FALSE)
+1.00001   	         	! Polytropic index (etapoly)
+5.0                	! Dimensionless cloud boundary
+0.0001                	! Integration step (for integrating Lane-Emden eqn)
+1.0                     ! Mass of polytrope
+m_sun                   ! Mass unit
+1.0      		! Central density of polytrope
+g_cm3       		! Density unit
+rho0                    ! Set either mass (mass) or density (rho0) of polytrope
+1.0              	! Kpoly (c_0^2 for isothermal option)
+km_s                    ! Velocity unit
+0.0                     ! Mass of gas envelope surrounding polytrope
+3.159                   ! Mass of IcM envelope surrounding gas envelope
+0.0                     ! Size of boundary particle zone (in h)
+0.1       		! Density contrast of external to cloud density

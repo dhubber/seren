@@ -1,0 +1,32 @@
+==============================================================================
+ic_shocktube.F90 parameters file
+==============================================================================
+Contains all input parameters to create initial conditions using ic_shocktube.
+(Note : Do not add or delete any lines from this file.  Otherwise it will 
+not be read in correctly by ic_shocktube)
+==============================================================================
+File parameters
+==============================================================================
+ICCOL1-1D-MACH32-M4-N1024-L128.sf.dat    ! Output file name
+seren_form    			! Output file format
+100_2D_0.2_HCP.df.dat           ! file 1 (LHS cube)
+100_2D_0.2_HCP.df.dat     	! file 2 (RHS cube)
+seren_form     	  		! file 1 format
+seren_form      		! file 2 format
+==============================================================================
+Shocktube parameters
+==============================================================================
+512 512     			! p1, p2
+1 1     			! n1, n2
+1.66666666666       		! (gamma)
+1.0 1.0     			! rho1, rho2
+1.0 1.0     			! Press1, Press2
+64.0 64.0     			! x1, x2
+0.173205 0.173205		! y1, y2
+0.2 0.2      			! z1, z2
+32.0 -32.0         		! vx1, vx2
+0.0 0.0     			! vy1, vy2
+0.0 0.0    			! vz1, vz2
+0.0 0.0     			! Bx1, Bx2
+0.0 0.0      			! By1, By2
+0.0 0.0      			! Bz1, Bz2

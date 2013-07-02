@@ -1,0 +1,196 @@
+==============================================================================
+SEREN parameters file
+==============================================================================
+Contains all input parameters to perform a simulation using Seren.  
+
+==============================================================================
+File parameters
+==============================================================================
+Run identification tag                    : run_id = COL_PLU_TEST1
+Run directory                             : run_dir = .
+Initial conditions file                   : in_file = gas_binary_test.sf.dat
+Input file format                         : in_file_form = sf
+Output file format                        : out_file_form = sf
+
+==============================================================================
+Misc. parameters
+==============================================================================
+Is this simulation a restart?             : restart = .FALSE.
+Shift system to centre-of-mass frame?     : com_frame = .TRUE.
+Random number seed                        : rseed = 1
+Particle tracking id                      : ptrack = 10000
+
+==============================================================================
+Simulation time parameters
+==============================================================================
+SPH run time                              : sph_endtime = 10.0
+N-body/SPH run time                       : nbody_sph_endtime = 10.0
+N-body run time                           : nbody_endtime = 10.0
+
+Time of first output snapshot             : firstsnap = 0.01
+Snapshot time interval                    : snaptime = 0.01
+Basic output integer time interval        : noutputstep = 256
+Temp. snapshot integer time interval      : ntempstep = 1024
+Diag. output integer time interval        : ndiagstep = 512
+(in units of no. of maximum steps)
+Sink output integer time interval         : nsinkstep = 128
+Snapshot integer time interval            : nsnapstep = 10000
+
+Courant timestep multiplier               : courant_mult = 0.15
+Acceleration timestep multiplier          : accel_mult = 0.3
+Sink timestep multiplier                  : sink_mult = 0.5
+N-body timestep multiplier                : nbody_timemult = 0.2
+
+No. of quantised timestep levels          : nlevels = 6
+Fixed (maximum) timestep                  : dt_fixed = 0.1
+
+==============================================================================
+Unit parameters
+==============================================================================
+Length unit                               : runit      = pc
+Mass unit                                 : munit      = m_sun
+Time unit                                 : tunit      = myr
+Velocity unit                             : vunit      = km_s
+Acceleration unit                         : aunit      = km_s2
+Density unit                              : rhounit    = g_cm3
+Column density unit                       : sigmaunit  = g_cm2
+Pressure unit                             : Punit      = Pa
+Force unit                                : funit      = N
+Energy unit                               : Eunit      = J
+Linear momentum unit                      : momunit    = m_sunkm_s
+Angular momentum unit                     : angmomunit = m_sunau2_yr
+Angular velocity unit                     : angvelunit = rad_s
+Accretion rate unit                       : dmdtunit   = m_sun_yr
+Luminosity unit                           : Lunit      = L_sun
+Opacity unit                              : kappaunit  = cm2_g
+Magnetic field unit                       : Bunit      = tesla
+Charge unit                               : Qunit      = C
+Current density unit                      : Junit      = C_s_m2
+Specific internal energy unit             : uunit      = J_kg
+Length scale factor                       : rscale     = 1.0
+Mass scaling factor                       : mscale     = 1.0
+
+==============================================================================
+Periodic parameters
+==============================================================================
+Minimum x-extent of periodic box          : periodic_min(1) = -0.5
+Maximum x-extent of periodic box          : periodic_max(1) = 0.5
+Minimum y-extent of periodic box          : periodic_min(2) = -0.5
+Maximum y-extent of periodic box          : periodic_max(2) = 0.5
+Minimum z-extent of periodic box          : periodic_min(3) = 0.0
+Maximum z-extent of periodic box          : periodic_max(3) = 0.2
+Radius of spherical mirror                : rspheremax = 10.0
+Origin of spherical mirror                : psphere = 0
+(0 - origin; < 0 sink; > 0 SPH particle)
+
+==============================================================================
+SPH parameters
+==============================================================================
+Required no. of neighbours in             : pp_gather = 50
+in standard SPH formulation
+Minimum allowed smoothing length          : hmin = 0.5
+Grad-h density-h factor                   : h_fac = 1.2
+
+==============================================================================
+Thermal parameters
+==============================================================================
+Boundary particle EOS                     : boundaryeos = isothermal
+Intercloud particle EOS                   : icmeos = isothermal
+Gas particle EOS                          : gaseos = energy_eqn
+Isothermal temperature of gas (Kelvin)    : isotemp = 5.0 
+Adiabatic density in barotropic EOS       : rhobary = 1.0e-14
+Ratio of specific heats                   : gamma = 1.66666666666
+Mean gas particle mass                    : mu_bar = 1.0
+Polytropic constant                       : Kpoly = 1.0
+External pressure                         : Pext = 0.0
+
+==============================================================================
+Artificial viscosity parameters
+==============================================================================
+Artificial viscosity alpha term           : alpha = 1.0
+Artificial viscosity beta term            : beta = 2.0
+Minimum value of alpha for time-dependent : alpha_min = 0.1
+artificial viscosity
+
+==============================================================================
+Tree parameters
+==============================================================================
+Gravity tree MAC error parameter          : abserror = 0.0001
+Maximum opening angle squared             : thetamaxsqd = 0.02
+Integer timesteps between tree builds     : nbuildstep = 8
+
+==============================================================================
+Sink creation parameters
+==============================================================================
+Sink creation density                     : rhosink = 5e12
+Sink radius in units of h, or in AU       : sinkrad = 3.0
+(depending on the SINK_RADIUS option)
+Sink search integer time interval         : nsearchstep        = 16
+Sink density criterion                    : rho_search         = .TRUE.
+Sink potential minimum criterion          : potmin_search      = .TRUE.
+Sink hill sphere criterion                : hill_sphere_search = .TRUE.
+Sink energy criterion                     : energy_search      = .FALSE.
+Sink velocity divergence criterion        : div_v_search       = .FALSE.
+Sink acceleration divergence criterion    : div_a_search       = .FALSE.
+Sink timescale criterion                  : timescale_search   = .FALSE.
+
+==============================================================================
+Sink accretion and feedback parameters
+==============================================================================
+Sink energy accretion criterion           : energy_accrete      = .FALSE.
+Sunyaev-Shakura viscosity factor          : alpha_ss            = 0.01
+Smooth-accretion critical mass frac.      : smooth_accrete_frac = 0.0002
+Smooth-accretion critical timestep frac.  : smooth_accrete_dt   = 0.0002
+Frac. of accreted energy re-radiated      : f_accretion         = 0.75
+Time delay in switching on                : feedback_tdelay     = 0.0
+radiative feedback
+Min. sink mass before switching on        : feedback_minmass    = 10.0
+radiative feedback
+ sdfad fa				  : star_radius =3.0
+
+==============================================================================
+SPH particle removal parameters
+==============================================================================
+Removal density criterion                 : rho_remove    = .FALSE.
+Removal energy criterion                  : energy_remove = .FALSE.
+Removal distance criterion                : rad_remove    = .TRUE.
+Removal density tolerance                 : rholost       = 1.0E-19
+Removal distance value                    : rad_lost      = 4000.0
+
+==============================================================================
+N-body parameters
+==============================================================================
+Gas-accreted fraction before converting   : nbody_frac = 0.9999999
+to N-body phase
+ 
+==============================================================================
+Radiative cooling parameters
+==============================================================================
+Temperature at r=1AU from star            : ptemp0 = 1200.0
+Temperature at infinity                   : temp_inf = 5.0
+Temperature softening radius              : ptemp_r0 = 0.25
+Temperature power law index               : ptemp_q = 0.5
+File with EOS and opacity tables          : eos_opa_file = eos.bell.cc.dat 
+Column polytrope factor                   : fcolumn = 0.104
+
+==============================================================================
+HEALPix parameters
+==============================================================================
+No. of steps between following all        : nionallstep = 8
+HEALPix rays
+Ray integration step accuracy parameter   : f1 = 1.0
+Angular resolution parameter              : f2 = 1.5
+Temperature smoothing parameter           : f3 = 1.0
+Evaluation point interpolation parameter  : f4 = 0.5
+Temperature of neutral gas                : Tneut = 0.0
+Temperature of ionized gas                : Tion = 500.0
+Fraction of hydrogen                      : Xfrac = 0.7
+Mean gas particle mass for ionised gas    : mu_ion = 0.678
+Recombination coeffieicient               : a_star = 2.7D-13
+No. of ionizing photons per second        : N_LyC = 5.0D+47
+x-position of static ionization source    : rstatic(1) = 0.0
+y-position of static ionization source    : rstatic(2) = 0.0
+z-position of static ionization source    : rstatic(3) = 0.0
+Maximum no. of HEALPix levels             : lmax_hp = 7
+Mass loss rate                            : M_loss = 1.0E-5
+Radial wind speed                         : v_wind = 1000.0

@@ -1,0 +1,25 @@
+==============================================================================
+ic_BB.F90 parameters file
+==============================================================================
+Contains all input parameters to create initial conditions using ic_BB.
+(Note : Do not add or delete any lines from this file.  Otherwise it will 
+not be read in correctly by ic_BB.)
+==============================================================================
+File parameters
+==============================================================================
+25600_UDS.df.dat                  ! Input filename
+dragon_form                       ! Input file format
+25600_BBSIT.sf.dat                ! Output filename
+seren_form                  	  ! Output file format
+==============================================================================
+Boss-Bodenheimer test parameters
+==============================================================================
+1.0                            	  ! Mass of cloud
+m_sun                             ! Mass unit
+0.01037                           ! Radius of cloud
+pc                                ! Length unit
+10.0                              ! Temperature of cloud
+1.6E-12                           ! Angular velocity of cloud
+rad_s                             ! Angular velocity unit
+2                                 ! Mode of density perturbation
+0.5                               ! Amplitude of density perturbation

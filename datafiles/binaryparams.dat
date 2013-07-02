@@ -1,0 +1,22 @@
+==============================================================================
+ic_binary.F90 parameters file
+==============================================================================
+Contains all input parameters to create initial conditions using ic_binary.
+(Note : Do not add or delete any lines from this file.  Otherwise it will 
+not be read in correctly by ic_binary.)
+==============================================================================
+File parameters
+==============================================================================
+1600_POLY.df.dat      		! Input filename 1
+1600_POLY.df.dat        	! Input filename 2
+dragon_form               	! Input file format 1
+dragon_form             	! Input file format 2
+ICBIN1600-COROT.df.dat          	! Output filename
+dragon_form            		! Output file format
+==============================================================================
+Boss-Bodenheimer test parameters
+==============================================================================
+5.01326                  	! Separation of binary
+0.0         	 		! Eccentricity of binary
+.true.    			! Corotation of stars with binary orbit
+

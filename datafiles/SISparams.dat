@@ -1,0 +1,26 @@
+==============================================================================
+ic_SIS.F90 parameters file
+==============================================================================
+Contains all input parameters to create initial conditions using ic_SIS.
+(Note : Do not add or delete any lines from this file.  Otherwise it will 
+not be read in correctly by ic_SIS)
+==============================================================================
+File parameters
+==============================================================================
+32000_UDS.df.dat      	! Input file
+dragon_form             ! Input file format
+ICSIS2-SIMPLE-QUINTIC.df.dat           ! Output file
+dragon_form             ! Output file format
+==============================================================================
+Polytrope parameters
+==============================================================================
+pc                      ! Length unit
+m_sun                   ! Mass unit
+g_cm3       		! Density unit
+km_s                    ! Velocity unit
+10.0       		! Size of cloud (radmax)
+1.0          		! Isothermal sound speed of gas (a0)
+10.0            	! (sinkrad)
+0.0                     ! Mass of gas envelope surrounding main core
+0.0                     ! Mass of IcM envelope surrounding gas
+3.0                     ! Size of boundary particle zone (in h)

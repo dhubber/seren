@@ -1,0 +1,28 @@
+==============================================================================
+ic_sedov.F90 parameters file
+==============================================================================
+Contains all input parameters to create initial conditions using ic_sedov.
+(Note : Do not add or delete any lines from this file.  Otherwise it will 
+not be read in correctly by ic_sedov)
+==============================================================================
+File parameters
+==============================================================================
+ICRT6-2.4.df.dat       	! output file name
+dragon_form        	  	! output file format
+==============================================================================
+Rayleigh-Taylor instability parameters
+==============================================================================
+1                         	! Perturbation mode (1=velocity, 2=boundary)
+160 160        	 		! ppds
+240 240        	 		! nlayers 
+10 10 				! nwall
+1.0 2.0       		  	! Bottom and top densities
+2.5           		   	! Pressure at interface
+0.1                             ! Gravitational acceleration
+1.4         		   	! gamma
+0.5           		   	! xsize
+0.01        		   	! amp
+0.5          		  	! lambda
+30               		! pp_gather (for standard SPH)
+0.0125           		! hmin (for constant-h SPH)
+2.4         			! h_fac (for 'grad-h' SPH)

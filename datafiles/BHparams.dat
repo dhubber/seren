@@ -1,0 +1,28 @@
+==============================================================================
+ic_bondi_hoyle.F90 parameters file
+==============================================================================
+Contains all input parameters to create ICs using ic_bondi_hoyle.
+(Note : Do not add or delete any lines from this file.  Otherwise it will 
+not be read in correctly by ic_bondi_hoyle)
+==============================================================================
+File parameters
+==============================================================================
+432000-3D-REL.df.dat   ! Input file
+dragon_form             ! Input file format
+ICBH2-R4-V0-G53.sf.dat    ! Output file
+seren_form              ! Output file format
+==============================================================================
+Polytrope parameters
+==============================================================================
+pc                      ! Length unit
+m_sun                   ! Mass unit
+g_cm3       		! Density unit
+km_s                    ! Velocity unit
+1.66666666 	        ! Ratio of specific heats (gamma)
+1.E-25      		! Density of ambient gas (rhogas)
+1.0 			! Mean gas particle mass in units of (mu_bar)
+0.091186                ! Sound speed of gas (agas)
+0.0       		! Wind speed of gas
+20.0   			! (boxsize)
+4.0                     ! (rsink)
+1.0                     ! (msink)

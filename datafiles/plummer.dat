@@ -1,0 +1,30 @@
+==============================================================================
+ic_plummer.F90 parameters file
+==============================================================================
+Contains all input parameters to create initial conditions using ic_plummer.
+(Note : Do not add or delete any lines from this file.  Otherwise it will 
+not be read in correctly by ic_plummer)
+==============================================================================
+File parameters
+==============================================================================
+ICPLUMMER1-S100.sf.dat  ! Output file
+sf                  ! Output file format
+==============================================================================
+Polytrope parameters
+==============================================================================
+pc       		! Length unit
+m_sun                   ! Mass unit
+m_sun_pc3      		! Density unit
+km_s                    ! Velocity unit
+1.0                     ! (rplummer)
+20.0               	! (radmax)
+1.0                     ! (mplummer)
+0.1                     ! (rstar)
+0          		! (pcdm)
+0          		! (pgas)
+100           		! (stot)
+0.0     		! (cdmfrac)
+0.0      		! (gasfrac)
+1.0     		! (starfrac)
+1.6666666666		! (gamma)
+100         		! (idum)

@@ -1,0 +1,18 @@
+==============================================================================
+ic_sedov.F90 parameters file
+==============================================================================
+Contains all input parameters to create initial conditions using ic_sedov.
+(Note : Do not add or delete any lines from this file.  Otherwise it will 
+not be read in correctly by ic_sedov)
+==============================================================================
+File parameters
+==============================================================================
+102400_UDS.df.dat    		! Input file name (unit sphere)
+dragon_form       		! Input file format
+ICSEDOV3D.df.dat   		! Output file name
+dragon_form      		! Output file format
+==============================================================================
+Sedov blast parameters
+==============================================================================
+1.0       			! Required density of sphere
+0.5      			! Radius of sphere

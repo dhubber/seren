@@ -1,0 +1,18 @@
+==============================================================================
+ic_sphere.F90 parameters file
+==============================================================================
+Contains all input parameters to create initial conditions using ic_sphere.
+(Note : Do not add or delete any lines from this file.  Otherwise it will 
+not be read in correctly by ic_sphere.)
+==============================================================================
+File parameters
+==============================================================================
+128000-3D-REL.df.dat       	! Input file name
+dragon_form     		! Input file format
+12800_UDS.sf.dat   		! Output file name
+seren_form       		! Output file format
+==============================================================================
+Sphere parameters
+==============================================================================
+1.0       			! Radius of sphere
+12800      			! Required no. of particles

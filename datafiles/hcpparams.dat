@@ -1,0 +1,17 @@
+==============================================================================
+ic_hcp.F90 parameters file
+==============================================================================
+Contains all input parameters to create initial conditions using ic_hcp.
+(Note : Do not add or delete any lines from this file.  Otherwise it will 
+not be read in correctly by ic_hcp.)
+==============================================================================
+File parameters
+==============================================================================
+40000_2D_HCP.sf.dat   	! Output file name
+seren_form       		! Output file format
+==============================================================================
+hcp parameters
+==============================================================================
+200   				! (nx)
+200    				! (ny)
+1.1547         			! (xlength)
