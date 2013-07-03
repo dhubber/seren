@@ -7,8 +7,6 @@
 \usepackage{array}
 \usepackage[latex2html,colorlinks,final]{hyperref}
 
-\newcommand{\NAME}{SEREN }
-\newcommand{\name}{seren}
 \newcommand{\VERNO}{1.5.1 }
 \newcommand{\var}[1]{\texttt{#1}}
 
@@ -20,7 +18,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 
-\title{\NAME - Version 1.5.1}
+\title{SEREN - Version 1.5.1}
 \author{David Hubber, Christopher Batty \& Andrew McLeod}
 
 \maketitle
@@ -32,116 +30,95 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Overview}
-\NAME is a Smoothed Particle Hydrodynamics (SPH) code designed for solving self-gravitating hydrodynamical problems in astrophysics, particularly in the fields of star and planet formation.  \NAME largely grew from DRAGON, the star formation SPH code written by Simon Goodwin at Cardiff University, although many routines have significantly diverged from the original DRAGON versions, or have been rewritten from scratch.  \NAME has also been designed to be compatible with DRAGON in its features and file formats. \newline
+SEREN is a Smoothed Particle Hydrodynamics (SPH) code designed for solving self-gravitating hydrodynamical problems in astrophysics, particularly in the fields of star and planet formation.  SEREN largely grew from DRAGON, the star formation SPH code written by Simon Goodwin at Cardiff University, although many routines have significantly diverged from the original DRAGON versions, or have been rewritten from scratch.  SEREN has also been designed to be compatible with DRAGON in its features and file formats. \newline
 
-The basic elements of \NAME can be used to simulate any problem involving hydrodynamics and gravity, but \NAME also contains many specialized features for star formation problems.  The main features present in \NAME \VERNO  include : 
+The basic elements of SEREN can be used to simulate any problem involving hydrodynamics and gravity, but SEREN also contains many specialized features for star formation problems.  The main features present in SEREN \VERNO  include : 
 \begin{itemize}
 \item Smoothed Particle Hydrodynamics (Standard SPH or conservative 'grad-h' SPH)
 \item Self-gravitating SPH / N-body dynamics
 \item Isothermal, barotropic or polytropic equations of state
 \item Octal-spatial (Barnes-Hut) neighbour-searching and gravity tree
-\item Simple sink particles (i.e. gravity only) or minimum-h value
+\item Sink particles, using new accretion algorithm of Hubber et al. (2013)
 \item Different particle types (gas, inter-cloud, boundary, CDM and dust particles)
 \item 1, 2 or 3 dimensions
 \item Periodic boundary conditions (independent for each dimension) or spherical wall
+\item Ewald method for periodic gravity
 \item Hierarchical block timesteps, with neighbour-checking for safety
 \item 2nd order Runge-Kutta, Leapfrog-KDK and Leapfrog-DKD and integration schemes
 \item Artificial viscosity with Balsara switch, time-dependence and Keplerian pattern-matching
 \item Artificial conductivity with switches
 \item N-body evolution of sinks using 4th order Hermite integrator at termination of SPH
-\item Radiative cooling approximation of Stamatellos et al. (2007)
+\item Radiative cooling approximation of Stamatellos et al. (2007), and hybrid flux-limited diffusion method (Forgan et al. 2009)
+\item Ionising radiation using HEALPix (Bisbas et al. 2009)
+\item Hybrid SPH and 4th-order Hermite N-body algorithm (Hubber et al. 2013)
 \item Simple external background gravitational potentials
 \item Parallelized using OpenMP
+\item Parallelized using MPI (partial implementation, currently in beta-mode)
 \item Bash script to run automated batch tests
 \item Output compatable with Splash (Price 2007)
 \end{itemize}
 
 \noindent Features currently in development, or implemented but not full tested
 \begin{itemize}
-\item MPI parallelization (McLeod \& Hubber)
-\item Combined radiative cooling and Flux-limited Diffusion (Stamatellos)
-\item Sinks with smoother (non-integer) accretion of particles (Hubber, Walch \& Whitworth)
-\item Re-distributing angular momentum in sink particles (Walch, Hubber \& Whitworth)
-\item Hybrid 4th-order hermite-scheme for N-body integration combined with SPH for background gas evolution (Hubber)
-\item Grouped particle tree walks (Hubber)
-\item Ewald method for periodic gravity (McLeod \& Hubber)
-\item Implement Riemann solver for all EOSs (Hubber)
-\item Binary-mass tree (Whitworth \& Hubber)
-\item Ionizing radiation with HEALPix (Bisbas \& Hubber)
-\item Remove unconsequential outlying particles from simulation (Hubber)
 \item Wind feedback from high-mass stars (Ngoumou \& Hubber)
 \item Multiple fluid components and independent EOSs (Hubber)
 \end{itemize}
 
-%\newpage
-\noindent Features planned for future versions include : 
-\begin{itemize}
-\item Physical viscosity
-\item Jet feedback from protostars
-\item Particle Splitting 
-\item Ideal/Non-ideal MHD 
-\item Divergence cleaning/Euler potentials
-\end{itemize}
-
-
-\noindent Suspended/abandoned features (i.e. features implemented in the past where development has either been suspended, or abandoned but not removed from the code as of yet but may do so in the future)
-\begin{itemize}
-\item Ideal MHD
-\end{itemize}
 
 \newpage
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Using \NAME }
+\section{Using SEREN }
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Obtaining \NAME via git}
-\NAME can be obtained using {\it git} ({\rm http://git-scm.com/}), which is a new version-control software written by Linux-kernel author, Linus Torvalds.  
-It is required that the user has {\it git} version 1.6 or later.  If you have version 1.5 or older, it is recommended asking your computer administrator if he/she could update {\it git} to the latest version, since I have noticed that v1.5 does different things with regards to password authentication and therefore the instructions below will be invalid.  For your own computers (e.g. laptops), {\it git} can easily be obtained with package managers such as apt, rpm, etc ..   For Mac users, {\it git} can be obtained with fink or macports.  {\it git} can also be downloaded directly from the {\it git} webpage (http://git-scm.com).
+\subsection{Obtaining SEREN via github}
+SEREN is hosted on the github website ({\rm https://github.com/}) which uses the {\it git} ({\rm http://git-scm.com/}) version-control software, written by Linux-kernel author Linus Torvalds.  The SEREN code is held in the github repository \\
 
+{\rm https://github.com/dhubber/seren}, \\  
 
-\subsubsection{Initialising git and obtaining Seren}
-First, create a blank directory (e.g. seren) and cd into it.  Then 
-initialise your local git repository with the command \newline
+\noindent and a webpage describing the features of the code, tests and other information can be found at \\
 
-\var{git init} \newline
+{\rm http://dhubber.github.io/seren/}. \\
 
-\noindent This should create a directory '.git' inside the blank directory.  Next, set your main details to the git repository using 
-the commands \newline
+\noindent Although you must register to join and use github, the SEREN code itself can be downloaded anonymously.  One advantage of joining github is that it is easier for us to track usage of the code and that it is possible for users to give feedback, such as bug reports or suggested improvements, or share information about the code that can be useful to other users.  Another advantage is that you can use the github desktop manager, which can make downloading and updating the code easier for those who prefer graphical interfaces rather than simple command line interfaces.
+
+In order to download SEREN, you must first install {\it git} on your system.  It is required that the user has {\it git} version 1.6 or later.  If you have version 1.5 or older, it is recommended asking your computer administrator if he/she could update {\it git} to the latest version, since I have noticed that v1.5 does different things with regards to password authentication and therefore the instructions below will be invalid.  For your own computers (e.g. laptops), {\it git} can easily be obtained with package managers such as apt, rpm, etc ..   For Mac users, {\it git} can be obtained with fink or macports.  {\it git} can also be downloaded directly from the {\it git} webpage (http://git-scm.com).
+
+Before downloading the code, either from the command line or using the github programme, you should set the following important variables in order to track your local changes (i.e. what changes are your own, and which changes are made by the authros): \\
 
 \var{git config -\,-global user.name "Your name here"} %\newline
 
 \var{git config -\,-global user.email "Your email address here"} \newline
 
-\noindent This makes it easier for you to track which changes have been made by yourself, and which have been made by the main \NAME authors when updating.  Also, this creates a file called .gitconfig in your home directory containing this information.  An alias for Seren git server address can be set with \newline
+This creates a file called .gitconfig in your home directory containing this information.  
 
-\var{git remote add SERENGIT } %\newline
+Once this is done, you can download the code by one of two ways
+\begin{itemize}
+\item {Anonymous command line download} \\
+\noindent First change into the directory you wish to download the code to.  Next, copy the https clone address into the command line as \\
 
-\var{http://sf-git@git.astro.cf.ac.uk/git/star-formation/seren}\newline
+\noindent {\var git clone https://github.com/dhubber/seren.git}
 
-\noindent Finally, Seren can be obtained by \newline
-
-\var{git pull SERENGIT master} \newline
-
-\noindent followed by the password provided.  The full current snapshot of Seren should be downloaded to the working directory.
+\item {Desktop application download}
+\noindent First, register with github and download and install the github desktop application.  Next, go to the SEREN repository webpage and click the 'Clone in desktop' option.  Select the directory you wish to download the code into and then follow the links to the end.
+\end{itemize}
 
 
-
-\subsubsection{Updating Seren and managing conflicts}
-The \NAME git repository can be updated quite easily with a few commands. 
+\subsubsection{Updating Seren and managing conflicts on the command line}
+The SEREN git repository can be updated quite easily with a few commands. 
 First, if you have changed any files in the repository (e.g. most likely 
 with the Makefile or the params.dat file), then you have to commit your 
 changes to the local repository.  This can be done easily using \newline
 
 \var{git commit -am "Message"} \newline
 
-\noindent where "Message" is some status message which is recorded in the git logs.  This command allows git to know the changes you have made to the \NAME files so it can easily be merged with the new version's updates.  The update can now easily be obtained with the same command as above : \newline
+\noindent where "Message" is some status message which is recorded in the git logs.  This command allows git to know the changes you have made to the SEREN files so it can easily be merged with the new version's updates.  The update can now easily be obtained with the same command as above : \newline
 
-\var{git pull SERENGIT master} \newline
+\var{git pull origin master} \newline
 
-\noindent with the same password to be entered at the prompt.  If you have changed any part of the \NAME files which have also been changed in a different way by the update, then there will be a conflict and the merging of the two versions cannot proceed automatically.  In this case, you have to intervene manually and resolve the conflict by selecting which version (i.e. your altered version or the new update) you would like to use.  To view which files have a conflict (plus other information about your local repository), simply type \newline
+\noindent with the same password to be entered at the prompt.  If you have changed any part of the SEREN files which have also been changed in a different way by the update, then there will be a conflict and the merging of the two versions cannot proceed automatically.  In this case, you have to intervene manually and resolve the conflict by selecting which version (i.e. your altered version or the new update) you would like to use.  To view which files have a conflict (plus other information about your local repository), simply type \newline
 
 \var{git status} \newline
 
@@ -178,13 +155,13 @@ A selected list of important commands that will be needed from time to time : \n
 %\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Compiling and running \NAME}
-\NAME has been designed so to be compiled with \var{GNU make}.  
+\subsection{Compiling and running SEREN}
+SEREN has been designed so to be compiled with \var{GNU make}.  
 The user must specify a number of compiler options, which are set at the 
 head of the Makefile (see Section \ref{SS:MAKEFILE} for more information). 
 In order to compile, a compatible compiler must be specified in the 
 first line of the Makefile.  
-\NAME has been successfully tested on the following operating systems 
+SEREN has been successfully tested on the following operating systems 
 and compilers.  
 \begin{itemize}
 \item GNU/Linux
@@ -203,45 +180,45 @@ and compilers.
 \item \var{ifort}    - Intel Fortran compiler
 \end{itemize}
 \end{itemize}
-Once all the other Makefile options have been set to their desired values, \NAME is compiled by \var{GNU make} with the command \newline
+Once all the other Makefile options have been set to their desired values, SEREN is compiled by \var{GNU make} with the command \newline
 
 \var{make [-j N] seren} \newline
 
-\noindent \var{GNU make} will compile the source code of \NAME and produce the executable program \var{seren}.  The optional argument, \var{-j N}, allows parallel compilation on multi-core architecture, where \var{N} is the number of routines to be compiled in parallel at any one time.  Prior to performing a simulation, the user must set all simulation parameters in the file \var{params.dat} (See section \ref{SS:PARAMS} for more information) and provide an initial conditions file in the appropriate format. To run \NAME, the user must type \newline 
+\noindent \var{GNU make} will compile the source code of SEREN and produce the executable program \var{seren}.  The optional argument, \var{-j N}, allows parallel compilation on multi-core architecture, where \var{N} is the number of routines to be compiled in parallel at any one time.  Prior to performing a simulation, the user must set all simulation parameters in the file \var{params.dat} (See section \ref{SS:PARAMS} for more information) and provide an initial conditions file in the appropriate format. To run SEREN, the user must type \newline 
 
 \var{./seren} \newline
 
-\noindent \NAME will read in the default parameters file \var{params.dat} before performing the simulation.
+\noindent SEREN will read in the default parameters file \var{params.dat} before performing the simulation.
 
 %\var{./seren paramsfile} \newline
 
-%\noindent where \var{paramsfile} is an optional argument that is the name of the parameters file to be read when \NAME is run.  If no argument is included, \NAME assumes the default parameters filename \var{params.dat} which is loaded automatically.
+%\noindent where \var{paramsfile} is an optional argument that is the name of the parameters file to be read when SEREN is run.  If no argument is included, SEREN assumes the default parameters filename \var{params.dat} which is loaded automatically.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Command-line arguments}
-\NAME has a number of optional command-line arguments that can be invoked to change the behaviour of the \NAME executable.  The behaviour can depend on several factors, particularly what Makefile options have been invoked while compiling \NAME.
+SEREN has a number of optional command-line arguments that can be invoked to change the behaviour of the SEREN executable.  The behaviour can depend on several factors, particularly what Makefile options have been invoked while compiling SEREN.
 
-\tablecaption{List of all command-line arguments available in \NAME}
+\tablecaption{List of all command-line arguments available in SEREN}
 \tablehead{\hline \bf{Argument} & \bf{Behaviour} \\ \hline}
 \tabletail{\hline}
 \tablelasttail{\hline}
 %\begin{figure}
 \begin{center}
 \begin{supertabular}{|p{4.0cm}|p{8.0cm}|}
--d, -D, -\,-\,debug & \NAME prints out the debug output column data format to screen and then exits without running any simulation. (N.B. The same information is printed to the \var{runid.params} file when a simulation is performed using \NAME) \\ \hline
+-d, -D, -\,-\,debug & SEREN prints out the debug output column data format to screen and then exits without running any simulation. (N.B. The same information is printed to the \var{runid.params} file when a simulation is performed using SEREN) \\ \hline
 
--\,-\,diag & \NAME prints out the column data format that is used in the diagnostics file to the screen (enabled with DIAGNOSTIC\_OUTPUT = 1 in the Makefile). \\ \hline
+-\,-\,diag & SEREN prints out the column data format that is used in the diagnostics file to the screen (enabled with DIAGNOSTIC\_OUTPUT = 1 in the Makefile). \\ \hline
 
--h, -H, -\,-\,help & \NAME prints out all available command-line options \\ \hline
+-h, -H, -\,-\,help & SEREN prints out all available command-line options \\ \hline
 
--m, -M & \NAME prints out the Makefile options used to compile the code to screen and then exits without running any simulation.  (N.B. The same Makefile options are printed to the \var{runid.params} file when a simulation is performed using \NAME) \\ \hline
+-m, -M & SEREN prints out the Makefile options used to compile the code to screen and then exits without running any simulation.  (N.B. The same Makefile options are printed to the \var{runid.params} file when a simulation is performed using SEREN) \\ \hline
 
--s, -S, -\,-\,sinks, -\,-\,stars & \NAME prints out the column data format to screen for the sink files. \\ \hline
+-s, -S, -\,-\,sinks, -\,-\,stars & SEREN prints out the column data format to screen for the sink files. \\ \hline
 
--v, -V, -\,-\,version & \NAME prints out current version number \\ \hline
+-v, -V, -\,-\,version & SEREN prints out current version number \\ \hline
 
-paramsfile & \NAME reads the parameters file \var{paramsfile} instead of the default \var{params.dat} \\ \hline
+paramsfile & SEREN reads the parameters file \var{paramsfile} instead of the default \var{params.dat} \\ \hline
 
 \end{supertabular}
 \end{center}
@@ -251,17 +228,17 @@ paramsfile & \NAME reads the parameters file \var{paramsfile} instead of the def
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Restarting simulations}
-If a simulation is terminated for some reason, then it can be restarted by simply running \NAME without any modification to the \var{params.dat} file.  Each simulation generates a file \var{runid.restart} which contains the name of the last snapshot to be outputted.  \NAME will search for this file, and if it exists, it will read the snapshot name contained and restart the simulation from that point.  If you do not wish to restart the simulation from this point, but want a fresh run, then you should delete the \var{runid.restart} file.  If you wish to restart a simulation from a different snapshot, you can delete the \var{runid.restart} file and alter some of the parameters in the \var{params.dat} file, such as the \var{restart} logical flag (See Section \ref{SS:PARAMS}).  
+If a simulation is terminated for some reason, then it can be restarted by simply running SEREN without any modification to the \var{params.dat} file.  Each simulation generates a file \var{runid.restart} which contains the name of the last snapshot to be outputted.  SEREN will search for this file, and if it exists, it will read the snapshot name contained and restart the simulation from that point.  If you do not wish to restart the simulation from this point, but want a fresh run, then you should delete the \var{runid.restart} file.  If you wish to restart a simulation from a different snapshot, you can delete the \var{runid.restart} file and alter some of the parameters in the \var{params.dat} file, such as the \var{restart} logical flag (See Section \ref{SS:PARAMS}).  
 
 
 \newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{\NAME-MPI} \label{SS:MPISEREN}
+\subsection{SEREN-MPI} \label{SS:MPISEREN}
 
-The \NAME source code also contains an MPI version, SEREN-MPI.  In order to compile SEREN-MPI, one must download and install an implementation of MPI that works on your system.   To date, we have tested SEREN-MPI using the mpich2 (\var{http://http://www.mpich.org}) library at the development stage.  SEREN-MPI has not been fully tested or debugged using other MPI implementations (e.g. openmpi).  Therefore, it is recommended to use mpich2 if possible.  
+The SEREN source code also contains an MPI version, SEREN-MPI.  In order to compile SEREN-MPI, one must download and install an implementation of MPI that works on your system.   To date, we have tested SEREN-MPI using the mpich2 (\var{http://http://www.mpich.org}) library at the development stage.  SEREN-MPI has not been fully tested or debugged using other MPI implementations (e.g. openmpi).  Therefore, it is recommended to use mpich2 if possible.  
 
-We stress that SEREN-MPI is currently in the beta-testing stage.  Although it has been shown to run for a limited number of test cases, it has not been through an exhaustive list of tests.  Therefore bugs may still (and probably do) exist in the code that can only be identified and fixed through thorough usage, bug-reporting, fixing, updating and re-testing.  We welcome any feedback from users who wish to trial SEREN-MPI to help us fix any problems rapidly.
+We note that SEREN-MPI is currently only a partial implementation of all features and is in the beta-testing stage.  Although it has been shown to run for a limited number of test cases, it has not been through an exhaustive list of tests.  Therefore bugs may still (and probably do) exist in the code that can only be identified and fixed through thorough usage, bug-reporting, fixing, updating and re-testing.  We welcome any feedback from users who wish to trial SEREN-MPI to help us fix any problems rapidly.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -284,7 +261,7 @@ The default values to compile with MPI should be {\var MPIF90 = mpif90}, {\var M
 
 
 \subsubsection{Combining data snapshots with MPI}
-Since MPI runs segments of the simulation on different CPU tasks (often on different nodes), it is more efficient during runtime for each task to write its own contribution to the overall simulation to a separate file.  In order for these files to be meaningfully analysed with SPLASH or some other data analysis tool, they must be combined together to a single file per output.  A python script has been written to easily accomplish this with minimal effort, called \var{joinlots.py} which is located in the \var{joinsim} sub-directory.  It may be required to add the pathname of both the main \NAME directory and the \var{joinsim} sub-directory to your \var{PATH} environment variable.  To join all snapshots for a simulation, we simply type : \newline
+Since MPI runs segments of the simulation on different CPU tasks (often on different nodes), it is more efficient during runtime for each task to write its own contribution to the overall simulation to a separate file.  In order for these files to be meaningfully analysed with SPLASH or some other data analysis tool, they must be combined together to a single file per output.  A python script has been written to easily accomplish this with minimal effort, called \var{joinlots.py} which is located in the \var{joinsim} sub-directory.  It may be required to add the pathname of both the main SEREN directory and the \var{joinsim} sub-directory to your \var{PATH} environment variable.  To join all snapshots for a simulation, we simply type : \newline
 
 \var{joinlots.py runid} \newline
 
@@ -300,18 +277,10 @@ Since MPI runs segments of the simulation on different CPU tasks (often on diffe
 The head of the Makefile contains the complete list of compilation variables that are available.  Most variables have two or more possible values which must be entered in the Makefile.  If an illegal value is entered, then \var{make} will halt during compilation, or the program will stop during runtime (see the routine \var{/main/sanitycheck.F90}).  The Makefile is technically split into two separate files; \var{Makefile}, which contains the user options, and \var{makefiletail.mk}, which processes all the selected options to compile the code.  The full list of all Makefile variables and possible options is given in the table below. 
 \newline
 
-%\vspace{1cm}
-%\begin{center}
-%\begin{tabular}{|l|ll|}
-%\hline
-%\bf{Variable} & \bf{Options} & \\
-%\hline
-
-\tablecaption{List of all available Makefile options in \NAME}
+\tablecaption{List of all available Makefile options in SEREN}
 \tablehead{\hline \bf{Variable} & \bf{Options} & \\ \hline}
 \tabletail{\hline}
 \tablelasttail{\hline}
-%\begin{figure}
 \begin{center}
 \begin{supertabular}{|p{4.6cm}|p{4.6cm} p{6.4cm}|}
  F90           & f95      :& NAG f95 compiler (Linux) \\
@@ -394,7 +363,7 @@ The head of the Makefile contains the complete list of compilation variables tha
  SPH\_SIMULATION        & 1 :& Perform SPH simulation \\
                         & 0 :& No SPH simulation \\ \hline
 
- NBODY\_SPH\_SIMULATION & 1 :& Perform hybrid N-body/SPH simulation (Not included in git release) \\
+ NBODY\_SPH\_SIMULATION & 1 :& Perform hybrid N-body/SPH simulation \\
                         & 0 :& No hybrid simulation \\ \hline
 
  NBODY\_SIMULATION      & 1 :& Perform N-body simulation \\
@@ -406,8 +375,7 @@ The head of the Makefile contains the complete list of compilation variables tha
 
  SPH\_INTEGRATION & RK2   :& 2nd order Runge-Kutta integration scheme \\
                   & LFKDK :& 2nd order Leapfrog kick-drift-kick scheme \\
-                  & LFDKD :& 2nd order Leapfrog drift-kick-drift scheme \\
-                  & PC    :& 2nd order Predictor-Corrector scheme \\ \hline
+                  & LFDKD :& 2nd order Leapfrog drift-kick-drift scheme \\ \hline
 
  KERNEL        & M4      :& M4 kernel (Monaghan \& Lattanzio 1985) \\
                & M4TC    :& M4 kernel with modifed 1st derivative (Thomas \& Couchman 1992) \\ 
@@ -432,9 +400,6 @@ The head of the Makefile contains the complete list of compilation variables tha
  ENTROPY\_EQN  & 1 :& Activate entropy equation \\
                & 0 :& Do not include entropy equation in compliation \\ \hline
 
- RIEMANN\_SOLVER & 1   :& Use iterative Riemann solver (Van Leer 1977, Cha \& Whitworth 2003).  Currently unstable and deactivated.\\
-                 & 0   :& No Riemann solver \\ \hline
-
  ARTIFICIAL\_VISCOSITY  & MON97 :& Monaghan (1997) artificial viscosity \\
                & AB    :& Standard $\alpha$-$\beta$ viscosity (Monaghan \& Gingold 1983)\\
                & 0     :& No artificial viscosity \\ \hline
@@ -458,7 +423,7 @@ The head of the Makefile contains the complete list of compilation variables tha
  RAD\_WS       & 1 :& Activate radiative cooling scheme (Stamatellos et al. 2007) \\
                & 0 :& Do not include radiative cooling in compilation \\ \hline
 
- FLUX\_LIMITED\_DIFFUSION & 1 :& Switch on flux-limited diffusion for hybrid radiation scheme (Forgan et al. 2009).  Only activated when RAD\_WS = 1 (experimental). \\
+ FLUX\_LIMITED\_DIFFUSION & 1 :& Switch on flux-limited diffusion for hybrid radiation scheme (Forgan et al. 2009).  Only activated when RAD\_WS = 1. \\
                           & 0 :& No flux-limited diffusion \\ \hline
 
  SINK\_POTENTIAL\_WS      & 1 :& Use gravitational potential from sink in radiative cooling calculations \\
@@ -476,17 +441,14 @@ The head of the Makefile contains the complete list of compilation variables tha
                      & EXPLICIT :& Explicit cooling/heating terms added to energy equation (Experimental) \\ \hline
 
  IONIZING\_RADIATION & 0 :& No ionizing sources \\
-                     & SINGLE\_STATIC\_SOURCE :& Single static source of ionizing radiation (Bisbas et al. 2009; not included in git release yet) \\
-                     & MULTIPLE\_SINK\_SOURCES :& Sink particles act as sources of ionizing radiaiton (experimental; not included in git release) \\ \hline
+                     & SINGLE\_STATIC\_SOURCE :& Single static source of ionizing radiation (Bisbas et al. 2009) \\
+                     & MULTIPLE\_SINK\_SOURCES :& Sink particles act as sources of ionizing radiaiton (experimental) \\ \hline
 
  STELLAR\_WIND       & 0 :& No wind sources \\
-                     & SINGLE\_STATIC\_SOURCE :& Single static source of wind (Not included in git release) \\ \hline 
+                     & SINGLE\_STATIC\_SOURCE :& Single static source of wind \\ \hline 
 
- PARTICLE\_INJECTION\_WINDS & 0: & No injection of particles \\
-                          & 1: & Inject particles for pressure-driven winds (experimental; not included in git release) \\ \hline
-
- STELLAR\_LUMINOSITY & 0: & No luminosity feedback from stars \\
-                     & 1: & Luminosity feedback from stars using HEALPix (experimental; not included in git release) \\ \hline
+% STELLAR\_LUMINOSITY & 0: & No luminosity feedback from stars \\
+%                     & 1: & Luminosity feedback from stars using HEALPix (experimental) \\ \hline
 
  EXTERNAL\_FORCE & 0       :& No external forces \\
                  & PLUMMER :& Plummer sphere potential \\
@@ -507,13 +469,13 @@ The head of the Makefile contains the complete list of compilation variables tha
  SINKS         & 0  :& No sinks \\
                & SIMPLE :& Simple (i.e. only gravitating) sinks (Bate, Bonnell \& Price 1995)\\ 
                & NO\_ACC :& Simple sinks with no accretion \\
-               & SMOOTH\_ACC :& Sinks with smooth accretion (experimental; not included in git release at present) \\ \hline
+               & SMOOTH\_ACC :& Sinks with smooth accretion (Hubber et al. 2013) \\ \hline
 
  SINK\_RADIUS  & FIXED\_ABSOLUTE :& Absolute value (in AU in params.dat file; same for all sinks) \\ 
                & FIXED\_HMULT    :& Multiple of mean h at sink density (same for all sinks) \\
                & HMULT           :& Multiple of h at sink density (individual values for sinks) \\ \hline
 
- SINK\_REMOVE\_ANGMOM & 1 :& Deposit sink ang. mom. on nearby particles (Experimental, not included in git release at present) \\
+ SINK\_REMOVE\_ANGMOM & 1 :& Deposit sink ang. mom. on nearby particles \\
                       & 0 :& Sink particle retain ang. mom. of accreted particles \\ \hline
 
  SINK\_GRAVITY\_ONLY & 0 :& Consider all physical sources of gravity \\ 
@@ -527,15 +489,8 @@ The head of the Makefile contains the complete list of compilation variables tha
  BINARY\_STATS & 1 :& Calculate binary statistics and output to file \\
                & 0 :& No binary calculations \\ \hline
 
- BINARY\_COM\_MOTION & 1 :& Advance COM of binary stars instead of explicitly integrating (experimental) \\
-                     & 0 :& No special treatment for binaries \\ \hline
-
- FORCE\_SPLITTING & 1 :& Split force calculation between stars and gas in N-body/SPH mode (experimental) \\
-               & 0 :& No force splitting \\ \hline
-
  TREE          & 0      :& No tree (all quantities calculated by direct summation) \\
-	       & BH     :& Use Barnes-Hut tree (octal-spatial; Barnes \& Hut 1985)\\
-               & BINARY :& Use Binary-number tree (experimental) \\ \hline
+	       & BH     :& Use Barnes-Hut tree (octal-spatial; Barnes \& Hut 1985) \\ \hline
 
  MULTIPOLE     & 0  :& No higher-order multipole terms \\
                & QUADRUPOLE :& Include quadrupole moment terms in gravity calculations \\
@@ -548,9 +503,6 @@ The head of the Makefile contains the complete list of compilation variables tha
 
  REORDER       & PARTICLES  :& Re-order particles in arrays according to tree-walk order  \\
                & 0   :& No re-ordering \\ \hline
-
- CELL\_WALK    & 1 :& Walk the tree with a group of particles (Experimental) \\
-               & 0 :& Walk the tree with individual particles \\ \hline
 
  SORT          & INSERTION :& Use insertion sort for sorting lists \\
                & HEAP      :& Use heapsort for sorting lists\\ \hline
@@ -576,6 +528,9 @@ The head of the Makefile contains the complete list of compilation variables tha
  REMOVE\_OUTLIERS & 1 :& Remove outlying particles from the simulation (Experimental) \\
                   & 0 :& No removal of outliers \\ \hline
 
+ TURBULENT\_FORCING & 1 :& .... \\
+                    & 0 :& No turbulent forcing \\ \hline
+
  TIMING\_CODE  & 1 :& Use custom subroutines to produce timing statistics \\
                & 0 :& No timing output \\ \hline
 
@@ -599,9 +554,9 @@ The head of the Makefile contains the complete list of compilation variables tha
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Debug flags} \label{SS:PARAMS}
-The \NAME Makefile contains a number of debug flags below the main options which can be switched on or off by uncommenting them or commenting them out.  Most of the debug flags produce verbose output of each routine, and in some cases produce extra files with more important information.  The full list of debugging options with additional output is shown in the table below.\newline
+The SEREN Makefile contains a number of debug flags below the main options which can be switched on or off by uncommenting them or commenting them out.  Most of the debug flags produce verbose output of each routine, and in some cases produce extra files with more important information.  The full list of debugging options with additional output is shown in the table below.\newline
 
-\tablecaption{List of special debugging options available in \NAME}
+\tablecaption{List of special debugging options available in SEREN}
 \tablehead{\hline \bf{Variable} & \bf{Options} \\ \hline}
 \tabletail{\hline}
 \tablelasttail{\hline}
@@ -611,6 +566,7 @@ The \NAME Makefile contains a number of debug flags below the main options which
 %\hline
 %\bf{Variable} & \bf{Options} \\
 %\hline
+IEEE\_EXCEPTION\_HANDLING   & \\
 DEBUG\_DIV\_A               & \\
 DEBUG\_ACCRETE              & \\
 DEBUG\_ALLOCATE\_MEMORY     & \\
@@ -618,7 +574,7 @@ DEBUG\_BHTREEBUILD          & \\
 DEBUG\_BHTREESTOCK          & \\
 DEBUG\_BHTREEWALK           & \\
 DEBUG\_BHTREEGRAVITY        & \\
-DEBUG\_BINARYPROPERTIES     & Ouput binary properties to screen when calculated \\
+DEBUG\_BINARY\_PROPERTIES   & Ouput binary properties to screen when calculated \\
 DEBUG\_BINARY\_SEARCH       & \\
 DEBUG\_BLOCK\_TIMESTEPS     & Outputs occcupation of timestep levels \\
 DEBUG\_COPY\_PARTICLE\_DATA & \\
@@ -633,7 +589,9 @@ DEBUG\_FORCES               & Records individual grav, hydro, magnetic forces\\
 DEBUG\_FREEFALL             & \\
 DEBUG\_GATHER\_NEIB         & \\
 DEBUG\_GET\_NEIB            & \\
+DEBUG\_GHOST\_PARTICLES     & \\
 DEBUG\_GRAD\_H\_SPH         & \\
+DEBUG\_GRID\_RESULTS        & \\
 DEBUG\_HEAPSORT             & \\
 DEBUG\_HERMITE4             & \\
 DEBUG\_H\_GATHER            & \\
@@ -648,6 +606,7 @@ DEBUG\_INTEGRATE            & \\
 DEBUG\_KERNEL               & Outputs file 'kernel.dat' \\
 DEBUG\_MHD                  & \\
 DEBUG\_NBODYSETUP           & \\
+DEBUG\_OUTPUT\_STAR\_DATA   & \\
 DEBUG\_PARAMETERS           & \\
 DEBUG\_PLOT\_DATA           & Outputs regular debug files with snapshot files.
                               Files are simple column-data files where the 
@@ -657,11 +616,11 @@ DEBUG\_RAD                  & Outputs 'run\_id.rad' file for RAD\_WS tests \\
 DEBUG\_REDUCE\_TIMESTEP     & \\
 DEBUG\_REMOVE\_OUTLIERS     & \\
 DEBUG\_RSPH\_OUTPUT         & Outputs files in RSPH format \\
-DEBUG\_SINKCORRECTION       & \\
 DEBUG\_SINK\_REMOVE\_ANGMOM & \\
 DEBUG\_SINK\_SEARCH         & \\
 DEBUG\_SINK\_TIMESTEP       & \\
 DEBUG\_SKELETON             & \\
+DEBUG\_SMOOTH\_ACCRETE\_PARTICLES & \\
 DEBUG\_SPH\_UPDATE          & \\
 DEBUG\_SWAP\_PARTICLE\_DATA & \\
 DEBUG\_TIMESTEP\_SIZE       & \\
@@ -678,9 +637,10 @@ DEBUG\_TREEWALK             & \\
 DEBUG\_TYPES                & \\
 DEBUG\_VISC\_BALSARA        & \\
 DEBUG\_VISC\_PATTERN\_REC   & \\
+DEBUG\_WRITE\_MPI\_TASK     & \\
 \end{supertabular}
 \end{center}
-%\caption{List of special debugging options available in \NAME}
+%\caption{List of special debugging options available in SEREN}
 %\end{center}
 %\end{figure}
 
@@ -690,9 +650,9 @@ DEBUG\_VISC\_PATTERN\_REC   & \\
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Parameter file} \label{SS:PARAMS}
-Unlike DRAGON, \NAME contains all simulation information in a single parameter file, called \var{params.dat}.  The information contained in the parameters file in version 1.0 is shown in the following table. \newline
+SEREN contains all simulation information in a single parameter file, called \var{params.dat}.  The information contained in the parameters file in version 1.0 is shown in the following table. \newline
 
-\tablecaption{List of user parameters in \NAME}
+\tablecaption{List of user parameters in SEREN}
 \tablehead{\hline \bf{Variable} & \bf{Type} & \bf{Description} \\ \hline}
 \tabletail{\hline}
 \tablelasttail{\hline}
@@ -751,6 +711,7 @@ Unlike DRAGON, \NAME contains all simulation information in a single parameter f
 \var{Junit}      & char(256) & Current density unit \\
 \var{uunit}      & char(256) & Specific internal energy unit \\
 \var{dudtunit}   & char(256) & Rate of change of specific internal energy unit \\
+\var{tempunit}   & char(256) & Temperature unit \\
 \var{rscale}     & DP        & Length scaling factor \\
 \var{mscale}     & DP        & Mass scaling factor \\ \hline
 \var{periodic\_min(1)} & PR & Size of periodic box in x-dimension \\
@@ -811,6 +772,7 @@ Unlike DRAGON, \NAME contains all simulation information in a single parameter f
 \var{rad\_remove}    & logical  & Remove distant particles? \\
 \var{rholost}        & PR       & Density removal threshold \\
 \var{rad\_lost}      & PR       & Distance removal threshold \\ \hline
+\var{npec}           & int      & No. of Predict-correct-evaluate iterations \\
 \var{nbody\_frac}    & PR       & Fraction of mass accreted before switching to N-body \\ \hline
 \var{ptemp0}         & PR       & Disc temperature at $r = 1\,{\rm AU}$ from star (K) \\
 \var{temp\_inf}      & PR       & Disc temperature at infinity (K) \\
@@ -825,13 +787,18 @@ Unlike DRAGON, \NAME contains all simulation information in a single parameter f
 \var{Tneut}          & PR       & Temperarure of neutral gas \\
 \var{Tion}           & PR       & Temperature of ionized gas \\
 \var{Xfrac}          & PR       & Fraction of hydrogen \\
+\var{mu\_ion}        & PR       & Mean gas particle mass for ionisied gas \\
 \var{a\_star}        & PR       & Recombination coefficient \\
 \var{N\_LyC}         & PR       & No. of ionizing photons per second \\
 \var{rstatic}        & PR(1:3)  & Location of single static ionizing source \\
 \var{lmax\_hp}       & PR       & Maximum allowed number of HEALPix levels \\
 \var{M\_loss}        & PR       & Wind mass loss rate from source \\
-\var{v\_wind}        & PR       & Wind velocity from star \\
-%\hline
+\var{v\_wind}        & PR       & Wind velocity from star \\ \hline
+\var{comp\_frac}     & PR       & .. \\
+\var{turb\_T}        & PR       & .. \\
+\var{turb\_Ndt}      & PR       & .. \\
+\var{turb\_min}      & PR(1:3)  & .. \\
+\var{turb\_max}      & PR(1:3)  & .. \\ \hline
 \end{supertabular}
 \end{center}
 \vspace{1cm}
@@ -843,11 +810,11 @@ Unlike DRAGON, \NAME contains all simulation information in a single parameter f
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Generating initial conditions} \label{SS:ICS}
-\NAME contains a large number of small programs which can be used to generate initial conditions to run simulations.  These programs are contained in the sub-directory \var{/\name/ic} and can be compiled.  To compile any initial conditions program of some name \var{ic\_name}, simply type \newline 
+SEREN contains a large number of small programs which can be used to generate initial conditions to run simulations.  These programs are contained in the sub-directory \var{/seren/ic} and can be compiled.  To compile any initial conditions program of some name \var{ic\_name}, simply type \newline 
 
 \var{make ic\_name} \newline
 
-\noindent Some of the initial conditions programs require their own separate parameters file, a template of which can be found in the \var{\name/datafiles} sub-directory.  These parameters files must be copied into the main seren run directory in order to be accessed by the initial conditions program.  To run the initial conditions program, type \newline
+\noindent Some of the initial conditions programs require their own separate parameters file, a template of which can be found in the \var{seren/datafiles} sub-directory.  These parameters files must be copied into the main seren run directory in order to be accessed by the initial conditions program.  To run the initial conditions program, type \newline
 
 \var{./ic\_name}
 
@@ -940,7 +907,7 @@ corot            & logical   & Are stars co-rotating with binary orbit? \\
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{ic\_jeans}
-\var{ic\_jeans} sets-up the Jeans instability test (Hubber et al. 2006) which tests the ability of \NAME to resolve the Jeans gravitational instability.  Program reads in a relaxed unit cube (with the cube placed in positive octant) and stretches the particle distribution to produce a 1-D sinusoidal density perurbation.  Currently reads in parameters from the command line rather than via a separate parameters file. \newline
+\var{ic\_jeans} sets-up the Jeans instability test (Hubber et al. 2006) which tests the ability of SEREN to resolve the Jeans gravitational instability.  Program reads in a relaxed unit cube (with the cube placed in positive octant) and stretches the particle distribution to produce a 1-D sinusoidal density perurbation.  Currently reads in parameters from the command line rather than via a separate parameters file. \newline
 
 \noindent Required Makefile options :
 \begin{itemize}
@@ -1301,15 +1268,11 @@ erot             & PR        & Ratio of rotational kinetic energy to gravitation
 \end{center}
 
 
-%For some of these programs, there is more information about how they work and what kind of initial conditions are generated by lookiing at the actual source code itself where there are numerous comments contained within.  Most of these programs also require a separate parameters file which the user sets to generate the desired initial conditions.  These separate parameter files are contained within the subdirectory \var{/\name/datafiles} and are usually contain the test name in their own name (e.g. for ic\_sedov, the
-
 
 \newpage
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Running the \NAME bash test script}
-\NAME contains a bash script designed to run batches of tests of \NAME for development and debugging purposes.  The script, and all related files for running the tests, is located in the \var{/\name/testsuite} sub-directory.  In the \var{testsuite} directory, there is the \var{test-seren.sh} bash script and further sub-directories which contain files used by \var{test-seren.sh} when performing batch tests. 
+\section{Running the SEREN bash test script}
+SEREN contains a bash script designed to run batches of tests of SEREN for development and debugging purposes.  The script, and all related files for running the tests, is located in the \var{/seren/testsuite} sub-directory.  In the \var{testsuite} directory, there is the \var{test-seren.sh} bash script and further sub-directories which contain files used by \var{test-seren.sh} when performing batch tests. 
 
 A test is launched from the command line as in the following example : \newline
 
@@ -1320,7 +1283,7 @@ The current list of command line options for the script are ({\bf TBD}) :
 The list of tests currently set-up for use with the test script are ({\bf TBD}) : 
 \newline
 
-\tablecaption{List of automated tests in \NAME}
+\tablecaption{List of automated tests in SEREN}
 \tablehead{\hline \bf{Test name} & \bf{Description} \\ \hline}
 \tabletail{\hline}
 \tablelasttail{\hline}
@@ -1376,80 +1339,28 @@ STATPOLY1 & Relax a polytropic gas to hydrostatic balance. \\ \hline
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Coding style of \NAME}
+\section{Coding style of SEREN}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Design philosophy of \NAME}
-\NAME is a highly modular code written in Fortran 90 which comprises of several layers of subroutine calls in performing basic simulations.  Each subroutine is designed to perform one single task.  If a long procedure consists of a number of independent steps (i.e. not using the same local variables), then it is broken down into a sequence of smaller subroutines.  Also, each \var{.F90} file contains one single subroutine (with the exception of \var{sanitycheck.F90} which has two extra smaller subroutines for clarity).
+\subsection{Design philosophy of SEREN}
+SEREN is a highly modular code written in Fortran 90 which comprises of several layers of subroutine calls in performing basic simulations.  Each subroutine is designed to perform one single task.  If a long procedure consists of a number of independent steps (i.e. not using the same local variables), then it is broken down into a sequence of smaller subroutines.  Also, each \var{.F90} file contains one single subroutine (with the exception of \var{sanitycheck.F90} which has two extra smaller subroutines for clarity).
 
-For the benefit of anyone reading through the source code, or for those wishing to develop new routines, we discuss here in detail some of the more important coding conventions that are used in \NAME.  We do not discuss the particular features of any one subroutine (since each routine is extensively commented), but focus on the style used in most subroutines of \NAME.  
+For the benefit of anyone reading through the source code, or for those wishing to develop new routines, we discuss here in detail some of the more important coding conventions that are used in SEREN.  We do not discuss the particular features of any one subroutine (since each routine is extensively commented), but focus on the style used in most subroutines of SEREN.  
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Macros} \label{SS:MACROS}
-\NAME uses C-like macros throughout the source code, both for the clarity (by reducing the number of lines) and the efficiency and runtime speed of the code.  Macros are strings (conventionally in upper case as in C) which are substituted for some user-defined value or expression by the {\it pre-processor}, i.e. before the compiler generates machine code from the source code.  This can improve the runtime performance somewhat by removing common variable references.  
+SEREN uses C-like macros throughout the source code, both for the clarity (by reducing the number of lines) and the efficiency and runtime speed of the code.  Macros are strings (conventionally in upper case as in C) which are substituted for some user-defined value or expression by the {\it pre-processor}, i.e. before the compiler generates machine code from the source code.  This can improve the runtime performance somewhat by removing common variable references.  
 
-Macros are defined in two separate locations in \NAME.  Some are defined in the Makefile (e.g. \var{NDIM}). Most macros however are defined in the header file \var{/headers/macros.h}.  In order to make use of the macros, we must import the file \var{/headers/macros.h} into the subroutine by way of the pre-processor command \var{\#include ``macros.h''}.  The majority of macros in \NAME are straight-forward numerical substitutions of important information, such as array sizes or physical constants.
+Macros are defined in two separate locations in SEREN.  Some are defined in the Makefile (e.g. \var{NDIM}). Most macros however are defined in the header file \var{/headers/macros.h}.  In order to make use of the macros, we must import the file \var{/headers/macros.h} into the subroutine by way of the pre-processor command \var{\#include ``macros.h''}.  The majority of macros in SEREN are straight-forward numerical substitutions of important information, such as array sizes or physical constants.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\subsubsection{Numerical macros}
-%The majority of macros in \NAME are straight-forward numerical substitutions of important information, such as array sizes or physical constants.  Table \ref{TAB:MACROS} contains all of the important numerical macros used in SEREN (as defined in \var{/headers/macros.h}).  
-%\newline
-
-%\tablecaption{Table of numerical macros used in SEREN}
-%\tablehead{\hline {\bf Macro name} & {\bf (Default) Values} & {\bf Purpose} \\ \hline}
-%\tabletail{\hline}
-%\tablelasttail{\hline}
-%\begin{center}
-%\begin{supertabular}{|p{4cm}|p{2cm}|p{7cm}|} \label{TAB:MACROS}
-%NDIM             & 1, 2 or 3    & Number of dimensions.  The dimensionality 
-%                                  of the code is an important compiler option,
-%                                  and hence this is 
-%                                  defined in  the Makefile.  \\ \hline
-%MASS             & NDIM + 1     & Location of mass in grouped arrays \\ \hline
-%SMOO             & NDIM + 2     & Location of smoothing length in 
-%				  grouped arrays \\ \hline
-%PI               & 3.1415926536 & The constant $\pi$ \\ \hline
-%INVPI            & 0.318309886  & The reciprical of $\pi$ \\ \hline
-%INVLOGETWO       & 1.442695041  & $1 / \ln{2}$ \\ \hline
-%INVSQRTTWO       & 0.707106781  & $1 / \sqrt{2}$ \\ \hline 
-%BIG\_NUMBER      & 9.9e30       & Large number \\ \hline
-%SMALL\_NUMBER    & 1.0e-20      & Small number \\ \hline
-%ETA\_SQD         & 0.01         & \\ \hline
-%HMULT            & 1.1          & Multiplication factor in h-finding algorithm \\ \hline
-%KERNTOT          & 10000        & Number of elements in kernel table \\ \hline
-%HALFKERNTOT      & 5000.        & $\frac{1}{2}\,{\rm real}({\rm KERNTOT})$ \\ \hline
-%KERNRANGE        & 2.           & Kernel extent in units of \var{h} \\ \hline
-%INVKERNRANGE     & 0.5          & 1 / KERNRANGE \\ \hline
-%C\_1             & 0.1          & TDV decay constant \\ \hline
-%TVISC\_FAC       & 0.6          & \\ \hline
-%BAL\_DENOM       & 1.e-4        & Dimensionless factor in denominator of Balsara term\\ \hline
-%LEAFMAX          & +ve integer  & Maximum number of particles per leaf cell 
-%				  in the tree \\ \hline
-%LMAX             & 40           & Maximum number of levels in octal tree \\ \hline
-%NCHILD           & +ve integer  & No. of child cells in BH tree\\ \hline
-%NQUAD            & 5            & No. of quadrupole moment terms\\ \hline
-%NOCT             & 10           & No. of octupole moment terms\\ \hline
-%SMAX             & 100          & Maximum allowed number of sinks \\ \hline
-%ITOT             & 30           & \\ \hline
-%JTOT             & 30           & \\ \hline
-%HFAC             & 1.2          & No. o particles per smoothing length \\ \hline
-%H\_CON           & 0.01         & PM method convergence tolerance \\ \hline
-%PM\_ITERATION\_MAX & 40         & Maximum number of iterations in PM method\\ \hline
-%NBLOCKS          & 100          & Max no. of timing blocks\\ \hline
-%LISTSIZE         & +ve integer  & Max no. of particles in neighbour interaction lists\\ \hline
-%GLISTSIZE        & +ve integer  & Size if tree gravity buffer list\\ \hline
-%CHUNKFRAC        & 0.005        & OpenMP chuck size for load balancing\\ \hline
-
-%\end{supertabular}
-%\end{center}
 
 
 %%\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Function-like macros}
-Function-like macros are macros that look like functions/subroutines by their syntax, but work by the substitution of a string of commands, rather than calling a subroutine elsewhere in memory (thereby eliminating the extra cost associated with a subroutine call).  In \NAME, we use function-like macros as a compact and concise way of writing debugging information to the screen when in debug mode.  For example, we define the \var{debug1} macro in the following way. \newline
+Function-like macros are macros that look like functions/subroutines by their syntax, but work by the substitution of a string of commands, rather than calling a subroutine elsewhere in memory (thereby eliminating the extra cost associated with a subroutine call).  In SEREN, we use function-like macros as a compact and concise way of writing debugging information to the screen when in debug mode.  For example, we define the \var{debug1} macro in the following way. \newline
 
 \noindent \var{\#ifdef DEBUG1} \\
 \var{\#define debug1(x)   write (6,*) x} \\
@@ -1463,7 +1374,7 @@ If we wished to write debug information to screen (e.g. in order to indicate the
 \var{write(6,*) ``Calculating smoothing lengths''} \\ 
 \noindent\var{\#endif} \newline
 
-In \NAME, we can instead write the short-hand form
+In SEREN, we can instead write the short-hand form
 \newline
 
 \noindent \var{debug1(``Calculating smoothing lengths'')}
@@ -1478,7 +1389,7 @@ If DEBUG1 is not defined in the Makefile, then \var{debug1()} macro is replaced 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Real variable types} \label{SS:VARTYPES}
-Rather than hard-wiring in the precision of real variables in the source code, \NAME allows the user to specify the precision through one of the options in the Makefile (PRECISION).  The precision is controlled by several lines in the module \var{definitions} (in \var{modules.F90}) : \newline
+Rather than hard-wiring in the precision of real variables in the source code, SEREN allows the user to specify the precision through one of the options in the Makefile (PRECISION).  The precision is controlled by several lines in the module \var{definitions} (in \var{modules.F90}) : \newline
 
 \indent \var{integer, parameter :: DP = selected\_real\_kind(p=15)} \\
 \indent \var{integer, parameter :: SP = selected\_real\_kind(p=6)}  \\ 
@@ -1503,12 +1414,12 @@ If we wish to convert a variable to a real variable of required precision, we mu
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Particle data arrays} \label{SS:DATA}
-\NAME mainly uses simple arrays to store particle data.  However, data which are important in gravity calculations are stored differently.  The position, mass and smoothing length information are grouped together in a single array, \var{parray(1:NDIM+2,1:ptot)}.  The position of particle \var{p} is stored in the elements \var{parray(1:NDIM,p)}, the mass is stored in the element \var{parray(MASS,p)}, and the smoothing length is stored in the element \var{parray(SMOO,p)} (See \var{/\name/headers/macros.h} for macro definitions). \newline
+SEREN mainly uses simple arrays to store particle data.  However, data which are important in gravity calculations are stored differently.  The position, mass and smoothing length information are grouped together in a single array, \var{parray(1:NDIM+2,1:ptot)}.  The position of particle \var{p} is stored in the elements \var{parray(1:NDIM,p)}, the mass is stored in the element \var{parray(MASS,p)}, and the smoothing length is stored in the element \var{parray(SMOO,p)} (See \var{/seren/headers/macros.h} for macro definitions). \newline
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Particle types}
-\NAME accomodates the following particle types: 
+SEREN accomodates the following particle types: 
 \begin{itemize}
 \item Static boundary particles (\var{pboundary})
 \item Non-gravitating inter-cloud medium (IcM) particles (\var{picm})
@@ -1523,25 +1434,7 @@ in the simulation.  All data for the first three (boundary, IcM and self-gravita
 The data is stored such that the first \var{pboundary} elements contain the 
 information for boundary particles, the next \var{picm} elements contain the 
 information for the IcM particles, and the next \var{pgas} elements 
-contain the information for the gas particles, and the final \var{pcdm} elements contain the information for the cdm particles.  Although provision has been made for their use in future versions of \NAME, dust and ion particles are not currently active.  
-
-
-%When using different particle types, care must be taken when looping over particles in the code.  If all particles are self-gravitating gas particles, then all loops would simply range from \var{1} to \var{ptot}, but with different types particles this is not always the case.  Consider some common examples: 
-%\begin{itemize}
-%\item Hydro forces - We only need to loop over all IcM and gas particles (since boundary particles do not move).  We therefore only loop from the first IcM particle (i.e. \var{p = pboundary + 1}) to the very last gas particle (i.e. \var{p = ptot}).  We therefore define the variable 
-%\newline
-%
-%\var{phydrostart = pboundary + 1} \\
-%
-%\noindent (in the subroutine \var{/main/types.F90}).  Any loops over hydro particles will thus range from \var{phydrostart} to \var{ptot}.
-%
-%\item Gravitational forces - We only need to loop over all self-gravitating gas particles.  As with hydro forces, we define the variable \newline 
-%
-%\var{pgravitystart = pboundary + picm + 1} \\
-%
-%in \var{/main/types.F90} which points to the first gas particle.  Any loops over gravitating particles will thus range from \var{pgravitystart} to \var{ptot}.  
-%\end{itemize}
-%
+contain the information for the gas particles, and the final \var{pcdm} elements contain the information for the cdm particles.  Although provision has been made for their use in future versions of SEREN, dust and ion particles are not currently active.  
 
 The sink particles are stored in separate data structures, since they can have many additional properties that are not possessed by normal SPH particles and thus require their own data structures.  We use Fortran \var{types} (equivalent to C structures) to hold sink data.  The main array that contains each sink structure is called \var{sinkdata} and elements can be accessed using the Fortran \% notation (e.g. the mass element of sink \var{s} is \var{sinkdata(s)\%m}).  
 
@@ -1549,7 +1442,7 @@ The sink particles are stored in separate data structures, since they can have m
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Units}
-Dimensionless units are used in numerical simulations so that all values are as close to unity as possible, to avoid having very large or very small values that may result in significant rounding errors.  \NAME contains a flexible system of units which allows the user to select from a wide range of commonly used astrophysical units, or easily construct their own set of units.  All variables related to units and scaling are determined in \var{units.F90}.  Each quantity, \var{X}, has four scaling variables associated with it: \var{Xunit}, \var{Xscale}, \var{X\_SI} and \var{Xcgs}.
+Dimensionless units are used in numerical simulations so that all values are as close to unity as possible, to avoid having very large or very small values that may result in significant rounding errors.  SEREN contains a flexible system of units which allows the user to select from a wide range of commonly used astrophysical units, or easily construct their own set of units.  All variables related to units and scaling are determined in \var{units.F90}.  Each quantity, \var{X}, has four scaling variables associated with it: \var{Xunit}, \var{Xscale}, \var{X\_SI} and \var{Xcgs}.
 
 
 \begin{itemize}
@@ -1565,7 +1458,7 @@ Dimensionless units are used in numerical simulations so that all values are as 
 \end{itemize}
 
 
-In a self-gravitating code like \NAME, we choose a set of units so as to make the gravitational constant $G$ equal to unity.   We are free to choose the values of \var{rscale} and \var{mscale}.  The value of \var{tscale} is then set to ensure \var{G = 1} in the new system of units.  Therefore, the value of \var{tscale} can be obtained using 
+In a self-gravitating code like SEREN, we choose a set of units so as to make the gravitational constant $G$ equal to unity.   We are free to choose the values of \var{rscale} and \var{mscale}.  The value of \var{tscale} is then set to ensure \var{G = 1} in the new system of units.  Therefore, the value of \var{tscale} can be obtained using 
 \begin{equation}
 tscale \times t\_SI = \frac{\left( rscale \times r\_SI \right)^{3/2}} 
 {\sqrt{G \times mscale \times m\_SI}}
@@ -1628,7 +1521,7 @@ Jscale \times J\_SI = \frac{Qscale \times Q\_SI}
 \newline
 
 
-\tablecaption{List of unit options in \NAME}
+\tablecaption{List of unit options in SEREN}
 \tablehead{\hline \bf{Xunit}      & \bf{Options}    & \bf{Description}  \\ \hline}
 \tabletail{\hline}
 \tablelasttail{\hline}
@@ -1697,10 +1590,12 @@ Jscale \times J\_SI = \frac{Qscale \times Q\_SI}
 \hline
 \var{Qunit}     & \var{C}         & coulombs \\
 \hline
-\var{Junit}     & \var{C\_m2\_s}    & coulombs per second per metre squared \\
+\var{Junit}     & \var{C\_m2\_s}  & coulombs per second per metre squared \\
 \hline
 \var{uunit}     & \var{J\_kg}     & Joules per kilogram \\
-                & \var{erg\_g}    & ergs per gramme \\
+                & \var{erg\_g}    & ergs per gramme \\ \hline
+\var{dudtunit}  & \var{J\_kg\_s}  & Joules per kilogram per second \\ \hline
+\var{tempunit}  & \var{K}         & kelvin \\
 \end{supertabular}
 \end{center}
 
@@ -1710,23 +1605,23 @@ Jscale \times J\_SI = \frac{Qscale \times Q\_SI}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{File formats}
-\NAME \VERNO uses both the DRAGON file format and the native \NAME file format for reading in initial conditions and writing out snapshots.  Unlike in DRAGON, the format of the initial conditions file need not be the same as the format of the output snapshots.  This is controlled by the two input parameters in the parameters file, \var{in\_file\_form} and \var{out\_file\_form}.  The possible values for these parameters are : 
+SEREN \VERNO uses both the DRAGON file format and the native SEREN file format for reading in initial conditions and writing out snapshots.  Unlike in DRAGON, the format of the initial conditions file need not be the same as the format of the output snapshots.  This is controlled by the two input parameters in the parameters file, \var{in\_file\_form} and \var{out\_file\_form}.  The possible values for these parameters are : 
 \begin{itemize}
 \item \var{ascii} - Simple (ASCII) column format
 \item \var{dragon\_form} - Formatted (ASCII) DRAGON snapshot files
 \item \var{dragon\_unform} - Unformatted (binary) DRAGON snapshot files
-\item \var{seren\_form} - Formatted (ASCII) \NAME snapshot files
-\item \var{seren\_unform} - Unformatted (binary) \NAME snapshot files (Not yet working)
+\item \var{seren\_form} - Formatted (ASCII) SEREN snapshot files
+\item \var{seren\_unform} - Unformatted (binary) SEREN snapshot files (Not yet working)
 \end{itemize}
 
-As well as standard snapshot files, \NAME can also produce a simple ASCII output which is useful for debugging purposes.  This can be enabled by using the {\rm -DDEBUG\_PLOT\_DATA} compiler flag.
+As well as standard snapshot files, SEREN can also produce a simple ASCII output which is useful for debugging purposes.  This can be enabled by using the {\rm -DDEBUG\_PLOT\_DATA} compiler flag.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{ASCII format}
-Seren can use a simple flexible ASCII column-format.  The data is stored in columns with width $N_{_{\rm COLUMNS}}$ and length $N$ (where $N$ is the total number of particles of all types).  The data descriptor of each column is contained in a file labelled \var{asciicolumns.dat} (a template copy should be stored in the \var{/datafiles} sub-directory).  The possible data descriptors currently enabled in \NAME are
+Seren can use a simple flexible ASCII column-format.  The data is stored in columns with width $N_{_{\rm COLUMNS}}$ and length $N$ (where $N$ is the total number of particles of all types).  The data descriptor of each column is contained in a file labelled \var{asciicolumns.dat} (a template copy should be stored in the \var{/datafiles} sub-directory).  The possible data descriptors currently enabled in SEREN are
 \begin{itemize} 
-\item \var{ptype} - Particle type.  The following particle types are available in \NAME : 
+\item \var{ptype} - Particle type.  The following particle types are available in SEREN : 
 \begin{itemize}
 \item -1 : sink/star
 \item  0 : dead particle
@@ -1745,9 +1640,12 @@ Seren can use a simple flexible ASCII column-format.  The data is stored in colu
 The only constraint on the column order is that the first column must be \var{ptype}.  Thereafter, the remaining columns can be arranged in any order.  In the file containing the data, the data must match up to the chosen columns correctly, or the particle data will be read-in incorrectly.  All physical quantities are measured in the units defined in the \var{params.dat} file.  Due to the simplicity of this format, it contains no extra information (e.g. time, gamma, etc.), and therefore is perhaps not of long-term practical use, but should be suitable for those who wish to generate their own initial conditions from other programmes without learning all the complications of the other available formats.
 
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Dragon format}
 To be written
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Seren format}
@@ -1762,47 +1660,47 @@ To be written
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Basic directory structure}
-Subroutines in \NAME are not all contained in a single source directory, 
+Subroutines in SEREN are not all contained in a single source directory, 
 but are grouped in several sub-directories depending on their purpose. 
 In version 1.0, the following sub-directories exist : 
 \begin{itemize}
-\item \var{/\name/src/advance} - integration routines
-\item \var{/\name/src/analyse} - analysis routines
-\item \var{/\name/src/BHtree} - Barnes-Hut octal tree subroutines
-\item \var{/\name/src/binarytree} - Binary-number tree subroutines
-\item \var{/\name/datafiles} - Contains initial conditions parameters files
-\item \var{/\name/docs} - Contains latest version of the userguide
-\item \var{/\name/src/gravity} - subroutines that calculate gravitational forces
-\item \var{/\name/src/headers} - macro and modules files
-\item \var{/\name/src/healpix} - HEALPix ioniaztion routines
-\item \var{/\name/src/ic} - programs to generate initial conditions for 
+\item \var{/seren/src/advance} - integration routines
+\item \var{/seren/src/analyse} - analysis routines
+\item \var{/seren/src/BHtree} - Barnes-Hut octal tree subroutines
+\item \var{/seren/src/binarytree} - Binary-number tree subroutines
+\item \var{/seren/datafiles} - Contains initial conditions parameters files
+\item \var{/seren/docs} - Contains latest version of the userguide
+\item \var{/seren/src/gravity} - subroutines that calculate gravitational forces
+\item \var{/seren/src/headers} - macro and modules files
+\item \var{/seren/src/healpix} - HEALPix ioniaztion routines
+\item \var{/seren/src/ic} - programs to generate initial conditions for 
 regularly used configurations (e.g. relaxed rectangular cubes, 
 spheres)
-\item \var{/\name/src/io} - subroutines that read and write files
-\item \var{/\name/src/main} - contains important and commonly used 
+\item \var{/seren/src/io} - subroutines that read and write files
+\item \var{/seren/src/main} - contains important and commonly used 
 subroutines
-\item \var{/\name/src/mhd} - contains magneto-hydrodynamics routines
-\item \var{/\name/src/nbody} - N-body routines
-\item \var{/\name/src/nbody\_sim} - N-body simulation subroutines
-\item \var{/\name/src/nbody\_sph\_sim} - Hybrid N-body/SPH simulation routines
-\item \var{/\name/src/radiation} - contains radiation transfer subroutines
-\item \var{/\name/src/setup} - contains subroutines called during initialization of \NAME .
-\item \var{/\name/src/sinks} - subroutines that search for, create and 
+\item \var{/seren/src/mhd} - contains magneto-hydrodynamics routines
+\item \var{/seren/src/nbody} - N-body routines
+\item \var{/seren/src/nbody\_sim} - N-body simulation subroutines
+\item \var{/seren/src/nbody\_sph\_sim} - Hybrid N-body/SPH simulation routines
+\item \var{/seren/src/radiation} - contains radiation transfer subroutines
+\item \var{/seren/src/setup} - contains subroutines called during initialization of SEREN .
+\item \var{/seren/src/sinks} - subroutines that search for, create and 
 advance sink particles. 
-\item \var{/\name/src/sorts} - subroutines for sorting lists
-\item \var{/\name/src/sph} - subroutines that perform important SPH functions 
-\item \var{/\name/src/sph\_sim} - SPH simulation routines
+\item \var{/seren/src/sorts} - subroutines for sorting lists
+\item \var{/seren/src/sph} - subroutines that perform important SPH functions 
+\item \var{/seren/src/sph\_sim} - SPH simulation routines
 (e.g. h-finding, neighbour searching)  
-\item \var{/\name/src/tests} - test programs
-\item \var{/\name/src/timestep} - timestepping routines
-\item \var{/\name/testsuite} - bash script for running batch tests of seren
+\item \var{/seren/src/tests} - test programs
+\item \var{/seren/src/timestep} - timestepping routines
+\item \var{/seren/testsuite} - bash script for running batch tests of seren
 \end{itemize}
 
 
 %\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Variable conventions}
-In \NAME, the names of all commonly used local variables are kept as 
+In SEREN, the names of all commonly used local variables are kept as 
 consistent as possible between different subroutines.  
 Here we list the names of all common local integer and real variables.  
 
