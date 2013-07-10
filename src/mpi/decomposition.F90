@@ -525,9 +525,6 @@ SUBROUTINE decomposition
   ndata           = 0
      
 ! Set unit character ids
-#if defined(DIMENSIONLESS)
-  nunit = 0
-#else
   unit_data(1)  = runit
   unit_data(2)  = munit
   unit_data(3)  = tunit
@@ -548,9 +545,8 @@ SUBROUTINE decomposition
   unit_data(18) = Qunit
   unit_data(19) = Junit
   unit_data(20) = uunit
-  unit_data(21) = "K"
+  unit_data(21) = tempunit
   nunit = 21
-#endif
 
 ! Set array ids and array information data if there are any SPH particles
 ! ----------------------------------------------------------------------------

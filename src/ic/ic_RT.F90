@@ -56,10 +56,6 @@ PROGRAM ic_RT
   real(kind=PR) :: ywall1             ! ..
   real(kind=PR) :: ywall2             ! ..
 
-#ifndef DIMENSIONLESS
-  write(6,*) "Compiler flag error : Only works with DIMENSIONLESS flag on"
-  stop
-#endif
 #if NDIM==1 || NDIM==3
   write(6,*) "Compiler flag error : Only works in 2D"
   stop

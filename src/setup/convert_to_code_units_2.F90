@@ -74,8 +74,8 @@ SUBROUTINE convert_to_code_units_2
 #endif
 
 ! If using fixed absolute sink radius, scale variable from au to code units
-#if defined(FIXED_ABSOLUTE_SINKRAD) && !defined(DIMENSIONLESS)
-  sinkrad = sinkrad * real(r_au/(rscale*r_SI),PR)
+#if defined(FIXED_ABSOLUTE_SINKRAD)
+  if (.not. dimensionless) sinkrad = sinkrad * real(r_au/(rscale*r_SI),PR)
 #endif
 
   return

@@ -47,6 +47,7 @@ Fixed (maximum) timestep                  : dt_fixed = 1.0
 ==============================================================================
 Unit parameters
 ==============================================================================
+Use dimensionless units in simulation?    : dimensionless = .FALSE.
 Length unit                               : runit      = pc
 Mass unit                                 : munit      = m_sun
 Time unit                                 : tunit      = myr

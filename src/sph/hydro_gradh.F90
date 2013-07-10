@@ -46,9 +46,6 @@ SUBROUTINE hydro_gradh(p)
   real(kind=PR) :: up                    ! Specific internal energy of p
   real(kind=PR) :: vp(1:NDIM)            ! velocity of particle p
   real(kind=PR) :: wmean                 ! (W(p) + W(pp)) / 2
-#if defined(SIGNAL_VELOCITY)
-  real(kind=PR) :: vsigmax_p             ! Max. signal velocity of p
-#endif
 #if defined(RIEMANN_SOLVER)
   real(kind=PR) :: gamma_eff             ! Effective ratio of specific heats
   real(kind=PR) :: Pstar                 ! Mean pressure variable
@@ -105,9 +102,6 @@ integer :: j
 
 ! Zero arrays
   ahydro_temp(1:NDIM) = 0.0_PR
-#if defined(SIGNAL_VELOCITY)
-  vsigmax_p = 0.0_PR
-#endif
 #if defined(ARTIFICIAL_VISCOSITY)
   ahydro_diss(1:VDIM) = 0.0_PR
 #endif
@@ -157,10 +151,6 @@ integer :: j
      dvdr = dot_product(dv,dr_unit)
      invdrmag = 1.0_PR / drmag
      dr_unit(1:NDIM) = dr_unit(1:NDIM)*invdrmag
-#if defined(SIGNAL_VELOCITY)
-     vsigmax_p = max(vsigmax_p,sound_p,&
-          &sound_p + sph(pp)%sound - beta*dvdr*invdrmag)
-#endif
 
      ! Add gather-neighbour contribution
      if (drmag < KERNRANGE*hp) then
@@ -249,9 +239,6 @@ integer :: j
 #endif
 #if defined(DEBUG_FORCES) && defined(ARTIFICIAL_VISCOSITY)
   sph(p)%a_visc(1:VDIM) = ahydro_diss(1:VDIM)
-#endif
-#if defined(SIGNAL_VELOCITY)
-  sph(p)%vsigmax = vsigmax_p
 #endif
 
 ! Record hydro acceleration in main array

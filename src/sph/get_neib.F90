@@ -26,7 +26,7 @@ SUBROUTINE get_neib(p)
   real(kind=PR) :: hrangesqd_p           ! particle radius (2*h_p) squared
   real(kind=PR) :: hrangesqd_pp          ! particle radius (2*h_pp) squared
   real(kind=PR) :: rp(1:NDIM)            ! Position of particle p
-#if defined(BH_TREE) || defined(BINARY_TREE)
+#if defined(BH_TREE)
   integer :: i                           ! aux. counter in neighbour search
   integer :: pp_max                      ! length of pp_potlist array
   integer :: pp_pot                      ! no. of potential neighbours found
@@ -58,7 +58,7 @@ SUBROUTINE get_neib(p)
 #endif
 
 ! If using a tree, obtain a smaller potential neighbour list
-#if defined(BH_TREE) || defined(BINARY_TREE)
+#if defined(BH_TREE)
 #if defined(GHOST_PARTICLES)
   pp_max = min(LISTSIZE,ptot+pghost)
 #else
@@ -76,8 +76,6 @@ SUBROUTINE get_neib(p)
           & call BHhydro_walk(rp(1:NDIM),KERNRANGE*sph(p)%h,&
           & pp_pot,pp_max,pp_potlist,ctot_ghost,BHghost(0:ctot_hydro))
 #endif
-#elif defined(BINARY_TREE)
-     call binary_neibfind(rp,sph(p)%h,pp_pot,pp_max,pp_potlist)
 #endif
      if (pp_pot < 0) then
 #if defined(GHOST_PARTICLES)
@@ -97,7 +95,7 @@ SUBROUTINE get_neib(p)
 
 ! Loop over potential list or all particles depending on flags
 ! ----------------------------------------------------------------------------
-#if defined(BH_TREE) || defined(BINARY_TREE)
+#if defined(BH_TREE)
   do i=1,pp_pot
      pp = pp_potlist(i)
 #else
@@ -145,7 +143,7 @@ SUBROUTINE get_neib(p)
   end if
 
 #if defined(DEBUG_GET_NEIB)
-#if defined(BH_TREE) || defined(BINARY_TREE)
+#if defined(BH_TREE)
   write(6,*) "h(",p,") : ",sph(p)%h,"   n_gather : ", n_gather,&
        &"  n_scatter : ",n_scatter,"  pp_max : ",pp_max,"  pp_tot : ",pp_tot
 #elif
@@ -159,7 +157,7 @@ SUBROUTINE get_neib(p)
 #endif
 #endif
 
-#if defined(BH_TREE) || defined(BINARY_TREE)
+#if defined(BH_TREE)
   if (allocated(pp_potlist)) deallocate(pp_potlist)
 #endif
 

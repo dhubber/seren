@@ -128,20 +128,6 @@ SUBROUTINE sanitycheck
 #endif
 #endif
 
-#if defined(BINARY_TREE)
-  call comperror("Binary tree not completely implemented; currently disabled")
-#endif
-
-#if defined(BINARY_TREE) && LEAFMAX == 1
-  call comperror("LEAFMAX == 1 does not work for the binary tree")
-#endif
-
-#if defined(NBODY_SPH_SIMULATION) || defined(NBODY_SIMULATION)
-!#if !defined(SINKS)
-!  call comperror("SINKS flag off and NBODY flag on")
-!#endif
-#endif
-
 #if defined(SINK_GRAVITY_ONLY) && !defined(SINKS)
   call comperror("SINKS flag off and SINK_GRAVITY_ONLY flag on")
 #endif
@@ -149,10 +135,6 @@ SUBROUTINE sanitycheck
 #if defined(SINK_GRAVITY_ONLY) && defined(SELF_GRAVITY)
   call comperror("SINK_GRAVITY_ONLY and SELF_GRAVITY flags on")
 #endif
-
-!#if defined(BH_TREE) && defined(REORDER_TREE)
-!  call comperror("REORDER not working correctly with TREE or ALL options")
-!#endif
 
 #if !defined(ADAPTIVE_TIMESTEP_LEVELS) && !defined(RESTRICTED_TIMESTEP_LEVELS) && !defined(FIXED_TIMESTEP_LEVELS)
   call comperror("No TIMESTEP option selected")
@@ -253,10 +235,6 @@ SUBROUTINE sanitycheck
 
 #if defined(REORDER_TREE)
   call comperror("REORDER_TREE is not supported with MPI")
-#endif
-
-#if defined(BINARY_TREE)
-  call comperror("BINARY_TREE is not supported with MPI")
 #endif
 
 #if defined(CELL_WALK)

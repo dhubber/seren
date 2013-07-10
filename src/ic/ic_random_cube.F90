@@ -30,11 +30,6 @@ PROGRAM ic_random_cube
   real(kind=PR) :: length         ! Side-length of line/square/cube
   real(kind=PR) :: randnumb       ! Random number
 
-#ifndef DIMENSIONLESS
-  write(6,*) "Compiler flag error : Only works with DIMENSIONLESS flag on"
-  stop
-#endif
-
 ! Set parameters to default values
   call default_parameters
 

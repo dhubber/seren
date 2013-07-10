@@ -30,10 +30,6 @@ PROGRAM ic_hcp
   real(kind=PR) :: rp(1:NDIM)       ! Position of particle p
   real(kind=PR) :: rorigin(1:NDIM)  ! Centre of polytrope
 
-#ifndef DIMENSIONLESS
-  write(6,*) "Compiler flag error : Only works with DIMENSIONLESS flag on"
-  stop
-#endif
 #if NDIM != 2
   write(6,*) "Compiler flag error : Only working in 2 dimensions"
   stop

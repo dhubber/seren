@@ -3,7 +3,9 @@
 ! ..
 ! =============================================================================
 
+
 #include "macros.h"
+
 
 #if defined(HYDRO)
 ! =============================================================================
@@ -133,11 +135,7 @@ FUNCTION temperature(p)
   real(kind=PR) :: mu_bar_p                    ! mean gas particle mass for p
  
   if (typeinfo(sph(p)%ptype)%eos == "isothermal") then
-#if defined(DIMENSIONLESS)
-     temperature = 1.0_PR
-#else
      temperature = isotemp
-#endif
   else if (typeinfo(sph(p)%ptype)%eos == "barotropic") then
      temperature = isotemp*(1.0_PR + (sph(p)%rho/rhobary)**(gammaone))
   else if (typeinfo(sph(p)%ptype)%eos == "polytropic") then

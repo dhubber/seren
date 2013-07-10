@@ -82,10 +82,6 @@ PROGRAM ic_NTSI
   real(kind=PR), allocatable :: r2(:,:)  ! Position of RHS particles
   real(kind=PR), allocatable :: vs(:,:)  ! Smoothed velocity
 
-#ifndef DIMENSIONLESS
-  write(6,*) "Compiler flag error : Only works with DIMENSIONLESS flag on"
-  stop
-#endif
 #if NDIM==1
   stop 'Compiler flag error : Does not work in 1-D'
 #endif

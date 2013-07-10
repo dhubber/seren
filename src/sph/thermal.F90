@@ -48,14 +48,11 @@ SUBROUTINE thermal(p)
 ! Isothermal equation of state
 ! ----------------------------------------------------------------------------
   if (eos == "isothermal") then
-#if defined(DIMENSIONLESS)
-     sph(p)%temp  = 1.0_PR
-#else
      sph(p)%temp  = isotemp
-#endif
      sph(p)%press = Pconst*sph(p)%temp*sph(p)%rho
      sph(p)%sound = sqrt(sph(p)%press/sph(p)%rho)
      sph(p)%u     = sph(p)%press/sph(p)%rho 
+
 
 ! Barotropic equation of state
 ! ----------------------------------------------------------------------------

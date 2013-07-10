@@ -83,9 +83,6 @@ SUBROUTINE sph_sink_forces
 #if defined(SELF_GRAVITY) && defined(BH_TREE)
         call BHgrav_accel(-s,1.0_PR/sink(s)%h,0.0_PR,&
              &sink(s)%agravmag,sink(s)%r(1:NDIM),atemp(1:NDIM),pots)
-#elif defined(SELF_GRAVITY) && defined(BINARY_TREE)
-        call binary_gravacc(-s,1.0_PR/sink(s)%h,&
-             &sink(s)%r(1:NDIM),atemp(1:NDIM),pots)
 #elif defined(SELF_GRAVITY)   
         call direct_sph_gravity(-s,1.0_PR/sink(s)%h,0.0_PR,&
              &sink(s)%r(1:NDIM),atemp(1:NDIM),pots)

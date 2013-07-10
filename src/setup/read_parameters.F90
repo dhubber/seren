@@ -14,22 +14,20 @@ SUBROUTINE read_parameters(filename)
   use sink_module
   implicit none
 
-  character(len=*), intent(in) :: filename   ! params file name
+  character(len=*), intent(in) :: filename   ! Params file name
 
-  character(len=500) :: line                 ! line
-  character(len=100) :: var_name             ! variable name
-  character(len=100) :: var_value            ! variable value
-  logical :: alldone                         ! all parameters read?
-  integer :: colon_pos                       ! position of ':' in string
-  integer :: equal_pos                       ! position of '=' in string
-  integer :: i                               ! parameter counter
+  character(len=500) :: line                 ! Line
+  character(len=100) :: var_name             ! Variable name
+  character(len=100) :: var_value            ! Variable value
+  integer :: colon_pos                       ! Position of ':' in string
+  integer :: equal_pos                       ! Position of '=' in string
+  integer :: i                               ! Parameter counter
 
   debug1("Reading file : "//trim(filename)//" [read_parameters.F90]")
 
   open(1, file=filename, status="old", form="formatted")
 
   params(1:nparams)%done = .false.
-  alldone = .true.
 
 
 ! Scan through file and parse text to read parameter values
@@ -90,16 +88,12 @@ SUBROUTINE read_parameters(filename)
 10 close (1)
 
 ! Now check through parameters to make sure all have been read
-  if (.not. incomplete_params) then
-     do i=1,nparams
-        if (.not. params(i)%done) then
-           alldone = .false.
-           write(6,*) "Fatal error!  Parameter not read : ",&
-                &trim(adjustl(params(i)%var_name))
-        end if
-     end do
-     if (.not. alldone) stop
-  end if
+  do i=1,nparams
+     if (.not. params(i)%done) then
+        write(6,*) "Warning!  Parameter not read : ",&
+             &trim(adjustl(params(i)%var_name))
+     end if
+  end do
 
   return
 END SUBROUTINE read_parameters

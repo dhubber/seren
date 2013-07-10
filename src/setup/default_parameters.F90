@@ -65,6 +65,7 @@ SUBROUTINE default_parameters
   call add_double_parameter("dt_fixed",dt_fixed,1.0_DP)
 
 ! Scaling preferences
+  call add_logical_parameter("dimensionless",dimensionless,.false.)
   call add_unit_parameter("runit",runit,"pc")
   call add_unit_parameter("munit",munit,"m_sun")
   call add_unit_parameter("tunit",tunit,"myr")

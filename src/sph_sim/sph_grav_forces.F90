@@ -152,9 +152,6 @@ SUBROUTINE sph_grav_forces
 #elif defined(SELF_GRAVITY) && defined(BH_TREE)
         call BHgrav_accel(p,1.0_PR/sph(p)%h,0.0_PR,&
              &sph(p)%agravmag,sph(p)%r(1:NDIM),atemp(1:NDIM),potp)
-#elif defined(SELF_GRAVITY) && defined(BINARY_TREE)
-        call binary_gravacc(p,1.0_PR/sph(p)%h,&
-             &sph(p)%r(1:NDIM),atemp(1:NDIM),potp)
 #elif defined(SELF_GRAVITY) && defined(GRAD_H_SPH) 
         call direct_sph_gravity(p,1.0_PR/sph(p)%h,sph(p)%zo,&
              &sph(p)%r(1:NDIM),atemp(1:NDIM),potp)

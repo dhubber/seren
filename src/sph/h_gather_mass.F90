@@ -80,8 +80,6 @@ SUBROUTINE h_gather(p,hguess,rp)
 #if defined(BH_TREE)
            call BHhydrowalk_hgather(rp(1:NDIM),KERNRANGE*h_search,&
                 &pp_pot,pp_max,pp_potlist)
-#elif defined(BINARY_TREE)
-           call binary_neibfind(p,h_search,pp_pot,pp_max,pp_potlist)
 #else
            do pp=1,ptot
               if (pp == p) cycle

@@ -67,32 +67,33 @@ SUBROUTINE write_data_seren_unform(out_file)
   ndata           = 0
 
 ! Set unit character ids
-#if defined(DIMENSIONLESS)
-  nunit = 0
-#else
-  unit_data(1)  = runit
-  unit_data(2)  = munit
-  unit_data(3)  = tunit
-  unit_data(4)  = vunit
-  unit_data(5)  = aunit
-  unit_data(6)  = rhounit
-  unit_data(7)  = sigmaunit
-  unit_data(8)  = Punit
-  unit_data(9)  = funit
-  unit_data(10) = Eunit
-  unit_data(11) = momunit
-  unit_data(12) = angmomunit
-  unit_data(13) = angvelunit
-  unit_data(14) = dmdtunit
-  unit_data(15) = Lunit
-  unit_data(16) = kappaunit
-  unit_data(17) = Bunit
-  unit_data(18) = Qunit
-  unit_data(19) = Junit
-  unit_data(20) = uunit
-  unit_data(21) = tempunit
-  nunit = 21
-#endif
+  if (dimensionless) then
+     nunit = 0
+  else
+     unit_data(1)  = runit
+     unit_data(2)  = munit
+     unit_data(3)  = tunit
+     unit_data(4)  = vunit
+     unit_data(5)  = aunit
+     unit_data(6)  = rhounit
+     unit_data(7)  = sigmaunit
+     unit_data(8)  = Punit
+     unit_data(9)  = funit
+     unit_data(10) = Eunit
+     unit_data(11) = momunit
+     unit_data(12) = angmomunit
+     unit_data(13) = angvelunit
+     unit_data(14) = dmdtunit
+     unit_data(15) = Lunit
+     unit_data(16) = kappaunit
+     unit_data(17) = Bunit
+     unit_data(18) = Qunit
+     unit_data(19) = Junit
+     unit_data(20) = uunit
+     unit_data(21) = tempunit
+     nunit = 21
+  end if
+
 
 ! Set array ids and array information data if there are any SPH particles
 ! ----------------------------------------------------------------------------
@@ -126,9 +127,7 @@ SUBROUTINE write_data_seren_unform(out_file)
      typedata(1:5,ndata) = (/1,1,ptot,2,0/)
 #endif
 
-#if defined(DIMENSIONLESS)
-     typedata(5,:) = 0
-#endif
+     if (dimensionless) typedata(5,:) = 0
   end if
 
 #if defined(SINKS)

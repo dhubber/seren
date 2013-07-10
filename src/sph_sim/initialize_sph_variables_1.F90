@@ -54,9 +54,6 @@ SUBROUTINE initialize_sph_variables_1
 #if defined(VISC_BALSARA)
   sph(1:ptot)%balsara = 0.0_PR
 #endif
-#if defined(VISC_PATTERN_REC)
-  sph(1:ptot)%pattrec = 0.0_PR
-#endif
 
 
 ! Grad-h SPH correction terms
@@ -135,9 +132,6 @@ SUBROUTINE initialize_sph_variables_1
   nstock = nsteps
   nionize = nsteps
   nionall = nsteps
-#if defined(BINARY_TREE)
-  nskeleton = nsteps
-#endif
 
   pghost = 0
   pperiodic = 0

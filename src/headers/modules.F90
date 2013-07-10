@@ -358,9 +358,6 @@ MODULE Nbody_module
   real(kind=DP) :: nbody_frac        ! Frac. of gas removed before N-body sim
   real(kind=DP) :: nbody_lastsnap    ! Time of last nbody snapshot
   real(kind=DP) :: nbody_timemult    ! N-body timestep multiplier
-#if defined(FORCE_SPLITTING)
-  logical :: sphminstep              ! Is this the minimum SPH step?
-#endif
 
   type star_node
      logical :: accdo                ! Acceleration step?
@@ -393,26 +390,6 @@ MODULE Nbody_module
      real(kind=DP) :: star_radius    ! Physical radius of unresolved star
      real(kind=DP) :: macc(1:DMDT_RANGE) ! Masses accreted in previous steps
      real(kind=DP) :: tacc(1:DMDT_RANGE) ! Times of previous steps
-#if defined(BINARY_COM_MOTION)
-     integer :: binid                ! Binary star id
-#endif
-#if defined(FORCE_SPLITTING)
-     logical :: accsph                   ! ..
-     real(kind=DP) :: lastsph            ! ..
-     real(kind=DP) :: gpotsph            ! ..
-     real(kind=DP) :: gpotstar           ! ..
-     real(kind=DP) :: asph(1:VDIM)       ! ..
-     real(kind=DP) :: a0sph(1:VDIM)      ! ..
-     real(kind=DP) :: adotsph(1:VDIM)    ! ..
-     real(kind=DP) :: adot0sph(1:VDIM)   ! ..
-     real(kind=DP) :: astar(1:VDIM)      ! ..
-     real(kind=DP) :: a0star(1:VDIM)     ! ..
-     real(kind=DP) :: adotstar(1:VDIM)   ! ..
-     real(kind=DP) :: adot0star(1:VDIM)  ! ..
-     real(kind=DP) :: a2dotstar(1:VDIM)  ! 2nd deriv accel
-     real(kind=DP) :: a2dot0star(1:VDIM) ! 2nd deriv accel at start of timestep
-     real(kind=DP) :: a3dotstar(1:VDIM)  ! 3rd deriv accel
-#endif
   end type star_node
   type(star_node), allocatable   :: star(:)   ! Star array (N-body)
 
@@ -430,13 +407,6 @@ MODULE Nbody_module
      real(kind=DP) :: q              ! Mass-ratio (=m2/m1)
      real(kind=DP) :: sma            ! Semi-major axis
      real(kind=DP) :: drmag          ! Instantaneous dist. between components
-#if defined(BINARY_COM_MOTION)
-     integer(kind=ILP) :: nlast      ! n of beginning of current timestep
-     integer(kind=ILP) :: nlevel     ! timestep level of star
-     real(kind=DP) :: apert(1:NDIM)  ! Perturbation acceleration on binary
-     real(kind=DP) :: dr(1:NDIM)     ! Relative position vector
-     real(kind=DP) :: dv(1:VDIM)     ! Relative velocity vector
-#endif
   end type binary_node
   type(binary_node), allocatable :: binary(:)  ! Main binary array
 
@@ -587,9 +557,6 @@ MODULE particle_module
      real(kind=PR) :: Ahalf            ! Half-step entropic function
 #endif
 #endif
-#if defined(SIGNAL_VELOCITY)
-     real(kind=PR) :: vsigmax          ! Maximum signal velocity
-#endif
 #if defined(VISC_TD)
      real(kind=PR) :: talpha           ! Time-dependent alpha parameter
      real(kind=PR) :: talpha_old       ! alpha at start of timestep
@@ -598,9 +565,6 @@ MODULE particle_module
 #if defined(VISC_BALSARA)
      real(kind=PR) :: balsara          ! Balsara factor
 #endif
-#if defined(VISC_PATTERN_REC)
-     real(kind=PR) :: pattrec          ! Pattern recognition factor
-#endif 
 #endif
 #if defined(IONIZING_UV_RADIATION)
      integer :: newtemp                ! New temperature calculated
@@ -675,6 +639,8 @@ END MODULE periodic_module
 ! ============================================================================
 MODULE scaling_module
   use definitions
+
+  logical :: dimensionless           ! Flag if using dimensionless units
 
 ! Scaling unit strings
   character(len=20) :: runit         ! length unit
@@ -969,10 +935,6 @@ MODULE time_module
   real(kind=DP) :: sph_endtime       ! End time of SPH simulation
   real(kind=DP) :: nbody_sph_endtime ! End time of N-body/SPH simulation
 
-#if defined(BINARY_TREE)
-  integer(kind=ILP) :: nskeleton     ! Integer time for next skeleton build
-#endif
-
 END MODULE time_module
 
 
@@ -1151,52 +1113,6 @@ MODULE tree_module
      real(kind=PR) :: bbmax(1:NDIM)     ! rmax
   end type auxilary_node
   type(auxilary_node), allocatable :: BHstock(:)  ! bounding box array
-
-
-! Binary tree variables
-! ----------------------------------------------------------------------------
-#elif defined(BINARY_TREE)
-
-  integer :: ctot                    ! total no. of cells
-  integer :: leaf                    ! max. no. of particles in a leaf-cell
-  integer :: link                    ! number of child-cells
-  integer :: ltot                    ! total no. of levels
-  integer :: pmax                    ! maximum capacity of skeleton
-  integer :: pmin                    ! minimum capacity of skeleton
-  integer, allocatable :: cp(:)      ! (leaf)cell occupied by particle
-  integer, allocatable :: ccp(:)     ! child-cell occupied by particle
-  integer, allocatable :: chld(:,:)  ! IDs of cell's child-cells
-  integer, allocatable :: lc(:)      ! level of cell
-  integer, allocatable :: pnxt(:)    ! Pointer to next particle
-  integer, allocatable :: pq(:,:)    ! IDs of sorted values
-  integer, allocatable :: prev(:)    ! previous ptcle in leaf-cell-chain
-
-  type binary_node                   ! Binary tree node
-     integer :: ifopen               ! First child cell
-     integer :: nextcell             ! Next cell if not opening
-     integer :: pfirst               ! First particle in cell
-     integer :: plast                ! Final particle in cell
-     real(kind=PR) :: r(1:NDIM)      ! Position of cell COM
-     real(kind=PR) :: rh(1:2*NDIM)   ! Smoothing length bounding box
-     real(kind=PR) :: hmax           ! Max. h-value of particles in c
-     real(kind=PR) :: rmax           ! Max. particle distance from cell centre
-     real(kind=PR) :: m              ! Total mass of cell c
-     real(kind=PR) :: dminsqd        ! Cell-opening distance squared
-#ifndef GEOMETRIC_MAC
-     real(kind=PR) :: mac            ! Multipole-acceptance criterion
-#endif
-#if defined(QUADRUPOLE)
-     real(kind=PR) :: q(1:6)         ! Quadrupole moment terms
-#endif
-#if defined(OCTUPOLE)
-     real(kind=PR) :: s(1:NOCT)      ! Octupole moment terms
-#endif
-  end type binary_node
-  type(binary_node), allocatable :: bin_tree(:)  ! Binary tree array
-
-#if defined(DEBUG_FOLIATE)
-  integer, allocatable :: clip(:)    ! ID of next leaf-cell
-#endif
 
 #endif
 

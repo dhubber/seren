@@ -135,9 +135,6 @@ SUBROUTINE write_debug_column_info(unitno)
 #if defined(DIV_A)
   call add_scalar_column_info(unitno,ncolumns,"div_a","acceleration divergence")
 #endif
-#if defined(SIGNAL_VELOCITY)
-  call add_scalar_column_info(unitno,ncolumns,"vsigmax","maximum signal velocity")
-#endif
 #if defined(SM2012_SPH)
   call add_scalar_column_info(unitno,ncolumns,"q","internal energy density")
 #endif

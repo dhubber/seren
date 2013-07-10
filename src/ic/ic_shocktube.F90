@@ -74,11 +74,6 @@ PROGRAM ic_shocktube
   real(kind=PR), allocatable :: r2(:,:)  ! Position of RHS particles
   real(kind=PR), allocatable :: vs(:,:)  ! Smoothed velocity
 
-#ifndef DIMENSIONLESS
-  write(6,*) "Compiler flag error : Only works with DIMENSIONLESS flag on"
-  stop
-#endif
-
 ! Reading parameter file
   call default_parameters
 

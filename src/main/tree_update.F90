@@ -68,21 +68,5 @@ SUBROUTINE tree_update(nbuild,nstock)
 ! ============================================================================
 
 
-! Binary tree
-! ============================================================================
-#if defined(BINARY_TREE)
-  debug2("Updating binary tree [tree_update.F90]")
-  debug_timing("BINARY_TREE")
-
-! Build new tree
-  if (nbuild == nsteps) call binary_treebuild
-
-! Stock trees every step
-  call binary_treestock
-
-#endif
-! ============================================================================
-
-
   return
 END SUBROUTINE tree_update

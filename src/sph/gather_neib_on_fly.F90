@@ -9,7 +9,7 @@
 
 ! ============================================================================
 SUBROUTINE gather_neib_on_fly(p,pp_max,pp_tot,pp_list,rsearch,hrange,typemask)
-  !use interface_module, only : BHhydrowalk_hgather,binary_gather_walk,distance2
+  !use interface_module, only : BHhydrowalk_hgather,distance2
   use particle_module
   use neighbour_module
   use type_module
@@ -28,7 +28,7 @@ SUBROUTINE gather_neib_on_fly(p,pp_max,pp_tot,pp_list,rsearch,hrange,typemask)
   real(kind=PR) :: dr(1:NDIM)            ! vector displacements (p'-p)
   real(kind=PR) :: drsqd                 ! p'-p separation squared
   real(kind=PR) :: hrangesqd             ! particle radius squared
-#if defined(BH_TREE) || defined(BINARY_TREE)
+#if defined(BH_TREE)
   integer :: i                           ! counter in neighbour search
   integer :: pp_pot                      ! no. of potential neighbours
 #endif
@@ -68,10 +68,9 @@ SUBROUTINE gather_neib_on_fly(p,pp_max,pp_tot,pp_list,rsearch,hrange,typemask)
 ! obtained from tree is too big for array (signalled by pp_pot = -1), 
 ! then reallocate array and walk tree again.
 ! ----------------------------------------------------------------------------
-#if defined(BH_TREE) || defined(BINARY_TREE)
+#if defined(BH_TREE)
   do 
      pp_pot = 0
-#if defined(BH_TREE)
      call BHhydrowalk_hgather(rsearch(1:NDIM),hrange,pp_pot,&
           & pp_max,pp_list,ctot_hydro,BHhydro(0:ctot_hydro))
 #if defined(GHOST_PARTICLES)
@@ -79,12 +78,9 @@ SUBROUTINE gather_neib_on_fly(p,pp_max,pp_tot,pp_list,rsearch,hrange,typemask)
           & call BHhydrowalk_hgather(rsearch(1:NDIM),hrange,&
           & pp_pot,pp_max,pp_list,ctot_ghost,BHghost(0:ctot_ghost))
 #endif
-#elif defined(BINARY_TREE)
-     call binary_gather_walk(rsearch(1:NDIM),hp,pp_pot,pp_max,pp_list)
-#endif
      if (pp_pot < 0) then
 #if defined(GHOST_PARTICLES)
-        pp_max = ptot+pghost
+        pp_max = ptot + pghost
 #else
         pp_max = ptot
 #endif
@@ -103,7 +99,7 @@ SUBROUTINE gather_neib_on_fly(p,pp_max,pp_tot,pp_list,rsearch,hrange,typemask)
 ! then reallocate array and repeat.
 ! ----------------------------------------------------------------------------
   do
-#if defined(BH_TREE) || defined(BINARY_TREE)
+#if defined(BH_TREE)
      do i=1,pp_pot
         pp = pp_list(i)
 #elif defined(GHOST_PARTICLES)

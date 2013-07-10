@@ -29,11 +29,6 @@ PROGRAM ic_lattice_cube
   integer :: ppd                  ! Particle per dimension
   real(kind=PR) :: length         ! Side-length of line/square/cube
 
-#ifndef DIMENSIONLESS
-  write(6,*) "Compiler flag error : Only works with DIMENSIONLESS flag on"
-  stop
-#endif
-
 ! Set parameters to default values
   call default_parameters
 

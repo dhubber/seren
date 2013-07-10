@@ -30,7 +30,7 @@ SUBROUTINE get_neib_on_fly(p,pp_tot,pp_totmax,pp_list,rsearch,hrange,typemask)
   real(kind=PR) :: drsqd                ! p'-p separation squared
   real(kind=PR) :: hrangesqd_p          ! particle radius p squared
   real(kind=PR) :: hrangesqd_pp         ! particle radius pp squared
-#if defined(BH_TREE) || defined(BINARY_TREE)
+#if defined(BH_TREE)
   integer :: i                          ! counter in neighbour search
   integer :: pp_pot                     ! no. of potential neighbours
 #endif
@@ -68,7 +68,7 @@ SUBROUTINE get_neib_on_fly(p,pp_tot,pp_totmax,pp_list,rsearch,hrange,typemask)
 
 ! Obtain potential neighbour list by tree walk if using tree
 ! ----------------------------------------------------------------------------
-#if defined(BH_TREE) || defined(BINARY_TREE)
+#if defined(BH_TREE)
   pp_max = min(LISTSIZE,ptot)
   do 
      pp_pot = 0
@@ -80,8 +80,6 @@ SUBROUTINE get_neib_on_fly(p,pp_tot,pp_totmax,pp_list,rsearch,hrange,typemask)
           &call BHhydro_walk(rsearch(1:NDIM),hrange,pp_pot,&
           &pp_max,pp_list,ctot_ghost,BHghost)
 #endif
-#elif defined(BINARY_TREE)
-     call binary_neibfind(rsearch,hp,pp_pot,pp_max,pp_list)
 #endif
      if (pp_pot < 0) then
 #if defined(GHOST_PARTICLES)
@@ -103,7 +101,7 @@ SUBROUTINE get_neib_on_fly(p,pp_tot,pp_totmax,pp_list,rsearch,hrange,typemask)
 ! then reallocate array and repeat.
 ! ----------------------------------------------------------------------------
   do
-#if defined(BH_TREE) || defined(BINARY_TREE)
+#if defined(BH_TREE)
      do i=1,pp_pot
         pp = pp_list(i)
 #elif defined(GHOST_PARTICLES)

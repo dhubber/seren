@@ -42,11 +42,6 @@ PROGRAM ic_sphere
   real(kind=PR) :: rhigh                      ! Max rad for bisection method
   real(kind=PR), allocatable :: position(:,:) ! Temp array for part. pos.
 
-#ifndef DIMENSIONLESS
-  write(6,*) "Compiler flag error : Only works with DIMENSIONLESS flag on"
-  stop
-#endif
-
 ! Set parameters to default values
   call default_parameters
 

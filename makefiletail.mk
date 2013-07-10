@@ -34,11 +34,8 @@ PERIODIC                 := $(strip $(PERIODIC))
 X_BOUNDARY               := $(strip $(X_BOUNDARY))
 Y_BOUNDARY               := $(strip $(Y_BOUNDARY))
 Z_BOUNDARY               := $(strip $(Z_BOUNDARY))
-SPHERICAL_WALL           := $(strip $(SPHERICAL_WALL))
-CYLINDRICAL_WALL         := $(strip $(CYLINDRICAL_WALL))
 GHOST_PARTICLES          := $(strip $(GHOST_PARTICLES))
 SPH_SIMULATION           := $(strip $(SPH_SIMULATION))
-NBODY_SPH_SIMULATION     := $(strip $(NBODY_SPH_SIMULATION))
 NBODY_SIMULATION         := $(strip $(NBODY_SIMULATION))
 SPH                      := $(strip $(SPH))
 SPH_INTEGRATION          := $(strip $(SPH_INTEGRATION))
@@ -55,11 +52,9 @@ FLUX_LIMITED_DIFFUSION   := $(strip $(FLUX_LIMITED_DIFFUSION))
 IONIZING_RADIATION       := $(strip $(IONIZING_RADIATION))
 PDR_CHEMISTRY            := $(strip $(PDR_CHEMISTRY))
 STELLAR_WINDS            := $(strip $(STELLAR_WINDS))
-PARTICLE_INJECTION_WINDS := $(strip $(PARTICLE_INJECTION_WINDS))
 ARTIFICIAL_VISCOSITY     := $(strip $(ARTIFICIAL_VISCOSITY))
 VISC_TD                  := $(strip $(VISC_TD))
 BALSARA                  := $(strip $(BALSARA))
-PATTERN_REC              := $(strip $(PATTERN_REC))
 ARTIFICIAL_CONDUCTIVITY  := $(strip $(ARTIFICIAL_CONDUCTIVITY))
 EXTERNAL_FORCE           := $(strip $(EXTERNAL_FORCE))
 SELF_GRAVITY             := $(strip $(SELF_GRAVITY))
@@ -77,17 +72,14 @@ TREE                     := $(strip $(TREE))
 MULTIPOLE                := $(strip $(MULTIPOLE))
 MAC                      := $(strip $(MAC))
 REORDER                  := $(strip $(REORDER))
-CELL_WALK                := $(strip $(CELL_WALK))
 SORT                     := $(strip $(SORT))
 TIMESTEP                 := $(strip $(TIMESTEP))
 CHECK_NEIB_TIMESTEP      := $(strip $(CHECK_NEIB_TIMESTEP))
-SIGNAL_VELOCITY_DT       := $(strip $(SIGNAL_VELOCITY_DT))
 NEIGHBOURLISTS           := $(strip $(NEIGHBOURLISTS))
 KERNEL_TABLES            := $(strip $(KERNEL_TABLES))
 REMOVE_OUTLIERS          := $(strip $(REMOVE_OUTLIERS))
 TURBULENT_FORCING        := $(strip $(TURBULENT_FORCING))
 TIMING_CODE              := $(strip $(TIMING_CODE))
-DIMENSIONLESS            := $(strip $(DIMENSIONLESS))
 TEST                     := $(strip $(TEST))
 
 
@@ -386,26 +378,6 @@ ERROR += "Invalid Z_BOUNDARY option : "$(Z_BOUNDARY)
 endif
 
 
-# Spherical mirror boundary
-# ----------------------------------------------------------------------------
-ifeq ($(SPHERICAL_WALL),1)
-CFLAGS += -DSPHERICAL_WALL=1
-SPH_OBJ += check_spherical_mirror.o
-else ifneq ($(SPHERICAL_WALL),0)
-ERROR += "Invalid SPHERICAL_WALL option : "$(SPHERICAL_WALL)
-endif
-
-
-# Cylindrical mirror boundary
-# ----------------------------------------------------------------------------
-ifeq ($(CYLINDRICAL_WALL),1)
-CFLAGS += -DCYLINDRICAL_WALL
-SPH_OBJ += check_cylindrical_mirror.o
-else ifneq ($(CYLINDRICAL_WALL),0)
-ERROR += "Invalid CYLINDRICAL_WALL option : "$(CYLINDRICAL_WALL)
-endif
-
-
 # Simulation-mode flags
 # ----------------------------------------------------------------------------
 ifeq ($(SPH_SIMULATION),1)
@@ -417,23 +389,6 @@ SETUP_OBJ += initialize_sph_variables_1.o initialize_sph_variables_2.o
 INCLUDE_SPH_OBJS = 1
 else ifneq ($(SPH_SIMULATION),0)
 ERROR += "Invalid SPH_SIMULATION option : "$(SPH_SIMULATION)
-endif
-
-ifeq ($(NBODY_SPH_SIMULATION),1)
-CFLAGS += -DNBODY_SPH_SIMULATION #-DMEANH_GRAVITY
-OBJ += nbody_sph_simulation.o nbody_sph_setup.o nbody_sph_integrate.o
-OBJ += sph_grav_forces.o nbody_sph_star_forces.o nbody_sph_output.o
-OBJ += nbody_sph_timesteps.o nbody_sph_timestep_size.o
-OBJ += direct_sph_hermite4_gravity.o
-SETUP_OBJ += initialize_nbody_sph_variables_1.o
-SETUP_OBJ += initialize_nbody_sph_variables_2.o
-INCLUDE_SPH_OBJS = 1
-INCLUDE_NBODY_OBJS = 1
-ifeq ($(MPI),1)
-ERROR += "NBODY+SPH simulation not MPI parallelized"
-endif
-else ifneq ($(NBODY_SPH_SIMULATION),0)
-ERROR += "Invalid NBODY_SPH_SIMULATION option : "$(NBODY_SPH_SIMULATION)
 endif
 
 ifeq ($(NBODY_SIMULATION),1)
@@ -672,20 +627,6 @@ ERROR += "STELLAR_WIND not MPI parallelized"
 endif
 endif
 
-ifeq ($(PARTICLE_INJECTION_WINDS),1)
-CFLAGS += -DPARTICLE_INJECTION_WINDS
-SPH_OBJ += kamikaze.o
-else ifeq ($(PARTICLE_INJECTION_WINDS),MASS_LOADING)
-CFLAGS += -DPARTICLE_INJECTION_WINDS -DMASS_LOADING
-SPH_OBJ += mass_loading_winds.o
-else ifneq ($(PARTICLE_INJECTION_WINDS),0)
-ERROR += "Invalid PARTICLE_INJECTION_WINDS option selected : "$(PARTICLE_INJECTION_WINDS)
-endif
-ifneq ($(PARTICLE_INJECTION_WINDS),0)
-ifeq ($(MPI),1)
-ERROR += "PARTICLE_INJECTION_WINDS not MPI parallelized"
-endif
-endif
 
 ifeq ($(HEALPIX),1)
 CFLAGS += -DHEALPIX -DTRAPEZOIDAL_RULE
@@ -721,11 +662,6 @@ ifeq ($(BALSARA),1)
 CFLAGS += -DVISC_BALSARA
 else ifneq ($(BALSARA),0)
 ERROR += "Invalid BALSARA option selected : "$(BALSARA)
-endif
-ifeq ($(PATTERN_REC),1)
-CFLAGS += -DVISC_PATTERN_REC
-else ifneq ($(PATTERN_REC),0)
-ERROR += "Invalid PATTERN_REC option selected : "$(PATTERN_REC)
 endif
 endif
 
@@ -828,29 +764,6 @@ endif
 ifeq ($(REORDER),ALL)
 CFLAGS += -DREORDER_TREE -DREORDER_PARTICLES
 SPH_OBJ += BH_reorder_particles.o BH_reorder_tree.o
-endif
-ifeq ($(CELL_WALK),1)
-ifneq ($(SELF_GRAVITY),0)
-CFLAGS += -DCELL_WALK
-SPH_OBJ += BHgrav_grouped_walk.o
-endif
-else ifneq ($(CELL_WALK),0)
-ERROR += "Invalid value for CELL_WALK : "$(CELL_WALK)
-endif
-
-else ifeq ($(TREE),BINARY)
-CFLAGS += -DBINARY_TREE
-SPH_OBJ += binary_foliate.o binary_neibfind.o
-SPH_OBJ += binary_skeleton.o binary_treebuild.o binary_treestock.o
-ifneq ($(SELF_GRAVITY),0)
-SPH_OBJ += binary_gravacc.o
-endif
-ifeq ($(REORDER),1)
-CFLAGS += -DREORDER
-SPH_OBJ += swap_particle_data.o
-endif
-ifeq ($(MPI),1)
-ERROR += "Binary tree not MPI parallelized"
 endif
 
 else ifeq ($(TREE),0)
@@ -1170,15 +1083,6 @@ ERROR += "Invalid TIMESTEP option selected : "$(TIMESTEP)
 endif
 
 
-# Signal-velocity timestep
-# ----------------------------------------------------------------------------
-ifeq ($(SIGNAL_VELOCITY_DT),1)
-CFLAGS += -DSIGNAL_VELOCITY
-else ifneq ($(SIGNAL_VELOCITY_DT),0)
-ERROR += "Invalid SIGNAL_VELOCITY_DT option selected : "$(SIGNAL_VELOCITY_DT)
-endif
-
-
 # Turbulent forcing
 # ----------------------------------------------------------------------------
 ifeq ($(TURBULENT_FORCING),1)
@@ -1200,15 +1104,6 @@ CFLAGS += -DTIMING
 OBJ += timing.o write_timing_stats.o
 else ifneq ($(TIMING_CODE),0)
 ERROR += "Invalid TIMING_CODE option selected : "$(TIMING_CODE)
-endif
-
-
-# Dimensionless units
-# ----------------------------------------------------------------------------
-ifeq ($(DIMENSIONLESS),1)
-CFLAGS += -DDIMENSIONLESS
-else ifneq ($(DIMENSIONLESS),0)
-ERROR += "Invalid value for DIMENSIONLESS"
 endif
 
 

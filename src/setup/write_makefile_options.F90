@@ -108,26 +108,11 @@ SUBROUTINE write_makefile_options(unitno)
 #else
   write(unitno,'(A)') "Z_BOUNDARY                  = 0"
 #endif
-#if defined(SPHERICAL_WALL)
-  write(unitno,'(A)') "SPHERICAL_WALL              = 1"
-#else
-  write(unitno,'(A)') "SPHERICAL_WALL              = 0"
-#endif
-#if defined(CYLINDRICAL_WALL)
-  write(unitno,'(A)') "CYLINDRICAL_WALL            = 1"
-#else
-  write(unitno,'(A)') "CYLINDRICAL_WALL            = 0"
-#endif
 
 #if defined(SPH_SIMULATION)
   write(unitno,'(A)') "SPH_SIMULATION              = 1"
 #else
   write(unitno,'(A)') "SPH_SIMULATION              = 0"
-#endif
-#if defined(NBODY_SPH_SIMULATION)
-  write(unitno,'(A)') "NBODY_SPH_SIMULATION        = 1"
-#else
-  write(unitno,'(A)') "NBODY_SPH_SIMULATION        = 0"
 #endif
 #if defined(NBODY_SIMULATION)
   write(unitno,'(A)') "NBODY_SIMULATION            = 1"
@@ -265,12 +250,6 @@ SUBROUTINE write_makefile_options(unitno)
   write(unitno,'(A)') "BALSARA                     = 0"
 #endif
 
-#if defined(ARTIFICIAL_VISCOSITY) && defined(VISC_PATTERN_REC)
-  write(unitno,'(A)') "PATTERN_REC                 = 1"
-#else
-  write(unitno,'(A)') "PATTERN_REC                 = 0"
-#endif
-
 #if defined(ARTIFICIAL_CONDUCTIVITY) && defined(COND_PRICE2008)
   write(unitno,'(A)') "ARTIFICIAL_CONDUCTIVITY     = PRICE2008"
 #elif defined(ARTIFICIAL_CONDUCTIVITY) && defined(COND_WADSLEY2008)
@@ -359,8 +338,6 @@ SUBROUTINE write_makefile_options(unitno)
 
 #if defined(BH_TREE)
   write(unitno,'(A)') "TREE                        = BH"
-#elif defined(BINARY_TREE)
-  write(unitno,'(A)') "TREE                        = BINARY"
 #else
   write(unitno,'(A)') "TREE                        = 0"
 #endif
@@ -389,12 +366,6 @@ SUBROUTINE write_makefile_options(unitno)
   write(unitno,'(A)') "REORDER                     = PARTICLES"
 #else
   write(unitno,'(A)') "REORDER                     = 0"
-#endif
-
-#if defined(BH_TREE) && defined(CELL_WALK)
-  write(unitno,'(A)') "CELL_WALK                   = 1"
-#else
-  write(unitno,'(A)') "CELL_WALK                   = 0"
 #endif
 
 #if defined(HEAPSORT)
@@ -447,12 +418,6 @@ SUBROUTINE write_makefile_options(unitno)
   write(unitno,'(A)') "TIMING_CODE                 = 1"
 #else
   write(unitno,'(A)') "TIMING_CODE                 = 0"
-#endif
-
-#if defined(DIMENSIONLESS)
-  write(unitno,'(A)') "DIMENSIONLESS               = 1"
-#else
-  write(unitno,'(A)') "DIMENSIONLESS               = 0"
 #endif
 
 #if defined(SPIEGEL_TEST)

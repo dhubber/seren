@@ -21,15 +21,12 @@ PERIODIC                  = 0
 X_BOUNDARY                = 0
 Y_BOUNDARY                = 0
 Z_BOUNDARY                = 0
-SPHERICAL_WALL            = 0
-CYLINDRICAL_WALL          = 0
 GHOST_PARTICLES           = 1
 
 # ----------------------------------------------------------------------------
 # Simulation selection options
 # ----------------------------------------------------------------------------
 SPH_SIMULATION            = 1
-NBODY_SPH_SIMULATION      = 0
 NBODY_SIMULATION          = 0
 
 # ----------------------------------------------------------------------------
@@ -46,7 +43,6 @@ ENTROPY_EQN               = 0
 ARTIFICIAL_VISCOSITY      = MON97
 VISC_TD                   = 0
 BALSARA                   = 0
-PATTERN_REC               = 0
 ARTIFICIAL_CONDUCTIVITY   = 0
 EXTERNAL_PRESSURE         = 0
 
@@ -79,7 +75,6 @@ SINK_REMOVE_ANGMOM        = 0
 SINK_GRAVITY_ONLY         = 0
 NBODY_INTEGRATION         = HERMITE4
 BINARY_STATS              = 0
-#CFLAGS += -DFIXED_SPH_TIMESTEP_LEVEL
 
 # ----------------------------------------------------------------------------
 # Tree options
@@ -96,13 +91,11 @@ CELL_WALK                 = 0
 SORT                      = INSERTION
 TIMESTEP                  = ADAPTIVE
 CHECK_NEIB_TIMESTEP       = 1
-SIGNAL_VELOCITY_DT        = 0
 NEIGHBOURLISTS            = 0
 KERNEL_TABLES             = 0
 REMOVE_OUTLIERS           = 0
 TURBULENT_FORCING         = 0
 TIMING_CODE               = 1
-DIMENSIONLESS             = 0
 TEST                      = 0
 
 # ----------------------------------------------------------------------------

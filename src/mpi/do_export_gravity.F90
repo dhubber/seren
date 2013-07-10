@@ -98,9 +98,6 @@ SUBROUTINE do_export_gravity(recv)
       !call BHtreegravity(0,invhp,rp,agravp,potp,sphgpotp,zo_p,agravmag_p,gpot_p)
       ! should work apart from needing agravmag_p
       call BHgrav_accel(0,invhp,zo_p,agravmag_p,rp,agravp,potp)
-#elif defined(BINARY_TREE)
-      ! won't work
-      call binary_gravacc(0,invhp,rp,agravp,potp,zo_p,agravmag_p)
 #else
       !call direct_gravity(0,invhp,rp,agravp,potp,zo_p)
       call direct_sph_gravity(p,invhp,zo_p,rp,agravp,potp)

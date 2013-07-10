@@ -320,11 +320,6 @@ SUBROUTINE record_particle_data(p,nelements,alldata,rorigin)
   alldata(nelements) = sph(p)%div_a
 #endif
 
-#if defined(SIGNAL_VELOCITY)
-  nelements = nelements + 1
-  alldata(nelements) = sph(p)%vsigmax*real(vscale,PR)
-#endif
-
 #if defined(SM2012_SPH)
   nelements = nelements + 1
   alldata(nelements) = sph(p)%q*real(uscale,PR)*real(rhoscale,PR)

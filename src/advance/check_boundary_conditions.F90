@@ -18,12 +18,6 @@ SUBROUTINE check_boundary_conditions(rp,vp)
   real(kind=PR), intent(inout) :: rp(1:NDIM)  ! Position of particle/sink
   real(kind=PR), intent(inout) :: vp(1:VDIM)  ! Velocity of particle/sink
 
-#if defined(SPHERICAL_WALL) || defined(CYLINDRICAL_WALL)
-  real(kind=PR) :: dr_unit(1:NDIM)            ! Radial unit vector
-  real(kind=PR) :: dvdr                       ! Radial velocity component
-  real(kind=PR) :: raux                       ! Aux. position variable
-#endif
-
 #if defined(USE_MPI)
   real(kind=PR) :: wrap_min(1:3)              ! Point at which to wrap particles
   real(kind=PR) :: wrap_max(1:3)              ! Point at which to wrap particles
@@ -124,52 +118,6 @@ SUBROUTINE check_boundary_conditions(rp,vp)
      vp(3) = -vp(3)
   end if
 #endif
-#endif
-! ----------------------------------------------------------------------------
-
-
-! Reposition particle for spherical wall
-! ----------------------------------------------------------------------------
-#if defined(SPHERICAL_WALL)
-  raux = dot_product(rp(1:NDIM),rp(1:NDIM))
-
-! Check if particle has entered 'forbidden zone'!
-  if ((rspheremax > 0.0_PR .and. raux > rspheremax*rspheremax) .or. &
-       & (rspheremax < 0.0_PR .and. raux < rspheremax*rspheremax)) then
-     raux = sqrt(raux)
-     dr_unit(1:NDIM) = rp(1:NDIM) / raux
-
-     ! Flip position of particle to other side of spherical boundary
-     rp(1:NDIM) = rp(1:NDIM) - 2.0_PR*(raux - abs(rspheremax))*dr_unit(1:NDIM)
-
-     ! Now flip velocity if it is still travelling outwards
-     dvdr = dot_product(vp(1:NDIM),dr_unit(1:NDIM))
-     if (dvdr > 0.0_PR) vp(1:NDIM) = vp(1:NDIM) - 2.0_PR*dvdr*dr_unit(1:NDIM)
-
-  end if
-#endif
-! ----------------------------------------------------------------------------
-
-
-! Reposition particle for cylindrical wall
-! ----------------------------------------------------------------------------
-#if defined(CYLINDRICAL_WALL)
-  raux = dot_product(rp(1:2),rp(1:2))
-
-! Check that particle has entered 'forbidden zone'!!
-  if ((rspheremax > 0.0_PR .and. raux > rspheremax*rspheremax) .or. &
-       & (rspheremax < 0.0_PR .and. raux < rspheremax*rspheremax)) then
-     raux = sqrt(raux)
-     dr_unit(1:2) = rp(1:2) / raux
-
-     ! Flip position of particle to other side of cylindrical boundary
-     rp(1:2) = rp(1:2) - 2.0_PR*(raux - abs(rspheremax))*dr_unit(1:2)
-
-     ! Now flip velocity if it is still travelling outwards
-     dvdr = dot_product(vp(1:2),dr_unit(1:2))
-     if (dvdr > 0.0_PR) vp(1:2) = vp(1:2) - 2.0_PR*dvdr*dr_unit(1:2)
-
-  end if
 #endif
 ! ----------------------------------------------------------------------------
 

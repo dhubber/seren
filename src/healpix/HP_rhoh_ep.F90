@@ -76,9 +76,6 @@ SUBROUTINE HP_rhoh_ep(rep,hep,rhoep)
 #if defined(BH_TREE)
            call BHhydrowalk_hgather(rep(1:NDIM),KERNRANGE*h_search,&
                 &pp_pot,pp_max,pp_potlist,ctot_hydro,BHhydro)
-#elif defined(BINARY_TREE)
-           call binary_gather_walk(rep(1:NDIM),h_search,&
-                &pp_pot,pp_max,pp_potlist)
 #else
            do pp=1,ptot
               if (pp==p) cycle

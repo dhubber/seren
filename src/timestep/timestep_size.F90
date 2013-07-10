@@ -65,11 +65,7 @@ SUBROUTINE timestep_size(p,dt)
 #endif
   div_v_p = real(abs(sph(p)%div_v),DP)
 #if defined(HYDRO)
-#if defined(SIGNAL_VELOCITY)
-  vsignal = real(sph(p)%vsigmax,DP)
-#else
   vsignal = real(sph(p)%sound,DP)
-#endif
 #if defined(ARTIFICIAL_VISCOSITY) && defined(VISC_TD) && defined(VISC_BALSARA)
   alpha_p = real(sph(p)%talpha,DP)*real(sph(p)%balsara,DP)
   beta_p  = 2.0_DP*alpha_p
@@ -96,10 +92,7 @@ SUBROUTINE timestep_size(p,dt)
 
 ! Courant condition (with or without artificial viscosity), or without 
 ! gravity (no sound speed, but velocity divergence).
-#if defined(HYDRO) && defined(SIGNAL_VELOCITY)
-  tcour = courant_mult * hp / vsignal
-  dt = min(dt,tcour)
-#elif defined(HYDRO) && defined(ARTIFICIAL_VISCOSITY)
+#if defined(HYDRO) && defined(ARTIFICIAL_VISCOSITY)
   tcour = courant_mult * hp / (vsignal + hp*div_v_p + &
        & TVISC_FAC*(alpha_p*vsignal + beta_p*hp*div_v_p))
   dt = min(dt,tcour)

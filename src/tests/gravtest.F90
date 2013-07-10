@@ -163,8 +163,6 @@ PROGRAM gravtest
 
 #if defined(BH_TREE)
   call BHgrav_build
-#elif defined(BINARY_TREE)
-  call binary_treebuild
 #endif
 
 
@@ -191,8 +189,6 @@ PROGRAM gravtest
 
 #if defined(BH_TREE)
      call BHgrav_stock
-#elif defined(BINARY_TREE)
-     call binary_treestock
 #endif
 
      ! Calculate gravitational force of all particles via tree
@@ -201,9 +197,6 @@ PROGRAM gravtest
      do p=1,ptot
 #if defined(BH_TREE)
         call BHgrav_accel(p,1.0_PR/sph(p)%h,&
-             &sph(p)%r(1:NDIM),agravp,potp)
-#elif defined(BINARY_TREE)
-        call binary_gravacc(p,1.0_PR/sph(p)%h,&
              &sph(p)%r(1:NDIM),agravp,potp)
 #endif
         sph(p)%a(1:NDIM) = real(agravp(1:NDIM),PR)

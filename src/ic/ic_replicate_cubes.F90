@@ -33,11 +33,6 @@ PROGRAM ic_replicate_cubes
   integer :: p                                ! Particle counter
   real(kind=PR), allocatable :: position(:,:) ! Position of old particles  
   
-#ifndef DIMENSIONLESS
-  write(6,*) "Compiler flag error : Only works with DIMENSIONLESS flag on"
-  stop
-#endif
-
 ! Set parameters to default values
   call default_parameters
 
