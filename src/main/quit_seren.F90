@@ -1,6 +1,6 @@
 ! QUIT_SEREN.F90
 ! D. A. Hubber - 17/09/2011
-! ..
+! Print error message and then quits the program.
 ! ============================================================================
 
 #include "macros.h"

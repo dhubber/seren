@@ -124,7 +124,6 @@ SUBROUTINE ewald_init
         ! Subtract force from original particle
         dist = sqrt(sum(dr**2))
         f = f + dr/(dist**3)
-        !f = f + dr/((dist**2 + 0.0025)**1.5) ! Temporary fixed smoothing length
            
         ! Record force in table
         fcorr(1:2,i,j,1)=real(f(1:NDIM),PR)
@@ -236,12 +235,13 @@ SUBROUTINE ewald_init
            ! Subtract force from original particle
            dist = sqrt(sum(dr**2))
            f = f + dr/(dist**3)
-           !f = f + dr/((dist**2 + 0.0025)**1.5) ! Temporary fixed smoothing length
            
            ! Record force in table
            fcorr(1:3,i,j,k)=real(f(1:NDIM),PR)
+
         end do
         !$OMP END PARALLEL DO
+
      end do
   end do
   

@@ -16,14 +16,14 @@ SUBROUTINE BHhydro_build
   use type_module
   implicit none
 
-  integer :: c                             ! cell counter
-  integer :: i                             ! aux. counter
-  integer :: nptcls                        ! no. of particles
-  integer :: p                             ! particle counter
-  integer, allocatable :: plist(:)         ! particle list
-  real(kind=PR), allocatable :: r(:,:)     ! particle positions
+  integer :: c                             ! Cell counter
+  integer :: i                             ! Aux. counter
+  integer :: nptcls                        ! No. of particles
+  integer :: p                             ! Particle counter
+  integer, allocatable :: plist(:)         ! Particle list
+  real(kind=PR), allocatable :: r(:,:)     ! Particle positions
 #if defined(REORDER_TREE)
-  integer :: caux                          ! aux. tree cell counter
+  integer :: caux                          ! Aux. tree cell counter
 #endif
 
   allocate(plist(1:ptot))

@@ -8,17 +8,16 @@
 
 ! ============================================================================
 SUBROUTINE active_particle_list(acctot,acclist,typemask)
-  use type_module
+  use particle_module, only : ptot,sph
   use type_module
   use time_module
-  use particle_module, only : ptot,sph
   implicit none
 
   integer, intent(out) :: acctot              ! No. of active particles
   integer, intent(out) :: acclist(1:ptot)     ! List of active particle ids
-  logical, optional :: typemask(1:ntypes)     ! part. types to include?
+  logical, optional :: typemask(1:ntypes)     ! Part. types to include?
 
-  integer :: p                                ! particle counter
+  integer :: p                                ! Particle counter
 
   debug2("Create list of active SPH particles [active_particle_list.F90]")
 

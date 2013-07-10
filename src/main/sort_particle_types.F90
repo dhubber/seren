@@ -13,11 +13,11 @@ SUBROUTINE sort_particle_types(ptype)
   integer, intent(in) :: ptype(1:ptot)         ! Particle types
 
   integer :: boundaryslot                      ! Aux boundary ptcl counter
-  integer :: cdmslot                           ! ..
-  integer :: dustslot                          ! ..
+  integer :: cdmslot                           ! Aux cdm ptcl counter
+  integer :: dustslot                          ! Aux dust ptcl counter
   integer :: gasslot                           ! Aux gas ptcl counter
   integer :: icmslot                           ! Aux icm ptcl counter
-  integer :: ionslot                           ! ..
+  integer :: ionslot                           ! Aux ion ptcl counter
   integer :: p                                 ! Particle counter
   integer, allocatable :: porder(:)            ! New particle order
 

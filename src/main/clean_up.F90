@@ -72,12 +72,6 @@ SUBROUTINE clean_up
 #if defined(DEBUG_HP_WALK_ALL_RAYS)
      if (allocated(whichHPlevel)) deallocate(whichHPlevel)
 #endif
-#if defined(IONIZING_UV_RADIATION)
-     !if (allocated(temp_aux)) deallocate(temp_aux)
-     !if (allocated(temp_min)) deallocate(temp_min)
-#endif
-     !if (allocated(ionizedo)) deallocate(ionizedo)
-     !if (allocated(newtemp)) deallocate(newtemp)
      if (allocated(HPray)) deallocate(HPray)
 #endif
 

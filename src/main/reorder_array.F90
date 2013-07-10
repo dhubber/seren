@@ -126,7 +126,7 @@ SUBROUTINE reorder_array_int(pstart,ptot,iarray,aorder)
   integer, intent(in)    :: aorder(1:ptot)    ! New array order
 
   integer :: p                                ! Particle counter
-  integer :: pold                             ! old id
+  integer :: pold                             ! Old id
   integer, allocatable :: ptemp(:)            ! Aux. storage array
 
   debug2("[reorder_array_int.F90]")
@@ -162,7 +162,7 @@ SUBROUTINE reorder_array_long_int(pstart,ptot,iarray,aorder)
   integer(kind=ILP), intent(inout) :: iarray(1:ptot)  ! Array to be reordered
 
   integer :: p                                        ! Particle counter
-  integer :: pold                                     ! old id
+  integer :: pold                                     ! Old id
   integer(kind=ILP), allocatable :: ptemp(:)          ! Aux. storage array
 
   debug2("[reorder_array_long_int.F90]")
@@ -348,7 +348,7 @@ SUBROUTINE reorder_inverse_array_int(pstart,ptot,iarray,aorder)
   integer, intent(in)    :: aorder(1:ptot)    ! New array order
 
   integer :: p                                ! Particle counter
-  integer :: pold                             ! old id
+  integer :: pold                             ! Old id
   integer, allocatable :: ptemp(:)            ! Aux. storage array
 
   debug2("[reorder_inverse_array_int.F90]")

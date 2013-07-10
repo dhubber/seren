@@ -94,7 +94,7 @@ SUBROUTINE BHhydro_ray_search(rsource,rdir,pp_tot,pp_max,pp_list,blist)
   end do
 ! ============================================================================
 
-#ifdef DEBUG_BHTREEWALK
+#if defined(DEBUG_BHTREEWALK)
   write(6,*) hp,pp_pot,pp_list(1:pp_pot)
 #endif
 

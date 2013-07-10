@@ -2,7 +2,8 @@
 ! D. A. Hubber - 6/9/2010
 ! Interfaces for all subroutines with an argument list.  All subroutines 
 ! without arguments are excluded (but perhaps should be included in the 
-! future for safety).
+! future for safety).  Also includes 'DEC' statements to force inlining 
+! small subroutines for the intel Fortran compiler.
 ! ============================================================================
 
 #include "macros.h"

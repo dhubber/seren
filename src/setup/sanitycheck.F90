@@ -43,16 +43,9 @@ SUBROUTINE sanitycheck
   call comperror("No simulation mode activated")
 #endif
 
-#if !defined(M4_KERNEL) && !defined(QUINTIC_KERNEL) && !defined(GAUSSIAN_3H_KERNEL) && !defined(LINEAR_KERNEL)
+#if !defined(M4_KERNEL) && !defined(QUINTIC_KERNEL) && !defined(GAUSSIAN_3H_KERNEL)
   call comperror("No valid SPH kernel function selected")
 #endif
-
-!#if defined(LINEAR_KERNEL)
-!  call comperror("WARNING : The linear kernel is a 'toy' kernel used only &
-!       &for testing certain elements of the SPH code, and shouldn't be &
-!       &used for actual simulations.  If you wish to use this option, then &
-!       &comment out this error message in setup/sanitycheck.F90.")
-!#endif
 
 
 ! SPH-only options

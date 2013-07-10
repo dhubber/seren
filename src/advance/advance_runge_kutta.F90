@@ -69,8 +69,10 @@ SUBROUTINE advance_runge_kutta(p)
 
 
 ! Record positions, velocities and other quantities in arrays for all cases 
+#if !defined(STATIC_PARTICLES)
   sph(p)%r(1:NDIM) = rp(1:NDIM)
   sph(p)%v(1:VDIM) = vp(1:VDIM)
+#endif
 #if defined(HYDRO) && defined(VISC_TD)
   if (p <= phydroend) sph(p)%talpha = sph(p)%talpha_old + sph(p)%dalpha_dt*dt
   if (p <= phydroend .and. sph(p)%talpha < alpha_min) sph(p)%talpha = alpha_min
@@ -90,7 +92,7 @@ SUBROUTINE advance_runge_kutta(p)
 
 
 ! Integrate energy equation if selected
-! ============================================================================
+! ----------------------------------------------------------------------------
 #if defined(EXPLICIT_ENERGY_EQN) && defined(ENERGY_EQN)
   if (eos == "energy_eqn") then 
      sph(p)%u = sph(p)%u_old + sph(p)%dudt*dt
@@ -102,7 +104,7 @@ SUBROUTINE advance_runge_kutta(p)
 
 
 ! Integrate entropy equation if selected
-! ============================================================================
+! ----------------------------------------------------------------------------
 #if defined(HYDRO) && defined(ENTROPY_EQN) && defined(ENTROPIC_FUNCTION)
   if (eos == "entropy_eqn") then
      sph(p)%Aent = sph(p)%Aold + sph(p)%dAdt*dt

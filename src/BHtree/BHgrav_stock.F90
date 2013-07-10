@@ -36,9 +36,6 @@ SUBROUTINE BHgrav_stock
   real(kind=PR) :: rp(1:NDIM)    ! Position of particle p
   real(kind=PR) :: qc(1:NQUAD)   ! Quadrupole moment terms of cell c
   real(kind=PR) :: sc(1:NOCT)    ! Octupole moment terms of cell c
-#if defined(CELL_VELOCITIES)
-  real(kind=PR) :: vc(1:NDIM)    ! Cell COM velocity
-#endif
 
   debug2("Stocking cells with important quantities [BHgrav_stock.F90]")
   debug_timing("BH_TREE")
@@ -78,9 +75,7 @@ SUBROUTINE BHgrav_stock
         nalive = 0
         rc(1:NDIM) = 0.0_PR
         rsize = 0.0_PR
-#if defined(CELL_VELOCITIES)
-        vc(1:NDIM) = 0.0_PR
-#endif
+
 
         ! If a dead cell, set all quantities to skip cells
         ! --------------------------------------------------------------------
@@ -96,9 +91,6 @@ SUBROUTINE BHgrav_stock
 #endif
 #if !defined(GEOMETRIC_MAC)
            BHgrav(c)%mac = 0.0_PR
-#endif
-#if defined(CELL_VELOCITIES)
-           BHgrav(c)%v(1:NDIM) = 0.0_PR
 #endif
            BHstock(c)%hmax = 0.0_PR
            BHstock(c)%bbmin(1:NDIM) = -0.0_PR
@@ -117,9 +109,6 @@ SUBROUTINE BHgrav_stock
 #endif
 #if defined(OCTUPOLE)
            BHgrav(c)%s(1:NOCT) = 0.0_PR
-#endif
-#if defined(CELL_VELOCITIES)
-           BHgrav(c)%v(1:NDIM) = sph(p)%v(1:NDIM)
 #endif
            BHstock(c)%hmax = sph(p)%h
            BHstock(c)%bbmin(1:NDIM) = rc(1:NDIM)
@@ -140,18 +129,12 @@ SUBROUTINE BHgrav_stock
               mc = mc + mp
               BHstock(c)%hmax = max(BHstock(c)%hmax,sph(p)%h)
               rc(1:NDIM) = rc(1:NDIM) + mp*rp(1:NDIM)
-#if defined(CELL_VELOCITIES)
-              vc(1:NDIM) = vc(1:NDIM) + mp*sph(p)%v(1:NDIM)
-#endif
               do k=1,NDIM
                  BHstock(c)%bbmax(k) = max(BHstock(c)%bbmax(k),rp(k))
                  BHstock(c)%bbmin(k) = min(BHstock(c)%bbmin(k),rp(k))
               end do
            end do
            rc(1:NDIM) = rc(1:NDIM) / mc
-#if defined(CELL_VELOCITIES)
-           vc(1:NDIM) = vc(1:NDIM) / mc
-#endif
 
            ! Compute quadrupole moment tensor for cell
 #if defined(OCTUPOLE)
@@ -200,9 +183,6 @@ SUBROUTINE BHgrav_stock
 #if defined(OCTUPOLE)
            BHgrav(c)%s(1:NOCT) = sc(1:NOCT)
 #endif
-#if defined(CELL_VELOCITIES)
-           BHgrav(c)%v(1:NDIM) = vc(1:NDIM)
-#endif
 
 
         ! If it's a branch cell, add contributions due to child cells
@@ -219,9 +199,6 @@ SUBROUTINE BHgrav_stock
                  nalive = nalive + 1
                  mc = mc + BHgrav(cc)%m
                  rc(1:NDIM) = rc(1:NDIM) + BHgrav(cc)%m*BHgrav(cc)%r(1:NDIM)
-#if defined(CELL_VELOCITIES)
-                 vc(1:NDIM) = vc(1:NDIM) + BHgrav(cc)%m*BHgrav(cc)%v(1:NDIM)
-#endif
                  BHstock(c)%hmax = max(BHstock(cc)%hmax,BHstock(c)%hmax)
                  do k=1,NDIM
                     BHstock(c)%bbmax(k) = &
@@ -239,9 +216,6 @@ SUBROUTINE BHgrav_stock
               BHgrav(c)%leaf = -1
               BHgrav(c)%r(1:NDIM) = BIG_NUMBER
               BHgrav(c)%m = 0.0_PR
-#if defined(CELL_VELOCITIES)
-              BHgrav(c)%v = 0.0_PR
-#endif
 #if defined(QUADRUPOLE)
               BHgrav(c)%q(1:NQUAD) = 0.0_PR
 #endif
@@ -256,9 +230,6 @@ SUBROUTINE BHgrav_stock
 
            ! Normalise centre of mass of cell c
            if (mc > 0.0_PR) rc(1:NDIM) = rc(1:NDIM) / mc
-#if defined(CELL_VELOCITIES)
-           if (mc > 0.0_PR) vc(1:NDIM) = vc(1:NDIM) / mc
-#endif
 
            ! Compute quadrupole moment tensor for cell
 #if defined(OCTUPOLE)
@@ -335,9 +306,6 @@ SUBROUTINE BHgrav_stock
            ! Record mass, COM and quadrupole moments in main tree arrays
            BHgrav(c)%m = mc
            BHgrav(c)%r(1:NDIM) = rc(1:NDIM)
-#if defined(CELL_VELOCITIES)
-           BHgrav(c)%v(1:NDIM) = vc(1:NDIM)
-#endif
 #if defined(QUADRUPOLE)
            BHgrav(c)%q(1:NQUAD) = qc(1:NQUAD)
 #endif

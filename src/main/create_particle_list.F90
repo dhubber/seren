@@ -17,9 +17,9 @@ SUBROUTINE create_particle_list(nptcls,plist,typemask)
 
   integer, intent(out) :: nptcls            ! No. of active particles
   integer, intent(out) :: plist(1:ptot)     ! List of active particle ids
-  logical, optional :: typemask(1:ntypes)   ! part. types to include?
+  logical, optional :: typemask(1:ntypes)   ! Part. types to include?
 
-  integer :: p                              ! particle counter
+  integer :: p                              ! Particle counter
 
   nptcls = 0
 

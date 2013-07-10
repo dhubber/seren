@@ -191,7 +191,7 @@ END SUBROUTINE HP_propagate_UV_radiation
 
 
 ! ============================================================================
-! IFLOCATIONBINARYCHOP
+! IFBINARYCHOP
 ! Locates the position of the ionization front using a binary chop method.
 ! ============================================================================
 SUBROUTINE IFbinarychop(rayint_max,rep,rep_prev,hep,hprev,rhoep,&

@@ -7,14 +7,14 @@
 
 ! ============================================================================
 MODULE definitions
-#ifdef USE_MPI
+#if defined(USE_MPI)
   use mpi
 #endif
 
-  integer, parameter :: DP = selected_real_kind(p=15) ! double precision
-  integer, parameter :: QP = selected_real_kind(p=33) ! quadruple precision
-  integer, parameter :: SP = selected_real_kind(p=6)  ! single precision
-  integer, parameter :: ILP = selected_int_kind(r=15) ! integer long precision
+  integer, parameter :: DP = selected_real_kind(p=15) ! Double precision
+  integer, parameter :: QP = selected_real_kind(p=33) ! Quadruple precision
+  integer, parameter :: SP = selected_real_kind(p=6)  ! Single precision
+  integer, parameter :: ILP = selected_int_kind(r=15) ! Integer long precision
 
   integer, parameter :: LARGEST_INT = huge(0)         ! Largest default integer
   
@@ -23,12 +23,12 @@ MODULE definitions
 #elif defined(DOUBLE_PRECISION)
   integer, parameter :: PR = DP
 #else
-  integer, parameter :: PR = SP                       ! default = single
+  integer, parameter :: PR = SP                       ! Default = single
 #endif
 
-#ifdef USE_MPI
-  integer :: rank                    ! Rank (id) of mpi task
-#ifdef DOUBLE_PRECISION
+#if defined(USE_MPI)
+  integer :: rank                                     ! Rank (id) of mpi task
+#if defined(DOUBLE_PRECISION)
   integer, parameter :: MPI_REAL_PR = MPI_DOUBLE_PRECISION
                                                ! MPI_REAL - double precision
   integer, parameter :: MPI_COMPLEX_PR = MPI_DOUBLE_COMPLEX

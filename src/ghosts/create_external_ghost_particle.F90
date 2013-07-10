@@ -13,13 +13,13 @@ SUBROUTINE create_external_ghost_particle(p,rp,ghost)
   use mpi_communication_module
   implicit none
 
-  integer, intent(in)       :: p               ! particle id
-  real(kind=PR), intent(in) :: rp(1:NDIM)      ! ghost position
+  integer, intent(in)       :: p                       ! Particle id
+  real(kind=PR), intent(in) :: rp(1:NDIM)              ! Ghost position
   type(ghost_sph_reference_type), intent(out) :: ghost ! Ghost reference
 
   ! Set up ghost particle refence
-  ghost%porig       = p
-  ghost%r           = rp
+  ghost%porig = p
+  ghost%r     = rp
 
   return
 END SUBROUTINE create_external_ghost_particle

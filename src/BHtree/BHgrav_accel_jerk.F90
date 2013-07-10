@@ -1,8 +1,8 @@
 ! BHGRAV_ACCEL_JERK.F90
 ! D. A. Hubber - 23/01/2008
-! Computes gravitational force exerted on particle p due to all other 
-! particles by walking the BH tree.  Starting on the first level, each 
-! cell is checked with one the opening criterion
+! Computes gravitational force and jerk term exerted on star particle s due 
+! to all SPH particles by walking the BH tree.  Starting on the first level, 
+! each cell is checked with one the opening criterion
 ! i) Opening angle
 ! ii) Octupole moment error term (GADGET MAC)
 ! iii) Maximum absolute multipole moment error (Salmon & Warren MAC)
@@ -99,10 +99,8 @@ SUBROUTINE BHgrav_accel_jerk(s,hs,rs,vs,agravs,adots,pots)
      ! simply record particle id in list straight away
      if (BHgrav(c)%leaf == 1) then
         pp = BHgrav(c)%plist(1)
-!        if (pp /= p) then
-           nlist = nlist + 1
-           treelist(nlist) = pp
-!        end if
+        nlist = nlist + 1
+        treelist(nlist) = pp
 
         ! Point to next cell in list
         c = BHgrav(c)%nextcell
@@ -131,12 +129,6 @@ SUBROUTINE BHgrav_accel_jerk(s,hs,rs,vs,agravs,adots,pots)
 #endif
            invdrsqd = 1.0_DP / (drsqd + SMALL_NUMBER_DP)
            invdrmag = sqrt(invdrsqd)
-#if defined(CELL_VELOCITIES)
-           dv(1:NDIM) = vs(1:NDIM) - BHgrav(c)%v(1:NDIM)
-           drdt = dot_product(dv(1:NDIM),dr(1:NDIM))*invdrmag
-           !adottemp(1:NDIM) = -BHgrav(c)%m*invdrsqd*invdrmag*dv(1:NDIM) + &
-           !     & 3.0_DP*BHgrav(c)%m*drdt*invdrsqd*invdrsqd*dr(1:NDIM)
-#endif
            atemp(1:NDIM) = -BHgrav(c)%m*invdrsqd*invdrmag*dr(1:NDIM)
            adottemp(1:NDIM) = 0.0_DP
            dpot = BHgrav(c)%m*invdrmag
@@ -222,7 +214,6 @@ SUBROUTINE BHgrav_accel_jerk(s,hs,rs,vs,agravs,adots,pots)
               ! If so, loop over all particles in leaf cell
               do i=1,BHgrav(c)%leaf
                  pp = BHgrav(c)%plist(i)
-!                 if (p == pp) cycle
                  nlist = nlist + 1
                  treelist(nlist) = pp
               end do
@@ -247,7 +238,8 @@ SUBROUTINE BHgrav_accel_jerk(s,hs,rs,vs,agravs,adots,pots)
      ! This is done when i) the particle id buffer has been filled up, 
      ! and/or ii) we have finished traversing the tree. 
      ! -----------------------------------------------------------------------
-     if ((nlist > GLISTSIZE - LEAFMAX .or. (nlist > 0 .and. c > ctot_grav))) then
+     if ((nlist > GLISTSIZE - LEAFMAX .or. &
+          &(nlist > 0 .and. c > ctot_grav))) then
         do i=1,nlist
            pp = treelist(i)
 #if defined(NBODY_HERMITE4) && defined(MEANH_GRAVITY)

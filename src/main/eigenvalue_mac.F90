@@ -6,6 +6,7 @@
 ! solution developed by Vieta (e.g. Geometric Construction, Martin 1998), 
 ! the maximum magnitude of the three solutions is given by y = sqrt(-4p/3).
 ! We use this directly to calculate the maximum eigenvalue for the MAC.
+! Mathematical derivation is given in Hubber et al. (2011).
 ! ============================================================================
 
 #include "macros.h"
@@ -19,8 +20,8 @@ SUBROUTINE eigenvalue_mac(qc,mac)
   real(kind=DP), intent(in) :: qc(1:NQUAD)  ! Quadrupole moment tensor of c
   real(kind=PR), intent(out) :: mac         ! MAC value
 
-  real(kind=DP) :: lambda                   ! max eigenvalue
-  real(kind=DP) :: p                        ! aux. quadrupole variable
+  real(kind=DP) :: lambda                   ! Max eigenvalue
+  real(kind=DP) :: p                        ! Aux. quadrupole variable
 
 ! Compute q-matrix variable depending on dimensionality
 #if NDIM==2

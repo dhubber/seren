@@ -73,10 +73,10 @@ SUBROUTINE calculate_sink_properties
      L_s = 10.0_DP**(real(L_s,DP))
      if (L_s > SMALL_NUMBER) active = .true.
 #endif
-     write(6,*) "Star properties : ",s,itable,intfactor,ms
+     !write(6,*) "Star properties : ",s,itable,intfactor,ms
      !write(6,*) "Luminosity : ",L_s*Lscale,Lunit
-     write(6,*) "Ionizing rad    : ",N_LyC_s/tscale/t_SI,intmax_s
-     write(6,*) "Wind            : ",M_loss_s*dmdtscale,v_wind_s*vscale
+     !write(6,*) "Ionizing rad    : ",N_LyC_s/tscale/t_SI,intmax_s
+     !write(6,*) "Wind            : ",M_loss_s*dmdtscale,v_wind_s*vscale
      
      ! If there is some ionizing flux or a strong wind source from the star, 
      ! create a new healpix source from the sink (if required) and 

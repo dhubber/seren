@@ -35,17 +35,17 @@ SUBROUTINE HP_rhoh_ep(rep,hep,rhoep)
   integer, allocatable :: pp_high_list(:) ! list of neighbours < 2 h_high
   integer, allocatable :: pp_potlist(:)   ! potential neighbour list
   real(kind=PR) :: dr(1:NDIM)             ! vector displacements (p'-p)
-  real(kind=PR) :: drmag                  ! ..
+  real(kind=PR) :: drmag                  ! distance
   real(kind=PR) :: drsqd                  ! particle separation squared
   real(kind=PR) :: hrangesqd_high         ! particle radius (2*h_high) squared
   real(kind=PR) :: hrangesqd_low          ! particle radius (2*h_low) squared
-  real(kind=PR) :: hfactor                ! 
+  real(kind=PR) :: hfactor                ! invh^NDIM
   real(kind=PR) :: h_high                 ! high value estimate of h
   real(kind=PR) :: h_low                  ! low value of h
   real(kind=PR) :: h_old                  ! old value of h
   real(kind=PR) :: h_search               ! value of h for tree search  
-  real(kind=PR) :: invhp                  ! ..
-  real(kind=PR) :: mpp                    ! ..
+  real(kind=PR) :: invhp                  ! 1 / h
+  real(kind=PR) :: mpp                    ! Mass of neighbour
   real(kind=PR), allocatable :: rsqd_high(:)  ! drsqd values for high list
   real(kind=PR), allocatable :: rsqd_low(:)   ! drsqd values for low list
 

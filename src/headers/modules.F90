@@ -29,28 +29,28 @@ MODULE constant_module
   use definitions
 
   ! Physical constants in SI units (unless stated otherwise)
-  real(kind=DP),parameter :: r_pc    = 3.08568E16_DP     ! parsec
-  real(kind=DP),parameter :: r_au    = 1.49597870E11_DP  ! astronomical unit
-  real(kind=DP),parameter :: r_sun   = 6.96E8_DP         ! solar radius
+  real(kind=DP),parameter :: r_pc    = 3.08568E16_DP     ! Parsec
+  real(kind=DP),parameter :: r_au    = 1.49597870E11_DP  ! Astronomical unit
+  real(kind=DP),parameter :: r_sun   = 6.96E8_DP         ! Solar radius
   real(kind=DP),parameter :: r_earth = 6.371E6_DP        ! Earth radius
-  real(kind=DP),parameter :: pc_au   = 206265.0_DP       ! parsec (in AU)
+  real(kind=DP),parameter :: pc_au   = 206265.0_DP       ! Parsec (in AU)
   real(kind=DP),parameter :: km_cm   = 1.E5_DP           ! km (in cm)
-  real(kind=DP),parameter :: m_sun   = 1.98892E30_DP     ! solar mass
+  real(kind=DP),parameter :: m_sun   = 1.98892E30_DP     ! Solar mass
   real(kind=DP),parameter :: m_jup   = 1.8986E27_DP      ! Jupiter mass
   real(kind=DP),parameter :: m_earth = 5.9736E24_DP      ! Earth mass
-  real(kind=DP),parameter :: myr = 3.1556952E13_DP       ! megayear
-  real(kind=DP),parameter :: yr  = 3.1556952E7_DP        ! year
-  real(kind=DP),parameter :: day = 8.64E4_DP             ! day
-  real(kind=DP),parameter :: amu = 1.660538782E-27_DP    ! atomic mass unit
+  real(kind=DP),parameter :: myr = 3.1556952E13_DP       ! Megayear
+  real(kind=DP),parameter :: yr  = 3.1556952E7_DP        ! Year
+  real(kind=DP),parameter :: day = 8.64E4_DP             ! Day
+  real(kind=DP),parameter :: amu = 1.660538782E-27_DP    ! Atomic mass unit
   real(kind=DP),parameter :: m_hydrogen = 1.66054E-27_DP ! Hydrogen mass
   real(kind=DP),parameter :: G_const = 6.67428E-11_DP    ! Grav. constant
   real(kind=DP),parameter :: k_boltzmann = 1.3807E-23_DP ! Boltzmann constant 
-  real(kind=DP),parameter :: stefboltz = 5.6704E-8_DP    ! stefan-boltzmann
-  real(kind=DP),parameter :: e_charge = 1.6021765E-19_DP ! electron charge
-  real(kind=DP),parameter :: mu_0 = 1.25663706144E-6_DP  ! permeability of
+  real(kind=DP),parameter :: stefboltz = 5.6704E-8_DP    ! Stefan-boltzmann
+  real(kind=DP),parameter :: e_charge = 1.6021765E-19_DP ! Electron charge
+  real(kind=DP),parameter :: mu_0 = 1.25663706144E-6_DP  ! Permeability of
                                                          ! free space
-  real(kind=DP),parameter :: kappa_const = 2.09E-4_DP    ! opacity kappa (cgs)
-  real(kind=DP),parameter :: L_sun = 3.839E26_DP         ! solar luminosity
+  real(kind=DP),parameter :: kappa_const = 2.09E-4_DP    ! Opacity kappa (cgs)
+  real(kind=DP),parameter :: L_sun = 3.839E26_DP         ! Solar luminosity
 
   ! Numerical constants
   real(kind=PR),parameter :: pi = 3.1415926536_PR
@@ -100,25 +100,25 @@ END MODULE diagnostics_module
 MODULE Eos_module
   use definitions
 
-  integer :: dim_temp                           ! dimension of temp table
-  integer :: dim_dens                           ! dimension of dens table
+  integer :: dim_temp                           ! Dimension of temp table
+  integer :: dim_dens                           ! Dimension of dens table
 
   real(kind=PR) :: bdens                        ! log10 density factor
   real(kind=PR) :: btemp                        ! log10 temp. factor
   real(kind=PR) :: densmax                      ! Max. density in eos table
   real(kind=PR) :: densmin                      ! Min. density in eos table
-  real(kind=PR) :: fcolumn                      ! column density
-                                                ! polytrope correction
-  real(kind=PR) :: rad_const                    ! scaling constant
+  real(kind=PR) :: fcolumn                      ! Column density
+                                                ! Polytrope correction
+  real(kind=PR) :: rad_const                    ! Scaling constant
   real(kind=PR) :: tempmin                      ! Max. temp. in eos table
   real(kind=PR) :: tempmax                      ! Min. temp. in eos table
 
-  real(kind=PR), allocatable :: eos_dens(:)     ! density of EOS table
-  real(kind=PR), allocatable :: eos_temp(:)     ! temperature of EOS table
-  real(kind=PR), allocatable :: eos_energy(:,:) ! energy from EOS table
+  real(kind=PR), allocatable :: eos_dens(:)     ! Density of EOS table
+  real(kind=PR), allocatable :: eos_temp(:)     ! Temperature of EOS table
+  real(kind=PR), allocatable :: eos_energy(:,:) ! Energy from EOS table
   real(kind=PR), allocatable :: eos_mu(:,:)     ! mu from EOS table
-  real(kind=PR), allocatable :: kappa(:,:)      ! mean opacity EOS table
-  real(kind=PR), allocatable :: kappap(:,:)     ! planck opacity EOS table
+  real(kind=PR), allocatable :: kappa(:,:)      ! Mean opacity EOS table
+  real(kind=PR), allocatable :: kappap(:,:)     ! Planck opacity EOS table
   real(kind=PR), allocatable :: kappar(:,:)     ! Rosseland opacity EOS table
 #if defined(DEBUG_RAD)
   real(kind=PR), allocatable :: rad_info(:,:)   ! Debug info
@@ -132,10 +132,10 @@ MODULE Tprof_module
   use definitions
 
   ! Temperature profile away from a luminosity source
-  real(kind=PR) :: ptemp0        ! temperature at r=1AU from the star
-  real(kind=PR) :: ptemp_r0      ! temperature softening radius (<<1AU)
-  real(kind=PR) :: ptemp_q       ! temperature power law index
-  real(kind=PR) :: temp_inf      ! temperature at infinity
+  real(kind=PR) :: ptemp0        ! Temperature at r=1AU from the star
+  real(kind=PR) :: ptemp_r0      ! Temperature softening radius (<<1AU)
+  real(kind=PR) :: ptemp_q       ! Temperature power law index
+  real(kind=PR) :: temp_inf      ! Temperature at infinity
 
 END MODULE Tprof_module
 
@@ -151,10 +151,10 @@ MODULE ewald_module
 #elif NDIM==3
   integer, parameter :: ewsize(1:NDIM)=(/32,32,32/)
 #endif
-  real(kind=PR) :: eforce(1:NDIM)    ! Ewald correction acceleration
-  real(kind=PR) :: ewsizeil(1:NDIM)  ! (ewsize - 1)/L
-  real(kind=PR) :: L(1:NDIM)         ! Periodic box size
-  real(kind=PR), allocatable :: fcorr(:,:,:,:)  ! Ewald correction grids
+  real(kind=PR) :: eforce(1:NDIM)              ! Ewald correction acceleration
+  real(kind=PR) :: ewsizeil(1:NDIM)            ! (ewsize - 1)/L
+  real(kind=PR) :: L(1:NDIM)                   ! Periodic box size
+  real(kind=PR), allocatable :: fcorr(:,:,:,:) ! Ewald correction grids
 
 END MODULE ewald_module
 
@@ -165,25 +165,25 @@ MODULE filename_module
 
   logical :: incomplete_params        ! Accept an incomplete params file?
   logical :: inifile                  ! Has .ini file been written yet?
-  logical :: restart                  ! is this simulation a restart?
-  integer :: nparams                  ! no. of params available
-  integer :: ntemp                    ! next temp file to be written
-  integer :: ptrack                   ! (original) id of particle to track
-  character(len=256) :: eos_opa_file  ! filename of eos/opacity table
+  logical :: restart                  ! Is this simulation a restart?
+  integer :: nparams                  ! No. of params available
+  integer :: ntemp                    ! Next temp file to be written
+  integer :: ptrack                   ! (Original) id of particle to track
+  character(len=256) :: eos_opa_file  ! Filename of eos/opacity table
   character(len=256) :: error_file    ! Error report file
-  character(len=256) :: in_file       ! initial conditions file
-  character(len=256) :: run_id        ! simulation run identifier (name)
-  character(len=256) :: run_dir       ! name of run directory
-  character(len=256) :: fileform_ext  ! file format extension for filenames
-  character(len=256) :: in_file_form  ! format of initial conditions file
-  character(len=256) :: out_init      ! initial snapshot output
-  character(len=256) :: out_final     ! final snapshot output
-  character(len=256) :: out_temp      ! temporary snapshot output
-  character(len=256) :: out_file_form ! format of snapshot files
+  character(len=256) :: in_file       ! Initial conditions file
+  character(len=256) :: run_id        ! Simulation run identifier (name)
+  character(len=256) :: run_dir       ! Name of run directory
+  character(len=256) :: fileform_ext  ! File format extension for filenames
+  character(len=256) :: in_file_form  ! Format of initial conditions file
+  character(len=256) :: out_init      ! Initial snapshot output
+  character(len=256) :: out_final     ! Final snapshot output
+  character(len=256) :: out_temp      ! Temporary snapshot output
+  character(len=256) :: out_file_form ! Format of snapshot files
   character(len=256) :: out_temp1     ! Temporary snapshot 1
   character(len=256) :: out_temp2     ! Temporary snapshot 2
   character(len=256) :: restart_log   ! Restart file that records last snapshot
-  character(len=256) :: param_file    ! parameter file
+  character(len=256) :: param_file    ! Parameter file
   real(kind=PR) :: rzero(1:NDIM)      ! Position of origin for debug output
 
   type seren_param                             ! Seren parameter structure
@@ -192,9 +192,9 @@ MODULE filename_module
      logical                     :: done       ! Has variable been read?
      character(len=256), pointer :: var_c      ! 256-character string
      character(len=20), pointer  :: var_u      ! 20-character unit
-     logical, pointer            :: var_l      ! logical
-     integer, pointer            :: var_i      ! integer
-     integer(kind=ILP), pointer  :: var_j      ! long integer
+     logical, pointer            :: var_l      ! Logical
+     integer, pointer            :: var_i      ! Integer
+     integer(kind=ILP), pointer  :: var_j      ! Long integer
      real(kind=PR), pointer      :: var_r      ! PR real
      real(kind=DP), pointer      :: var_d      ! DP real
   end type seren_param
@@ -211,28 +211,28 @@ MODULE HP_module
   logical :: HP_ionize                    ! Ionizing radiation?
   integer :: imax                         ! Maximum no. of rays
   integer :: lmax_hp                      ! Max number of HEALPix levels
-  integer :: ltot_hp                      ! ..
+  integer :: ltot_hp                      ! Total number of HEALPix levels
   integer :: HPtot                        ! No. of UV sources
-  integer :: nnewwind                     ! ..
-  integer(kind=i4b) :: x2pix(1:128)       ! ..
-  integer(kind=i4b) :: y2pix(1:128)       ! ..
-  integer(kind=i4b) :: pix2x(0:1023)      ! ..
-  integer(kind=i4b) :: pix2y(0:1023)      ! ..
+  integer :: nnewwind                     ! No. of new wind particles
+  integer(kind=i4b) :: x2pix(1:128)       ! Internal HEALPix array
+  integer(kind=i4b) :: y2pix(1:128)       ! ""
+  integer(kind=i4b) :: pix2x(0:1023)      ! ""
+  integer(kind=i4b) :: pix2y(0:1023)      ! ""
   real(kind=DP) :: a_star                 ! Recombination coefficient
   real(kind=PR) :: f1                     ! Integration step factor
   real(kind=PR) :: f2                     ! Opening criterion factor
   real(kind=PR) :: f3                     ! Temperature smoothing factor
   real(kind=PR) :: f4                     ! Density interpolation factor
-  real(kind=PR) :: HPmaxres               ! ..
+  real(kind=PR) :: HPmaxres               ! Maximum HEALPix resolution
   real(kind=DP) :: intmax                 ! Value of integral at IF
   real(kind=DP) :: N_LyC                  ! Flux of UV photons
   real(kind=PR) :: rstatic(1:3)           ! Position of single static source
   real(kind=PR) :: Tion                   ! Temp. of the ionized gas
   real(kind=PR) :: Tneut                  ! Temp. of the neutral gas
-  real(kind=PR) :: Xfrac                  ! ..
-  real(kind=PR) :: Yfrac                  ! ..
-  real(kind=PR) :: M_loss                 ! ..
-  real(kind=PR) :: v_wind                 ! ..
+  real(kind=PR) :: Xfrac                  ! Fraction by mass of hydrogen
+  real(kind=PR) :: Yfrac                  ! Fraction by mass of helium
+  real(kind=PR) :: M_loss                 ! Stellar wind mass loss rate (dmdt)
+  real(kind=PR) :: v_wind                 ! Stellar wind velocity
 #if defined(DEBUG_HP_WALK_ALL_RAYS)
   integer, allocatable :: whichHPlevel(:) ! HP level of particle p
 #endif
@@ -311,18 +311,18 @@ MODULE hydro_module
   real(kind=PR) :: alpha                      ! alpha viscosity parameter
   real(kind=PR) :: alpha_min                  ! alpha_min
   real(kind=PR) :: beta                       ! beta viscosity parameter
-  real(kind=PR) :: gamma                      ! ratio of specific heats
+  real(kind=PR) :: gamma                      ! Ratio of specific heats
   real(kind=PR) :: gammaone                   ! (gamma - 1)
-  real(kind=PR) :: isotemp                    ! isothermal temperature
+  real(kind=PR) :: isotemp                    ! Isothermal temperature
   real(kind=PR) :: Kpoly                      ! Polytropic constant
-  real(kind=PR) :: mu_bar                     ! mean mol. weight
+  real(kind=PR) :: mu_bar                     ! Mean mol. weight
   real(kind=PR) :: mu_ion                     ! mu of ionised gas
-  real(kind=PR) :: newsound_const             ! sound speed scale
-  real(kind=PR) :: Pconst                     ! ideal gas law scaling const.
+  real(kind=PR) :: newsound_const             ! Sound speed scale
+  real(kind=PR) :: Pconst                     ! Ideal gas law scaling const.
   real(kind=PR) :: Pconst2                    !  "" for RAD_WS EoS.
   real(kind=PR) :: Pext                       ! External pressure
-  real(kind=PR) :: rhobary                    ! barotropic density
-  real(kind=PR) :: sound_const                ! sound speed scale
+  real(kind=PR) :: rhobary                    ! Barotropic density
+  real(kind=PR) :: sound_const                ! Sound speed scale
 #if defined(ARTIFICIAL_CONDUCTIVITY)
   real(kind=PR) :: alpha_cond                 ! Conductivity alpha
 #endif
@@ -335,11 +335,11 @@ MODULE kernel_module
   use definitions
 
 #if defined(KERNEL_TABLES)
-  real(kind=PR), allocatable :: w0table(:)     ! kernel function
-  real(kind=PR), allocatable :: w1table(:)     ! kernel derivative (TC)
-  real(kind=PR), allocatable :: w2table(:)     ! kernel derivaitive (orig)
-  real(kind=PR), allocatable :: wgravtable(:)  ! grav. force kernel
-  real(kind=PR), allocatable :: wpottable(:)   ! grav. potential kernel
+  real(kind=PR), allocatable :: w0table(:)     ! Kernel function
+  real(kind=PR), allocatable :: w1table(:)     ! Kernel derivative (TC)
+  real(kind=PR), allocatable :: w2table(:)     ! Kernel derivaitive (orig)
+  real(kind=PR), allocatable :: wgravtable(:)  ! Grav. force kernel
+  real(kind=PR), allocatable :: wpottable(:)   ! Grav. potential kernel
   real(kind=PR), allocatable :: womegatable(:) ! 'grad-h' correction kernel
   real(kind=PR), allocatable :: wzetatable(:)  ! 'grad-h' gravity kernel
 #endif
@@ -363,18 +363,18 @@ MODULE Nbody_module
 #endif
 
   type star_node
-     logical :: accdo                ! acceleration step?
+     logical :: accdo                ! Acceleration step?
      integer(kind=ILP) :: ncreate    ! nsteps when sink is created
      integer(kind=ILP) :: nlast      ! n of beginning of current timestep
-     integer(kind=ILP) :: nlevel     ! timestep level of star
-     real(kind=DP) :: tcreate        ! physical time when sink is created
-     real(kind=DP) :: r(1:NDIM)      ! position vectors
-     real(kind=DP) :: v(1:VDIM)      ! velocity vectors
-     real(kind=DP) :: m              ! particle mass
-     real(kind=DP) :: h              ! star softening length
-     real(kind=DP) :: radius         ! sink accretion radius
-     real(kind=DP) :: rold(1:NDIM)   ! old position vectors
-     real(kind=DP) :: vold(1:VDIM)   ! old velocity vectors
+     integer(kind=ILP) :: nlevel     ! Timestep level of star
+     real(kind=DP) :: tcreate        ! Physical time when sink is created
+     real(kind=DP) :: r(1:NDIM)      ! Position vectors
+     real(kind=DP) :: v(1:VDIM)      ! Velocity vectors
+     real(kind=DP) :: m              ! Particle mass
+     real(kind=DP) :: h              ! Star softening length
+     real(kind=DP) :: radius         ! Sink accretion radius
+     real(kind=DP) :: rold(1:NDIM)   ! Old position vectors
+     real(kind=DP) :: vold(1:VDIM)   ! Old velocity vectors
      real(kind=DP) :: angmom(1:3)    ! Star internal angular momentum
      real(kind=DP) :: gpe            ! Gravitational potential energy
      real(kind=DP) :: gpot           ! Gravitational potential
@@ -388,9 +388,9 @@ MODULE Nbody_module
      real(kind=DP) :: a2dot(1:VDIM)  ! 2nd deriv accel
      real(kind=DP) :: a2dot0(1:VDIM) ! 2nd deriv accel at start of timestep
      real(kind=DP) :: a3dot(1:VDIM)  ! 3rd deriv accel
-     real(kind=DP) :: luminosity     ! luminosity from unresolved star
-     real(kind=DP) :: temperature    ! surface temperature of unresolved star
-     real(kind=DP) :: star_radius    ! physical radius of unresolved star
+     real(kind=DP) :: luminosity     ! Luminosity from unresolved star
+     real(kind=DP) :: temperature    ! Surface temperature of unresolved star
+     real(kind=DP) :: star_radius    ! Physical radius of unresolved star
      real(kind=DP) :: macc(1:DMDT_RANGE) ! Masses accreted in previous steps
      real(kind=DP) :: tacc(1:DMDT_RANGE) ! Times of previous steps
 #if defined(BINARY_COM_MOTION)
@@ -463,20 +463,20 @@ END MODULE neighbour_module
 MODULE particle_module
   use definitions
 
-  logical :: com_frame                        ! flag to change to COM frame
+  logical :: com_frame                        ! Flag to change to COM frame
   logical :: rho_remove                       ! Remove particle below min. rho?
   logical :: energy_remove                    ! Remove escaping particles?
   logical :: rad_remove                       ! Remove distant particles?
   integer :: pghostmax                        ! Max. no. of ghost particles
-  integer :: pmax                             ! length of particle arrays
-  integer :: ptot                             ! total number of particles
-  integer :: rseed                            ! random number seed
+  integer :: pmax                             ! Length of particle arrays
+  integer :: ptot                             ! Total number of particles
+  integer :: rseed                            ! Random number seed
   real(kind=PR) :: rholost                    ! Particle removal density
   real(kind=PR) :: rad_lost                   ! Particle removal radius
   real(kind=PR) :: rmax(1:NDIM)               ! Max. extent of particles
   real(kind=PR) :: rmin(1:NDIM)               ! Min. extent of particles
 #if defined(H_RHO)
-  real(kind=PR) :: rextent                    ! max extent in any 1 dimension
+  real(kind=PR) :: rextent                    ! Max extent in any 1 dimension
 #endif
 #if defined(REMOVE_OUTLIERS)
   real(kind=DP) :: mlost                      ! Mass removed from simulation
@@ -492,67 +492,67 @@ MODULE particle_module
   ! --------------------------------------------------------------------------
   type sph_particle
      logical :: accdo                  ! Update particle properties
-     integer :: porig                  ! original id
-     integer :: ptype                  ! particle type
-     integer(kind=ILP) :: nlast        ! integer time of last update
-     integer(kind=ILP) :: nlevel       ! integer time step level
+     integer :: porig                  ! Original id
+     integer :: ptype                  ! Particle type
+     integer(kind=ILP) :: nlast        ! Integer time of last update
+     integer(kind=ILP) :: nlevel       ! Integer time step level
 #if defined(CHECK_NEIGHBOUR_TIMESTEPS)
-     integer(kind=ILP) :: nminneib     ! minimum neighbour stepsize
+     integer(kind=ILP) :: nminneib     ! Minimum neighbour stepsize
 #endif
-     real(kind=PR) :: r(1:NDIM)        ! position
-     real(kind=PR) :: v(1:VDIM)        ! velocity vector
-     real(kind=PR) :: a(1:VDIM)        ! acceleration vector
-     real(kind=PR) :: m                ! mass
-     real(kind=PR) :: div_v            ! velocity divergence
-     real(kind=PR) :: rho              ! density
+     real(kind=PR) :: r(1:NDIM)        ! Position
+     real(kind=PR) :: v(1:VDIM)        ! Velocity vector
+     real(kind=PR) :: a(1:VDIM)        ! Acceleration vector
+     real(kind=PR) :: m                ! Mass
+     real(kind=PR) :: div_v            ! Velocity divergence
+     real(kind=PR) :: rho              ! Density
 #if !defined(LOW_MEM)
      real(kind=PR) :: invrho           ! 1 / rho
 #endif
-     real(kind=PR) :: h                ! smoothing length
+     real(kind=PR) :: h                ! Smoothing length
 #if !defined(LOW_MEM)
      real(kind=PR) :: invh             ! 1 / h
      real(kind=PR) :: hfactor          ! (1 / h)^(NDIM + 1)
 #endif
-     real(kind=PR) :: u                ! specific internal energy
-     real(kind=PR) :: press            ! pressure
-     real(kind=PR) :: sound            ! sound speed
-     real(kind=PR) :: temp             ! temperature
+     real(kind=PR) :: u                ! Specific internal energy
+     real(kind=PR) :: press            ! Pressure
+     real(kind=PR) :: sound            ! Sound speed
+     real(kind=PR) :: temp             ! Temperature
 #if defined(TWO_FLUIDS)
      real(kind=PR) :: h2               ! 2nd fluid smoothing length
      real(kind=PR) :: invh2            ! 1 / h2
 #endif
 #if defined(SM2012_SPH)
-     real(kind=PR) :: q                ! internal energy density
+     real(kind=PR) :: q                ! Internal energy density
 #endif
 #if defined(GRAD_H_SPH)
      real(kind=PR) :: omega            ! 'grad-h' correction
 #endif
 #if defined(GRAD_H_SPH) && defined(SELF_GRAVITY)
-     real(kind=PR) :: zo               ! gravity 'grad-h' correction
+     real(kind=PR) :: zo               ! Gravity 'grad-h' correction
 #endif
 #if defined(GRAVITY)
-     real(kind=PR) :: gpot             ! gravitational potential
+     real(kind=PR) :: gpot             ! Gravitational potential
 #endif
 #if defined(SELF_GRAVITY)
-     real(kind=PR) :: agravmag         ! mag. of grav. acceleration
+     real(kind=PR) :: agravmag         ! Mag. of grav. acceleration
 #endif
      real(kind=DP) :: laststep         ! Previous step size
-     real(kind=PR) :: r_old(1:NDIM)    ! old particle positions
-     real(kind=PR) :: v_old(1:VDIM)    ! old particle velocities
+     real(kind=PR) :: r_old(1:NDIM)    ! Old particle positions
+     real(kind=PR) :: v_old(1:VDIM)    ! Old particle velocities
 #if defined(RUNGE_KUTTA2)
-     real(kind=PR) :: v_half(1:VDIM)   ! half-step velocities
+     real(kind=PR) :: v_half(1:VDIM)   ! Half-step velocities
 #endif
 #if defined(LEAPFROG_KDK)
-     real(kind=PR) :: a_old(1:VDIM)    ! old particle accelerations
+     real(kind=PR) :: a_old(1:VDIM)    ! Old particle accelerations
 #endif
 #if defined(SMOOTHED_VELOCITY)
-     real(kind=PR) :: v_smooth(1:VDIM) ! smoothed velocity
+     real(kind=PR) :: v_smooth(1:VDIM) ! Smoothed velocity
 #endif
 #if defined(RAD_WS) && defined(SELF_GRAVITY)
-     integer :: idens                  ! indices for dens from table
-     integer :: itemp                  ! indices for temp from table
-     real(kind=PR) :: sphgpot          ! grav. pot just due to SPH ptcls
-     real(kind=PR) :: column2          ! squared column density
+     integer :: idens                  ! Indices for dens from table
+     integer :: itemp                  ! Indices for temp from table
+     real(kind=PR) :: sphgpot          ! Grav. pot just due to SPH ptcls
+     real(kind=PR) :: column2          ! Squared column density
      real(kind=PR) :: ueq              ! Equilibrium u
      real(kind=PR) :: dt_therm         ! Thermal cooling timescale
 #endif
@@ -566,34 +566,34 @@ MODULE particle_module
 #endif
 #if defined(HYDRO)
 #if defined(ENERGY_EQN)
-     real(kind=PR) :: u_old            ! old internal energy
-     real(kind=PR) :: dudt             ! cooling rate
+     real(kind=PR) :: u_old            ! Old internal energy
+     real(kind=PR) :: dudt             ! Cooling rate
 #if defined(LEAPFROG_KDK)
-     real(kind=PR) :: dudt_old         ! old dudt
+     real(kind=PR) :: dudt_old         ! Old dudt
 #endif
 #if defined(DIFFUSION)
-     real(kind=PR) :: du_dt_diff       ! diffused energy rate
-     real(kind=PR) :: k_cond           ! diffusion conductivity
+     real(kind=PR) :: du_dt_diff       ! Diffused energy rate
+     real(kind=PR) :: k_cond           ! Diffusion conductivity
 #endif
 #if defined(COOLING_HEATING)
      real(kind=PR) :: dudt_cool        ! Cooling rate
 #endif
 #endif
 #if defined(ENTROPIC_FUNCTION)
-     real(kind=PR) :: Aent             ! entropic function
-     real(kind=PR) :: Aold             ! old entropic function
-     real(kind=PR) :: dAdt             ! rate of change of entropic fn.
+     real(kind=PR) :: Aent             ! Entropic function
+     real(kind=PR) :: Aold             ! Old entropic function
+     real(kind=PR) :: dAdt             ! Rate of change of entropic fn.
 #if defined(LEAPFROG_KDK)
-     real(kind=PR) :: Ahalf            ! half-step entropic function
+     real(kind=PR) :: Ahalf            ! Half-step entropic function
 #endif
 #endif
 #if defined(SIGNAL_VELOCITY)
-     real(kind=PR) :: vsigmax          ! maximum signal velocity
+     real(kind=PR) :: vsigmax          ! Maximum signal velocity
 #endif
 #if defined(VISC_TD)
-     real(kind=PR) :: talpha           ! time-dependent alpha parameter
+     real(kind=PR) :: talpha           ! Time-dependent alpha parameter
      real(kind=PR) :: talpha_old       ! alpha at start of timestep
-     real(kind=PR) :: dalpha_dt        ! rate of change of alpha
+     real(kind=PR) :: dalpha_dt        ! Rate of change of alpha
 #endif
 #if defined(VISC_BALSARA)
      real(kind=PR) :: balsara          ! Balsara factor
@@ -604,20 +604,20 @@ MODULE particle_module
 #endif
 #if defined(IONIZING_UV_RADIATION)
      integer :: newtemp                ! New temperature calculated
-     real(kind=PR) :: tempmin          ! minimum temperature
-     real(kind=PR) :: tempaux          ! aux. temp array
+     real(kind=PR) :: tempmin          ! Minimum temperature
+     real(kind=PR) :: tempaux          ! Aux. temp array
 #endif
 #if defined(DIV_A)
-     real(kind=PR) :: div_a            ! acceleration divergence
+     real(kind=PR) :: div_a            ! Acceleration divergence
 #endif
 #if defined(DEBUG_FORCES)
-     real(kind=PR) :: a_hydro(1:VDIM)  ! hydro acceleration
-     real(kind=PR) :: a_grav(1:VDIM)   ! gravitational acceleration
-     real(kind=PR) :: a_mag(1:VDIM)    ! magnetic acceleration
-     real(kind=PR) :: a_visc(1:VDIM)   ! viscous acceleration
+     real(kind=PR) :: a_hydro(1:VDIM)  ! Hydro acceleration
+     real(kind=PR) :: a_grav(1:VDIM)   ! Gravitational acceleration
+     real(kind=PR) :: a_mag(1:VDIM)    ! Magnetic acceleration
+     real(kind=PR) :: a_visc(1:VDIM)   ! Viscous acceleration
 #endif
 #if defined(DEBUG_DUDTRAD)
-     real(kind=PR) :: dudt_rad         ! radiative cooling rate
+     real(kind=PR) :: dudt_rad         ! Radiative cooling rate
 #endif
 #if defined(USE_MPI) && !defined(LOW_MEM)
 #if defined(HYDRO)
@@ -630,16 +630,16 @@ MODULE particle_module
   end type sph_particle
   
   type minimal_sph_particle
-     integer :: porig                  ! original id
-     real(kind=PR) :: r(1:NDIM)        ! position
-     real(kind=PR) :: v(1:VDIM)        ! velocity vector
-     real(kind=PR) :: m                ! mass
-     real(kind=PR) :: rho              ! density
-     real(kind=PR) :: h                ! smoothing length
-     real(kind=PR) :: u                ! specific internal energy
-     real(kind=PR) :: temp             ! temperature
+     integer :: porig                  ! Original id
+     real(kind=PR) :: r(1:NDIM)        ! Position
+     real(kind=PR) :: v(1:VDIM)        ! Velocity vector
+     real(kind=PR) :: m                ! Mass
+     real(kind=PR) :: rho              ! Density
+     real(kind=PR) :: h                ! Smoothing length
+     real(kind=PR) :: u                ! Specific internal energy
+     real(kind=PR) :: temp             ! Temperature
 #if defined(ENTROPIC_FUNCTION)
-     real(kind=PR) :: Aent             ! entropic function
+     real(kind=PR) :: Aent             ! Entropic function
 #endif
   end type minimal_sph_particle
   
@@ -875,13 +875,13 @@ MODULE sink_module
      real(kind=PR) :: agravmag          ! Mag. of grav. acceleration
 !!#endif
 #if defined(DEBUG_FORCES)
-     real(kind=PR) :: agrav(1:VDIM)     ! gravitational acceleration
-     real(kind=PR) :: ahydro(1:VDIM)    ! hydro force (of accreted particles)
+     real(kind=PR) :: agrav(1:VDIM)     ! Gravitational acceleration
+     real(kind=PR) :: ahydro(1:VDIM)    ! Hydro force (of accreted particles)
 #endif
 #if defined(USE_MPI)
 #if defined(SELF_GRAVITY)
-     real(kind=DP) :: remote_agrav(1:VDIM) ! grav. accel. from remote tasks
-     real(kind=DP) :: remote_gpot      ! grav. pot. from remote tasks
+     real(kind=DP) :: remote_agrav(1:VDIM) ! Grav. accel. from remote tasks
+     real(kind=DP) :: remote_gpot          ! Grav. pot. from remote tasks
 #endif
 #endif
   end type sink_node
@@ -1045,40 +1045,40 @@ END MODULE turbulence_module
 MODULE tree_module
   use definitions
 
-  real(kind=PR) :: thetamaxsqd       ! opening angle criterion squared
-  real(kind=PR) :: abserror          ! absolute error parameter (Gadget MAC)
+  real(kind=PR) :: thetamaxsqd       ! Opening angle criterion squared
+  real(kind=PR) :: abserror          ! Absolute error parameter (Gadget MAC)
 
 
 ! BH tree variables
 ! ----------------------------------------------------------------------------
 #if defined(BH_TREE)
-  integer :: cmax_grav                   ! maximum allowed no. of cells
-  integer :: ctot_grav                   ! total number of cells
-  integer :: ltot_grav                   ! bottom level of gravity tree
+  integer :: cmax_grav                   ! Maximum allowed no. of cells
+  integer :: ctot_grav                   ! Total number of cells
+  integer :: ltot_grav                   ! Bottom level of gravity tree
   integer :: first_cell_grav(0:LMAX)     ! id of first cell on level
   integer :: last_cell_grav(0:LMAX)      ! id of last cell on level
 
-  integer :: cmax_hydro                  ! maximum possible number of cells
-  integer :: ctot_hydro                  ! total number of cells
-  integer :: ltot_hydro                  ! bottom level of hydro tree
+  integer :: cmax_hydro                  ! Maximum possible number of cells
+  integer :: ctot_hydro                  ! Total number of cells
+  integer :: ltot_hydro                  ! Bottom level of hydro tree
   integer :: first_cell_hydro(0:LMAX)    ! id of first cell on level
   integer :: last_cell_hydro(0:LMAX)     ! id of last cell on level
 
-  integer :: cmax_skeleton               ! maximum possible number of cells
-  integer :: ctot_skeleton               ! total number of cells
-  integer :: ltot_skeleton               ! bottom level of hydro tree
+  integer :: cmax_skeleton               ! Maximum possible number of cells
+  integer :: ctot_skeleton               ! Total number of cells
+  integer :: ltot_skeleton               ! Bottom level of hydro tree
   integer :: first_cell_skeleton(0:LMAX) ! id of first cell on level
   integer :: last_cell_skeleton(0:LMAX)  ! id of last cell on level
 
 #if defined(GHOST_PARTICLES)
-  integer :: cmax_ghost                  ! maximum possible number of cells
-  integer :: ctot_ghost                  ! total number of cells
-  integer :: ltot_ghost                  ! bottom level of hydro tree
+  integer :: cmax_ghost                  ! Maximum possible number of cells
+  integer :: ctot_ghost                  ! Total number of cells
+  integer :: ltot_ghost                  ! Bottom level of hydro tree
   integer :: first_cell_ghost(0:LMAX)    ! id of first cell on level
   integer :: last_cell_ghost(0:LMAX)     ! id of last cell on level
 #if defined(PERIODIC)
-  integer :: ctot_periodic               ! total number of cells
-  integer :: ltot_periodic               ! bottom level of hydro tree
+  integer :: ctot_periodic               ! Total number of cells
+  integer :: ltot_periodic               ! Bottom level of hydro tree
   integer :: first_cell_periodic(0:LMAX) ! id of first cell on level
   integer :: last_cell_periodic(0:LMAX)  ! id of last cell on level
 #endif

@@ -91,12 +91,5 @@ SUBROUTINE gravity_hermite4_gradh_meanh(hp,hpp,mpp,rp,rpp,vp,vpp,&
   atemp(1:NDIM) = atemp(1:NDIM) + eaccel(1:NDIM)
 #endif
 
-#if defined(DEBUG_HERMITE4)
-  write(6,*) "grav_hermite : ",grav,dpotp,drdt,drdt
-  write(6,*) "rp           : ",rp(1:NDIM),vp(1:NDIM)
-  write(6,*) "rpp          : ",rpp(1:NDIM),vpp(1:NDIM),hpp,mpp
-  write(6,*) "dr           : ",dr(1:NDIM),drmag,invdrmag,invhp
-#endif
-
   return
 END SUBROUTINE gravity_hermite4_gradh_meanh

@@ -23,7 +23,7 @@ SUBROUTINE sph_advance
 ! If using a non-standard energy integrator, call it here.
 ! ----------------------------------------------------------------------------
 #if defined(EXPONENTIAL_COOLING_HEATING)
-  debug2("[sph_advance.F90]")
+  debug2("Calculating exponential cooling terms [sph_advance.F90]")
 
 !$OMP PARALLEL DO DEFAULT(SHARED)
   do p=phydrostart,ptot

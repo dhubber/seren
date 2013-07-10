@@ -1,6 +1,6 @@
 ! BH_REORDER_TREE.F90
 ! D. A. Hubber - 16/04/2011
-! ..
+! Reorder the tree cells so they are in 'walk' order in the main arrays.
 ! ============================================================================
 
 #include "macros.h"
@@ -20,7 +20,7 @@ SUBROUTINE BH_reorder_tree(neworder)
   
   integer, intent(out) :: neworder(0:cmax_skeleton)  ! New ids of cells
   integer :: c                                       ! Cell counter
-  integer :: caux                                    ! ..
+  integer :: caux                                    ! Aux. cell counter
   integer, allocatable :: dummylist(:)               ! List of cells in order
 
   debug2("Order BH tree to walk-order [BH_reorder_tree.F90]")
@@ -53,11 +53,6 @@ SUBROUTINE BH_reorder_tree(neworder)
   do c=0,ctot_skeleton
      neworder(dummylist(c)) = c
   end do
-
-!  do c=0,ctot_skeleton
-!     write(6,*) "new order : ",c,neworder(c)
-!  end do
-!read(5,*)
 
 ! Free allocated memory
   deallocate(dummylist)

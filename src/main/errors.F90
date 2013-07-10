@@ -15,9 +15,9 @@ SUBROUTINE err_stop(message)
   use, intrinsic :: ISO_FORTRAN_ENV
 #endif
   implicit none
-  character (LEN=*), intent(in), optional    :: message      ! Error message
+  character (LEN=*), intent(in), optional :: message      ! Error message
   
-  integer                                    :: err_unit     ! Unit to write to
+  integer                                 :: err_unit     ! Unit to write to
   
   err_unit = ERROR_UNIT
   

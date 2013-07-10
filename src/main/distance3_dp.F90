@@ -17,9 +17,9 @@ SUBROUTINE distance3_dp(rp,rpp,dr,drsqd)
 #endif
   implicit none
 
-  real(kind=DP), intent(in)  :: rp(1:NDIM)   ! position of particle p
-  real(kind=DP), intent(in)  :: rpp(1:NDIM)  ! position of particle pp
-  real(kind=DP), intent(out) :: dr(1:NDIM)   ! vector displacements (pp-p)
+  real(kind=DP), intent(in)  :: rp(1:NDIM)   ! Position of particle p
+  real(kind=DP), intent(in)  :: rpp(1:NDIM)  ! Position of particle pp
+  real(kind=DP), intent(out) :: dr(1:NDIM)   ! Vector displacements (pp-p)
   real(kind=DP), intent(out) :: drsqd        ! Separation squared
 
 ! First compute x-direction (always needed)

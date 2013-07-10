@@ -1,7 +1,7 @@
 ! SEREN_SETUP.F90
 ! C. P. Batty, D. A. Hubber, A.McLeod & A. P. Whitworth - 8/12/2006
 ! Run all main Seren set-up routines.  Used for all simulation modes 
-! (i.e. SPH, N-body or hybrid SPH/N-bodt mode).
+! (i.e. SPH, N-body or hybrid SPH/N-body mode).
 ! ============================================================================
 
 #include "macros.h"

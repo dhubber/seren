@@ -24,23 +24,23 @@ SUBROUTINE diagnostics
 #endif
   implicit none
 
-  integer       :: p                   ! particle counter
-  real(kind=DP) :: ap(1:VDIM)          ! acceleration of particle p
-  real(kind=DP) :: angmom(1:3)         ! angular momentum
-  real(kind=DP) :: Atot                ! entropic function summation
-  real(kind=DP) :: error               ! fractional energy error
-  real(kind=DP) :: force(1:VDIM)       ! net force on all particles
-  real(kind=DP) :: gpetot              ! total grav. potential energy
-  real(kind=DP) :: ketot               ! total kinetic energy
-  real(kind=DP) :: mom(1:VDIM)         ! linear momentum
-  real(kind=DP) :: mp                  ! mass of particle p
-  real(kind=DP) :: rp(1:NDIM)          ! position of particle p
-  real(kind=DP) :: utot                ! total internal energy
-  real(kind=DP) :: vp(1:VDIM)          ! velocity of particle p
+  integer       :: p                   ! Particle counter
+  real(kind=DP) :: ap(1:VDIM)          ! Acceleration of particle p
+  real(kind=DP) :: angmom(1:3)         ! Angular momentum
+  real(kind=DP) :: Atot                ! Entropic function summation
+  real(kind=DP) :: error               ! Fractional energy error
+  real(kind=DP) :: force(1:VDIM)       ! Net force on all particles
+  real(kind=DP) :: gpetot              ! Total grav. potential energy
+  real(kind=DP) :: ketot               ! Total kinetic energy
+  real(kind=DP) :: mom(1:VDIM)         ! Linear momentum
+  real(kind=DP) :: mp                  ! Mass of particle p
+  real(kind=DP) :: rp(1:NDIM)          ! Position of particle p
+  real(kind=DP) :: utot                ! Total internal energy
+  real(kind=DP) :: vp(1:VDIM)          ! Velocity of particle p
 #if defined(SINKS)
-  integer       :: s                   ! sink counter
-  real(kind=DP) :: agravp(1:VDIM)      ! grav. acceleration of particle p
-  real(kind=DP) :: angmomp(1:3)        ! angular momentum of p
+  integer       :: s                   ! Sink counter
+  real(kind=DP) :: agravp(1:VDIM)      ! Grav. acceleration of particle p
+  real(kind=DP) :: angmomp(1:3)        ! Angular momentum of p
   real(kind=DP) :: gpep                ! gpe of particle p
 #endif
 #if defined(DEBUG_DIAGNOSTICS)
@@ -50,11 +50,11 @@ SUBROUTINE diagnostics
   real(kind=DP) :: ttemp               ! Aux. time variable
 #endif
 #if defined(DEBUG_FORCES)
-  real(kind=DP) :: force_grav(1:VDIM)  ! net grav. force
-  real(kind=DP) :: force_hydro(1:VDIM) ! net hydro force
-  real(kind=DP) :: force_mag(1:VDIM)   ! net magnetic force
+  real(kind=DP) :: force_grav(1:VDIM)  ! Net grav. force
+  real(kind=DP) :: force_hydro(1:VDIM) ! Net hydro force
+  real(kind=DP) :: force_mag(1:VDIM)   ! Net magnetic force
 #endif
-  real(kind=DP) :: vrms                ! average r.m.s. velocity
+  real(kind=DP) :: vrms                ! Average r.m.s. velocity
   character(len=255) :: d1, dn, d3     ! Format strings
 
   debug2("Calculating total energy and momentum [diagnostics.F90]")
@@ -227,19 +227,13 @@ SUBROUTINE diagnostics
 
 ! Output to screen
 ! ----------------------------------------------------------------------------
-!5 format(1X,A27,1I10)
-!10 format(1X,A8,2X,1G18.10)
-!15 format(1X,A8,3X,1G18.10,3X,1G18.10,3X,1G18.10)
 d1 = '(1X,A8,2X,1G18.10)'
 d3 = '(1X,A8,3X,1G18.10,3X,1G18.10,3X,1G18.10)'
 #if NDIM==1
-!20 format(1X,A8,3X,1G18.10)
 dn = '(1X,A8,3X,1G18.10)'
 #elif NDIM==2
-!20 format(1X,A8,3X,1G18.10,3X,1G18.10)
 dn = '(1X,A8,3X,1G18.10,3X,1G18.10)'
 #elif NDIM==3
-!20 format(1X,A8,3X,1G18.10,3X,1G18.10,3X,1G18.10)
 dn = '(1X,A8,3X,1G18.10,3X,1G18.10,3X,1G18.10)'
 #endif
 
@@ -255,13 +249,13 @@ dn = '(1X,A8,3X,1G18.10,3X,1G18.10,3X,1G18.10)'
   write(6,dn) "vcom   :", vcom(1:VDIM)*vscale
   write(6,dn) "mom    :", mom(1:VDIM)*momscale
   write(6,d3) "ang    :", angmom(1:3)*angmomscale
-  write(6,d3) "force  :", force(1:VDIM)
+  write(6,dn) "force  :", force(1:VDIM)
 #if defined(DEBUG_FORCES)
 #if defined(GRAVITY)
-  write(6,d3) "forceG :", force_grav(1:VDIM)
+  write(6,dn) "forceG :", force_grav(1:VDIM)
 #endif
 #if defined(HYDRO)
-  write(6,d3) "forceH :", force_hydro(1:VDIM)
+  write(6,dn) "forceH :", force_hydro(1:VDIM)
 #endif
 #endif
   write(6,d1) "etot   :", (ketot + utot - gpetot)*Escale

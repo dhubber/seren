@@ -1,7 +1,7 @@
 ! BHGRAV_NODE_ACCEL.F90
 ! A. McLeod & D. A. Hubber - 23/01/2008
-! Computes gravitational force exerted on particle p due to
-! ....
+! Computes gravitational force exerted on at position rp due to the tree 
+! cell 'node'.  Also computes higher order multipole terms if activated.
 ! ============================================================================
 
 #include "macros.h"

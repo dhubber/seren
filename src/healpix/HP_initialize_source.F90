@@ -42,7 +42,7 @@ SUBROUTINE HP_initialize_source(isource,distids,nextptcl,&
   real(kind=PR) :: drsqd            ! distance squared
   real(kind=DP) :: phi              ! angle
   real(kind=PR) :: raux             ! Aux. real variable
-  real(kind=DP) :: rp(1:NDIM)       ! ..
+  real(kind=DP) :: rp(1:NDIM)       ! Position of particle
   real(kind=DP) :: rsource(1:NDIM)  ! Source position
   real(kind=DP) :: theta            ! rotation angle
 

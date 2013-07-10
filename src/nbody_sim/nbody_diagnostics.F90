@@ -29,10 +29,10 @@ SUBROUTINE nbody_diagnostics
   real(kind=DP) :: ketot               ! total kinetic energy
   real(kind=DP) :: mom(1:VDIM)         ! linear momentum
   real(kind=DP) :: mp                  ! mass of particle p
-  real(kind=DP) :: mtot_temp                ! total mass
-  real(kind=DP) :: rcom_temp(1:NDIM)        ! position of centre of mass
+  real(kind=DP) :: mtot_temp           ! total mass
+  real(kind=DP) :: rcom_temp(1:NDIM)   ! position of centre of mass
   real(kind=DP) :: rp(1:NDIM)          ! position of particle p
-  real(kind=DP) :: vcom_temp(1:VDIM)        ! velocity of centre of mass
+  real(kind=DP) :: vcom_temp(1:VDIM)   ! velocity of centre of mass
   real(kind=DP) :: vp(1:VDIM)          ! velocity of particle p
   real(kind=DP) :: angmomp(1:3)        ! angular momentum of p
   real(kind=DP) :: gpep                ! gpe of particle p

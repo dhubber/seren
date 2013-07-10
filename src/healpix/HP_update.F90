@@ -76,9 +76,6 @@ SUBROUTINE HP_update
         ptot = ptot + nnewwind
         call types
         call tree_update(nbuild,nstock)
-        !write(6,*) "HP_update"
-        !write(6,*) "ptot : ",ptot,"    nnewwind : ",nnewwind
-        !if (nnewwind > 0) call diagnostics
      end if
 #endif
 

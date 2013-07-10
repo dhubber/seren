@@ -65,18 +65,13 @@ SUBROUTINE advance_leapfrog_dkd(p)
 ! ----------------------------------------------------------------------------
 
 ! Record positions, velocities and other quantities in arrays for all cases 
+#if !defined(STATIC_PARTICLES)
   sph(p)%r(1:NDIM) = rp(1:NDIM)
   sph(p)%v(1:VDIM) = vp(1:VDIM)
-#if defined(ENTROPIC_FUNCTION) && defined(ENTROPY_EQN)
-  sph(p)%Aent = sph(p)%Aold + sph(p)%dAdt*dt
-  sph(p)%u = (sph(p)%Aent*sph(p)%rho**(gamma - 1.0_PR))/(gamma - 1.0_PR)
-#elif defined(EXPLICIT_ENERGY_EQN) && defined(ENERGY_EQN) && !defined(RAD_WS)
-  sph(p)%u = sph(p)%u_old + sph(p)%dudt*dt
-  if (sph(p)%u < SMALL_NUMBER) sph(p)%u = sph(p)%u_old*exp(-sph(p)%u_old/sph(p)%dudt)
 #endif
 #if defined(VISC_TD)
-  sph(p)%talpha = sph(p)%talpha_old + sph(p)%dalpha_dt*dt
-  if (sph(p)%talpha < alpha_min) sph(p)%talpha = alpha_min
+  if (p <= phydroend) sph(p)%talpha = sph(p)%talpha_old + sph(p)%dalpha_dt*dt
+  if (p <= phydroend .and. sph(p)%talpha < alpha_min) sph(p)%talpha = alpha_min
 #endif
 
 ! If end of timestep, record as 'old' values
@@ -85,15 +80,39 @@ SUBROUTINE advance_leapfrog_dkd(p)
      sph(p)%laststep     = real(nfull,DP)*timestep
      sph(p)%r_old(1:NDIM) = rp(1:NDIM)
      sph(p)%v_old(1:VDIM) = vp(1:VDIM)
-#if defined(ENTROPIC_FUNCTION) && defined(ENTROPY_EQN)
-     sph(p)%Aold         = sph(p)%Aent
-#elif defined(ENERGY_EQN)
-     sph(p)%u_old        = sph(p)%u
-#endif
 #if defined(VISC_TD)
-     sph(p)%talpha_old   = sph(p)%talpha
+     if (p <= phydroend) sph(p)%talpha_old   = sph(p)%talpha
 #endif
   end if
+
+
+! Integrate energy equation if selected
+! ----------------------------------------------------------------------------
+#if defined(ENERGY_EQN) && defined(EXPLICIT_ENERGY_EQN)
+  if (eos == "energy_eqn") then 
+     sph(p)%u = sph(p)%u_old + sph(p)%dudt*dt
+     if (sph(p)%u < SMALL_NUMBER) &
+          &sph(p)%u = sph(p)%u_old*exp(-sph(p)%u_old/sph(p)%dudt)
+     if (dn == nfull) sph(p)%dudt_old = sph(p)%dudt
+  end if
+#endif
+#if defined(ENERGY_EQN)
+  if (dn == nfull) sph(p)%u_old = sph(p)%u
+#endif
+
+
+! Integrate entropy equation if selected
+! ----------------------------------------------------------------------------
+#if defined(ENTROPY_EQN) && defined(ENTROPIC_FUNCTION)
+  if (eos == "entropy_eqn") then
+     sph(p)%Aent = sph(p)%Aold + sph(p)%dAdt*dt
+     sph(p)%u = (sph(p)%Aent*sph(p)%rho**(gamma - 1.0_PR))/(gamma - 1.0_PR)
+  end if
+#endif
+#if defined(ENTROPIC_FUNCTION)
+  if (dn == nfull) sph(p)%Aold = sph(p)%Aent
+#endif
+
 
   return
 END SUBROUTINE advance_leapfrog_dkd

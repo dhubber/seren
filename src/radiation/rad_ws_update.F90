@@ -114,9 +114,6 @@ SUBROUTINE rad_ws_update
 #endif
      
      ! Perform implicit integration depending on timestep.
-     !if (p == ptot) write(6,*) "WTF?? : ",p,sph(p)%u,sph(p)%u_old,sph(p)%dudt&
-     !     &,sph(p)%dt_therm,sph(p)%ueq,sph(p)%temp,sph(p)%k_cond&
-     !     &,sph(p)%du_dt_diff
      if (sph(p)%dt_therm <= SMALL_NUMBER) then
         sph(p)%u = sph(p)%u_old
      else if (dt < 40.0_PR*sph(p)%dt_therm) then
@@ -132,6 +129,7 @@ SUBROUTINE rad_ws_update
      mu_bar_p = eosmu(sph(p)%rho,sph(p)%temp,sph(p)%idens,sph(p)%itemp)
      sph(p)%press = Pconst2*sph(p)%temp*sph(p)%rho/mu_bar_p
      sph(p)%sound = sqrt(sph(p)%press/sph(p)%rho)
+
   end do
 !$OMP END PARALLEL DO
 ! ----------------------------------------------------------------------------

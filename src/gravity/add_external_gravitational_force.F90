@@ -23,7 +23,7 @@ SUBROUTINE add_external_gravitational_force(rp,vp,atemp,adottemp,pottemp)
   real(kind=PR) :: invdrmag                       ! 1 / drmag
 #endif
 #if defined(PLUMMER_POTENTIAL)
-  real(kind=PR), parameter :: mplummer = 833.0_PR   ! Plummer mass
+  real(kind=PR), parameter :: mplummer = 833.0_PR ! Plummer mass
   real(kind=PR), parameter :: rplummer = 1.0_PR   ! Plummer radius
 #endif
 

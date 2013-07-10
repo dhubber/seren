@@ -12,9 +12,9 @@ SUBROUTINE create_new_sph_particle(ptype,pnew,part)
   use time_module
   implicit none
 
-  integer, intent(in) :: ptype              ! ..
-  integer, intent(in) :: pnew               ! ..
-  type(sph_particle), intent(in) :: part    ! ..
+  integer, intent(in) :: ptype              ! New particle type
+  integer, intent(in) :: pnew               ! New particle array id
+  type(sph_particle), intent(in) :: part    ! New particle data
 
 ! Stop simulation if we have run out of memory
   if (ptot == pmax) &

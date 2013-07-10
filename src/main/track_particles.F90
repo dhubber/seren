@@ -10,8 +10,8 @@ SUBROUTINE track_particle(p,rorigin)
   use particle_module
   implicit none
 
-  integer, intent(in)      :: p     ! Particle id
-  real(kind=PR), intent(in) :: rorigin(1:NDIM) ! origin for output
+  integer, intent(in) :: p                     ! Particle id
+  real(kind=PR), intent(in) :: rorigin(1:NDIM) ! Origin for output
 
   integer :: k                      ! Dimension counter
   integer :: nelements              ! Number of elements in alldata

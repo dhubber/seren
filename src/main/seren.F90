@@ -1,6 +1,24 @@
+! ============================================================================
 ! SEREN.F90
-! C. P. Batty, D. A. Hubber, A. McLeod & A. P. Whitworth - 8/12/2006 
-! Main Seren program.
+! 
+! Copyright (C) 2006 - 2013  C. P. Batty, D. A. Hubber, 
+!                            A. McLeod & A. P. Whitworth - 8/12/2006 
+!
+! This file is part of SEREN.
+!
+! SEREN is free software: you can redistribute it and/or modify
+! it under the terms of the GNU General Public License as published by
+! the Free Software Foundation, either version 2 of the License, or
+! (at your option) any later version.
+!
+! Foobar is distributed in the hope that it will be useful,
+! but WITHOUT ANY WARRANTY; without even the implied warranty of
+! MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+! GNU General Public License for more details.
+!
+! You should have received a copy of the GNU General Public License
+! along with SEREN.  If not, see <http://www.gnu.org/licenses/>.
+!
 ! ============================================================================
 
 #include "macros.h"

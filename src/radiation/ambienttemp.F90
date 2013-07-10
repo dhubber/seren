@@ -1,8 +1,7 @@
 ! AMBIENTTEMP.F90
 ! D. Stamatellos - 3/1/2008
 ! Gets ambient (i.e. heating) temperature of particle. 
-! SCALING NEEDS SORTING IN THIS SUBROUTINE *****
-! CHECK WITH DIMITRIS
+! TODO : Scaling should be done 'properly' in this rouinte (Check with Dimitri)
 ! ============================================================================
 
 #include "macros.h"
