@@ -1,8 +1,9 @@
 ! ============================================================================
 ! SEREN.F90
 ! 
-! Copyright (C) 2006 - 2013  C. P. Batty, D. A. Hubber, 
-!                            A. McLeod & A. P. Whitworth - 8/12/2006 
+! Copyright (C) 2006 - 2013  C. P. Batty, D. A. Hubber, A. McLeod,
+!                            A. P. Whitworth, T. Bisbas, S. P. Goodwin,
+!                            K. Rawiraswattana, D. Stamatellos, S. Walch
 !
 ! This file is part of SEREN.
 !
@@ -62,12 +63,6 @@ PROGRAM seren
 ! ============================================================================
 #if defined(SPH_SIMULATION)
   call sph_simulation
-#endif
-
-! Hybrid SPH-Nbody simulation
-! ============================================================================
-#if defined(NBODY_SPH_SIMULATION)
-  call nbody_sph_simulation
 #endif
 
 ! N-body simulation

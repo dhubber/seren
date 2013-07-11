@@ -54,7 +54,6 @@ The basic elements of SEREN can be used to simulate any problem involving hydrod
 \item Simple external background gravitational potentials
 \item Parallelized using OpenMP
 \item Parallelized using MPI (partial implementation, currently in beta-mode)
-\item Bash script to run automated batch tests
 \item Output compatable with Splash (Price 2007)
 \end{itemize}
 
@@ -351,20 +350,11 @@ The head of the Makefile contains the complete list of compilation variables tha
                & WALL     :& Walls in LHS and RHS directions of z-dimension \\
                & 0        :& No periodicity in z-dimension \\ \hline
 
- SPHERICAL\_WALL & 1 :& Spherical mirror to reflect particles that exceed some give radial distance \\
-                   & 0 :& No spherical mirror \\ \hline
-
- CYLINDRICAL\_WALL & 1 :& Cylindrical mirror to reflect particles that exceed some given distance about z-axis \\
-                   & 0 :& No spherical mirror \\ \hline
-
  GHOST\_PARTICLES       & 1 :& Use ghost particles for periodic boundaries (experimental; advise not to use for now) \\
                         & 0 :& No ghost particles; use relative position periodic wrapping \\ \hline
 
  SPH\_SIMULATION        & 1 :& Perform SPH simulation \\
                         & 0 :& No SPH simulation \\ \hline
-
- NBODY\_SPH\_SIMULATION & 1 :& Perform hybrid N-body/SPH simulation \\
-                        & 0 :& No hybrid simulation \\ \hline
 
  NBODY\_SIMULATION      & 1 :& Perform N-body simulation \\
                         & 0 :& No N-body simulation \\ \hline
@@ -410,9 +400,6 @@ The head of the Makefile contains the complete list of compilation variables tha
  BALSARA       & 1  :& Use Balsara switch (Balsara 1995) \\
                & 0  :& No Balsara switch \\ \hline
 
- PATTERN\_REC  & 1 :& Use Keplarian pattern-matching (Cartwright \& Stamatellos 2010) \\
-               & 0 :& Do not use pattern matching \\ \hline
-
  ARTIFICIAL\_CONDUCTIVITY  & 0         :& No artificial conductivity \\
                            & PRICE2008 :& Artificial conductivity with constant $\alpha_{_{\rm COND}}$ (Price 2008)\\ 
                            & WADSLEY2008 :& Wadsley et al. (2008) conductivity\\ \hline
@@ -438,17 +425,14 @@ The head of the Makefile contains the complete list of compilation variables tha
                           & 0 :& \\ \hline
 
  COOLING\_HEATING    & 0 :& No cooling or heating terms added \\
-                     & EXPLICIT :& Explicit cooling/heating terms added to energy equation (Experimental) \\ \hline
+                     & EXPLICIT :& Explicit cooling/heating terms added to energy equation (Experimental) \\ 
+                     & EXPONENTIAL :& Exponential cooling integration \\ \hline
 
  IONIZING\_RADIATION & 0 :& No ionizing sources \\
-                     & SINGLE\_STATIC\_SOURCE :& Single static source of ionizing radiation (Bisbas et al. 2009) \\
-                     & MULTIPLE\_SINK\_SOURCES :& Sink particles act as sources of ionizing radiaiton (experimental) \\ \hline
+                     & SINGLE\_STATIC\_SOURCE :& Single static source of ionizing radiation (Bisbas et al. 2009) \\ \hline
 
  STELLAR\_WIND       & 0 :& No wind sources \\
                      & SINGLE\_STATIC\_SOURCE :& Single static source of wind \\ \hline 
-
-% STELLAR\_LUMINOSITY & 0: & No luminosity feedback from stars \\
-%                     & 1: & Luminosity feedback from stars using HEALPix (experimental) \\ \hline
 
  EXTERNAL\_FORCE & 0       :& No external forces \\
                  & PLUMMER :& Plummer sphere potential \\
@@ -515,9 +499,6 @@ The head of the Makefile contains the complete list of compilation variables tha
  CHECK\_NEIB\_TIMESTEP & 2 :& Ensure neighbours have similar timesteps \\
                        & 1 :& As option 2, but doesn't change timestep in middle of current step \\
                        & 0 :& No neighbour timestep comparison \\ \hline
-
- SIGNAL\_VELOCITY\_DT  & 1 :& Use signal velocity for Courant timestep \\
-                       & 0 :& Use velocity divergence for Courant timestep \\ \hline
 
  NEIGHBOURLISTS & 1 :& Store neighbour lists in memory \\
                 & 0 :& Do not store neighbour lists in memory \\ \hline
@@ -686,6 +667,7 @@ SEREN contains all simulation information in a single parameter file, called \va
 \var{nbody\_timemult} & DP   & Timestep factor for N-body simulations \\
 \var{nlevels}    & int       & Number of multiple timestep levels \\
 \var{dt\_fixed}  & DP        & Fixed ref. time for creating timestep levels \\ \hline
+\var{dimensionless} & int    & Use dimensionless units? \\
 \var{runit}      & char(256) & Length scaling unit \\
 \var{munit}      & char(256) & Mass scaling unit \\
 \var{tunit}      & char(256) & Time scaling unit \\

@@ -16,15 +16,6 @@ SUBROUTINE write_data(filename,file_form)
 
   select case(file_form)
 
-! DRAGON data format
-! ----------------------------------------------------------------------------
-#if defined(DRAGON_OUTPUT)
-  case ("dragon_form","df")
-     call write_data_dragon_form(filename) 
-  case ("dragon_unform","du")
-     call write_data_dragon_unform(filename)
-#endif
-
 ! SEREN data format
 ! ----------------------------------------------------------------------------
 #if defined(SEREN_OUTPUT)

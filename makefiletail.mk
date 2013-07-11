@@ -13,7 +13,7 @@ X11LIBS = -L/usr/X11R6/lib -lX11
 MODULEDIR = $(SRCDIR)
 HEADERS = $(SRCDIR)/headers
 INCLUDE_DIR += $(MODULEDIR) $(HEADERS)
-VPATH = $(SRCDIR)/advance:$(SRCDIR)/analyse:$(SRCDIR)/BHtree:$(SRCDIR)/binarytree:$(SRCDIR)/devel:$(SRCDIR)/dobs:$(SRCDIR)/ghosts:$(SRCDIR)/gravity:$(SRCDIR)/headers:$(SRCDIR)/ic:$(SRCDIR)/io:$(SRCDIR)/healpix:$(SRCDIR)/main:$(SRCDIR)/mhd:$(SRCDIR)/mpi:$(SRCDIR)/nbody:$(SRCDIR)/nbody_sim:$(SRCDIR)/nbody_sph_sim:$(SRCDIR)/radiation:$(SRCDIR)/setup:$(SRCDIR)/sinks:$(SRCDIR)/sorts:$(SRCDIR)/sph:$(SRCDIR)/sph_sim:$(SRCDIR)/tests:$(SRCDIR)/timestep:$(SRCDIR)/turbulence:$(SRCDIR)/user:$(SRCDIR)/newstuff
+VPATH = $(SRCDIR)/advance:$(SRCDIR)/analyse:$(SRCDIR)/BHtree:$(SRCDIR)/binarytree:$(SRCDIR)/devel:$(SRCDIR)/dobs:$(SRCDIR)/ghosts:$(SRCDIR)/gravity:$(SRCDIR)/headers:$(SRCDIR)/ic:$(SRCDIR)/io:$(SRCDIR)/healpix:$(SRCDIR)/main:$(SRCDIR)/mhd:$(SRCDIR)/mpi:$(SRCDIR)/nbody:$(SRCDIR)/nbody_sim:$(SRCDIR)/radiation:$(SRCDIR)/setup:$(SRCDIR)/sinks:$(SRCDIR)/sorts:$(SRCDIR)/sph:$(SRCDIR)/sph_sim:$(SRCDIR)/tests:$(SRCDIR)/timestep:$(SRCDIR)/turbulence:$(SRCDIR)/user:$(SRCDIR)/newstuff
 
 
 # Remove trailing whitespace from user options
@@ -28,8 +28,6 @@ OUTPUT_LEVEL             := $(strip $(OUTPUT_LEVEL))
 DIAGNOSTIC_OUTPUT        := $(strip $(DIAGNOSTIC_OUTPUT))
 NDIM                     := $(strip $(NDIM))
 PRECISION                := $(strip $(PRECISION))
-INFILE_FORMAT            := $(strip $(INFILE_FORMAT))
-OUTFILE_FORMAT           := $(strip $(OUTFILE_FORMAT))
 PERIODIC                 := $(strip $(PERIODIC))
 X_BOUNDARY               := $(strip $(X_BOUNDARY))
 Y_BOUNDARY               := $(strip $(Y_BOUNDARY))
@@ -281,42 +279,16 @@ endif
 
 # Input file format
 # ----------------------------------------------------------------------------
-ifeq ($(INFILE_FORMAT),ALL)
 CFLAGS += -DDRAGON_INPUT -DSEREN_INPUT -DASCII_INPUT
 IO_OBJ += read_data_ascii.o read_data_dragon_form.o read_data_dragon_unform.o
 IO_OBJ += read_data_seren_form.o read_data_seren_unform.o
-else ifeq ($(INFILE_FORMAT),DRAGON)
-CFLAGS += -DDRAGON_INPUT
-IO_OBJ += read_data_dragon_form.o read_data_dragon_unform.o
-else ifeq ($(INFILE_FORMAT),SEREN)
-CFLAGS += -DSEREN_INPUT
-IO_OBJ += read_data_seren_form.o read_data_seren_unform.o
-else ifeq ($(INFILE_FORMAT),ASCII)
-CFLAGS += -DASCII_INPUT
-IO_OBJ += read_data_ascii.o
-else
-ERROR += "Invalid INFILE_FORMAT option selected : "$(INFILE_FORMAT)
-endif
 
 
 # Output file format
 # ----------------------------------------------------------------------------
-ifeq ($(OUTFILE_FORMAT),ALL)
-CFLAGS += -DDRAGON_OUTPUT -DSEREN_OUTPUT -DASCII_OUTPUT
-IO_OBJ += write_data_ascii.o write_data_dragon_form.o write_data_dragon_unform.o
-IO_OBJ += write_data_seren_form.o write_data_seren_unform.o
-else ifeq ($(OUTFILE_FORMAT),DRAGON)
-CFLAGS += -DDRAGON_OUTPUT
-IO_OBJ += write_data_dragon_form.o write_data_dragon_unform.o 
-else ifeq ($(OUTFILE_FORMAT),SEREN)
-CFLAGS += -DSEREN_OUTPUT
-IO_OBJ += write_data_seren_form.o write_data_seren_unform.o
-else ifeq ($(OUTFILE_FORMAT),ASCII)
-CFLAGS += -DASCII_OUTPUT
-IO_OBJ += write_data_ascii.o
-else
-ERROR += "Invalid OUTFILE_FORMAT option selected : "$(OUTFILE_FORMAT)
-endif
+CFLAGS += -DSEREN_OUTPUT -DASCII_OUTPUT
+IO_OBJ += write_data_ascii.o write_data_seren_form.o write_data_seren_unform.o
+
 
 # Ghost particles
 # ----------------------------------------------------------------------------
@@ -422,9 +394,6 @@ SETUP_OBJ += initialize_thermal_properties.o
 ifeq ($(SPH),GRAD_H_SPH)
 CFLAGS += -DGRAD_H_SPH -DH_RHO
 SPH_OBJ += h_rho_iteration.o
-else ifeq ($(SPH),OSPH)
-CFLAGS += -DOSPH -DENTROPIC_FUNCTION
-SPH_OBJ += all_sph_osph.o
 else ifeq ($(SPH),SM2012_SPH)
 CFLAGS += -DSM2012_SPH
 else ifeq ($(SPH),RPSPH)
@@ -498,8 +467,6 @@ CFLAGS += -DHYDRO
 OBJ += sph_hydro_forces.o
 ifeq ($(SPH),GRAD_H_SPH)
 SPH_OBJ += hydro_gradh.o
-else ifeq ($(SPH),OSPH)
-SPH_OBJ += hydro_osph.o
 else
 SPH_OBJ += hydro.o
 endif
@@ -584,24 +551,12 @@ else ifeq ($(IONIZING_RADIATION),SINGLE_SINK_SOURCE)
 HEALPIX = 1
 CFLAGS += -DIONIZING_UV_RADIATION -DSINGLE_SINK_SOURCE
 SPH_OBJ += HP_ionizing_radiation.o HP_walk_ray.o write_ionization_data.o
-else ifeq ($(IONIZING_RADIATION),MULTIPLE_SINK_SOURCES)
-HEALPIX = 1
-STELLAR_MODEL = 1
-CFLAGS += -DIONIZING_UV_RADIATION -DMULTIPLE_SINK_SOURCES
-SPH_OBJ += HP_ionizing_radiation.o HP_walk_ray.o write_ionization_data.o
 else ifneq ($(IONIZING_RADIATION),0)
 ERROR += "Invalid IONIZING_RADIATION option selected : "$(IONIZING_RADIATION)
 endif
 ifneq ($(IONIZING_RADIATION),0)
 ifeq ($(MPI),1)
 ERROR += "Ionizing radiation not MPI parallelized"
-endif
-endif
-
-ifeq ($(PDR_CHEMISTRY),1)
-ifneq ($(HEALPIX),1)
-CFLAGS += -DPDR_CHEMISTRY
-SPH_OBJ += HP_PDR_chemistry.o
 endif
 endif
 
@@ -612,11 +567,6 @@ SPH_OBJ += HP_stellar_feedback.o
 else ifeq ($(STELLAR_WIND),SINGLE_SINK_SOURCE)
 HEALPIX = 1
 CFLAGS += -DSTELLAR_WIND -DMOMENTUM_WIND -DSINGLE_SINK_SOURCE
-SPH_OBJ += HP_stellar_feedback.o
-else ifeq ($(STELLAR_WIND),MULTIPLE_SINK_SOURCES)
-HEALPIX = 1
-STELLAR_MODEL = 1
-CFLAGS += -DSTELLAR_WIND -DMOMENTUM_WIND -DMULTIPLE_SINK_SOURCES
 SPH_OBJ += HP_stellar_feedback.o
 else ifneq ($(STELLAR_WIND),0)
 ERROR += "Invalid STELLAR_WIND option selected : "$(STELLAR_WIND)
@@ -942,18 +892,6 @@ else
 ERROR += "Invalid value for NBODY_INTEGRATION : "$(NBODY_INTEGRATION)
 endif
 
-ifeq ($(NBODY_SPH_SIMULATION),1)
-#ifeq ($(TREE),BH)
-SPH_OBJ += BHgrav_accel_jerk.o
-#else
-SPH_OBJ += sph_hermite4_direct_gravity.o
-#endif
-ifeq ($(FORCE_SPLITTING),1)
-CFLAGS += -DFORCE_SPLITTING
-OBJ += nbody_sph_star_split_forces.o
-endif
-endif
-
 ifeq ($(NBODY_SIMULATION),1)
 ifneq ($(SPH_SIMULATION),1)
 SPH_OBJ += gravity_sph.o
@@ -965,11 +903,6 @@ CFLAGS += -DBINARY_STATS
 NBODY_OBJ += binary_energy.o binary_properties.o binary_search.o
 else ifneq ($(BINARY_STATS),0)
 ERROR += "Invalid value for BINARY_STATS : "$(BINARY_STATS)
-endif
-
-ifeq ($(BINARY_COM_MOTION),1)
-CFLAGS += -DBINARY_COM_MOTION
-NBODY_OBJ += binary_orbit
 endif
 
 endif
@@ -1131,21 +1064,6 @@ ERROR += "Invalid TEST option selected : "$(TEST)
 endif
 
 
-# Debug flags
-# ----------------------------------------------------------------------------
-ifeq ($(OUTPUT_LEVEL),1)
-CFLAGS += -DDEBUG1 -DOUTPUT_LEVEL=1
-else ifeq ($(OUTPUT_LEVEL),2)
-CFLAGS += -DDEBUG1 -DDEBUG2 -DOUTPUT_LEVEL=2
-else ifeq ($(OUTPUT_LEVEL),3)
-CFLAGS += -DDEBUG1 -DDEBUG2 -DDEBUG3 -DOUTPUT_LEVEL=3
-else ifeq ($(OUTPUT_LEVEL),0)
-CFLAGS += -DOUTPUT_LEVEL=0
-else
-ERROR += "Invalid value for OUTPUT_LEVEL : "$(OUTPUT_LEVEL)
-endif
-
-
 # FFTW
 # ----------------------------------------------------------------------------
 ifeq ($(FFTW),1)
@@ -1169,6 +1087,21 @@ else ifneq ($(wildcard /lib/x86_64-linux-gnu/libfftw3.a),)
 STATIC_LIBS += /lib/x86_64-linux-gnu/libfftw3.a
 endif
 endif
+endif
+
+
+# Debug flags
+# ----------------------------------------------------------------------------
+ifeq ($(OUTPUT_LEVEL),1)
+CFLAGS += -DDEBUG1 -DOUTPUT_LEVEL=1
+else ifeq ($(OUTPUT_LEVEL),2)
+CFLAGS += -DDEBUG1 -DDEBUG2 -DOUTPUT_LEVEL=2
+else ifeq ($(OUTPUT_LEVEL),3)
+CFLAGS += -DDEBUG1 -DDEBUG2 -DDEBUG3 -DOUTPUT_LEVEL=3
+else ifeq ($(OUTPUT_LEVEL),0)
+CFLAGS += -DOUTPUT_LEVEL=0
+else
+ERROR += "Invalid value for OUTPUT_LEVEL : "$(OUTPUT_LEVEL)
 endif
 
 
@@ -1219,8 +1152,6 @@ else
 	$(F90) $(OPT) $(CFLAGS) $(LDFLAGS) -o $(EXEDIR)/seren $(OBJ) seren.o $(STATIC_LIBS)
 endif
 
-#seren_view : check_errors $(SRC_OBJ) $(SRCDIR)/main/seren.F90
-#	f2py2.7 -c $(CFLAGS) -I$(VPATH) -U/macros.h --include-paths $(VPATH) $+ -m seren
 
 convert_format :: $(OBJ) convert_format.o
 	$(F90) $(OPT) $(CFLAGS) -o $(EXEDIR)/convert_format $(OBJ) convert_format.o

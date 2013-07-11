@@ -15,8 +15,6 @@ OUTPUT_LEVEL              = 2
 DIAGNOSTIC_OUTPUT         = 1
 NDIM                      = 3
 PRECISION                 = SINGLE
-INFILE_FORMAT             = ALL
-OUTFILE_FORMAT            = ALL
 PERIODIC                  = 0
 X_BOUNDARY                = 0
 Y_BOUNDARY                = 0
@@ -83,7 +81,6 @@ TREE                      = BH
 MULTIPOLE                 = QUADRUPOLE
 MAC                       = GADGET
 REORDER                   = 0
-CELL_WALK                 = 0
 
 # ----------------------------------------------------------------------------
 # Misc. options
@@ -267,7 +264,6 @@ include makefiletail.mk
 #                           GRAD_H_SPH = 'grad-h' conservative SPH 
 #                                        (e.g. Price & Monaghan 2005)
 #                           SM2012_SPH = Saitoh & Makino (2012) SPH.
-#                           OSPH       = 'Optimised' SPH (Read et al. 2010)
 #                           RTSPH      = Ritchie & Thomas (2001) SPH.  
 #                                        Same as STANDARD with modified density
 #                           RPSPH      = 'Relative pressure' SPH (Abel 2010)

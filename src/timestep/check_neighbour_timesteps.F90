@@ -29,8 +29,8 @@ SUBROUTINE check_neighbour_timesteps
   integer(kind=ILP) :: levelp              ! Timestep level of particle p
   real(kind=PR) :: dr(1:NDIM)              ! Relative displacement vector
   real(kind=PR) :: drsqd                   ! Distance squared
-  real(kind=PR) :: hrangesqd               ! ..
-  real(kind=PR) :: rp(1:NDIM)              ! ..
+  real(kind=PR) :: hrangesqd               ! Kernel extent squared
+  real(kind=PR) :: rp(1:NDIM)              ! Position of particle p
 #if defined(SINKS)
   integer :: s                             ! Sink id
 #endif
