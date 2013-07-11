@@ -1,0 +1,58 @@
+# ============================================================================
+# STATPOLY2-AB-GRADH.TEST
+# Relax a polytrope (eta = 5/3, n = 3/2) to static equilibrium.
+# ============================================================================
+
+
+# First, set Makefile options for test
+NDIM=3
+KERNEL=M4
+HFIND=NUMBER
+HYDRO=1
+THERMAL=POLYTROPIC
+ARTIFICIAL_VISCOSITY=AB
+SELF_GRAVITY=KS
+SINKS=0
+TREE=BH
+MULTIPOLE=QUADRUPOLE
+MAC=GADGET
+NEIGHBOURLISTS=PARTICLES
+DIMENSIONLESS=1
+DFLAGS="-DDEBUG_DIAGNOSTICS -DDEBUG_PLOT_DATA -DTRACK_ENERGY"
+
+
+# Next set parameters for params.dat file
+run_id=STATPOLY2-AB-GRADH
+in_file=ICPOLY2.df.dat
+in_file_form=dragon_form
+out_file_form=dragon_form
+restart=.FALSE.
+sph_endtime=2.0
+firstsnap=4.0
+snaptime=4.0
+ntempstep=1000
+ndiagstep=50
+nsnapstep=5000
+courant_mult=0.2
+accel_mult=0.5
+nlevels=15
+nspare=10
+abserror=0.05
+thetamaxsqd=0.2
+nbuildstep=16
+alpha=2.0
+beta=4.0
+gamma=1.666666666666
+Kpoly=0.4246
+dof=3.0
+
+
+# Program name
+PROG_NAME=seren
+PROG_EX=seren
+
+
+# Set some variables for graphing
+ANALYTIC="poly1.dat"
+PLOT_PROG=gnuplot
+PLOT_FILE="STATPOLY2-AB-GRADH.gnuplot"

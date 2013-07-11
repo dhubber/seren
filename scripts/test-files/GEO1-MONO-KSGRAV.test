@@ -1,0 +1,46 @@
+# ============================================================================
+# GEO1-MONO-KSGRAV.TEST
+# ...
+# ============================================================================
+
+# First, set Makefile options for test
+NDIM=3
+SPH=GRAD_H_SPH
+KERNEL=M4TC
+HFIND=NUMBER
+HYDRO=0
+SELF_GRAVITY=KS
+MAC=GEOMETRIC
+MULTIPOLE=0
+TREE=BH
+DIMENSIONLESS=1
+
+
+# Next set parameters for params.dat file
+run_id=GEO1-MONO-KSGRAV
+in_file=4000_UDS.df.dat
+in_file_form=dragon_form
+out_file_form=dragon_form
+restart=.FALSE.
+pp_gather=50
+
+
+# Create parameters file for specific test and move to correct directory
+echo '4000_UDS.df.dat' >> gravtest.dat
+echo 'dragon_form' >> gravtest.dat
+echo 'GEO1-MONO-KSGRAV' >> gravtest.dat
+echo '6' >> gravtest.dat
+echo '-1.0' >> gravtest.dat
+echo '0.0' >> gravtest.dat
+mv gravtest.dat $TEST_DIR/.
+
+
+# Set program name here
+PROG_NAME=gravtest
+PROG_EX=gravtest
+
+
+# Set some variables for graphing
+#ANALYTIC=""
+#PLOT_PROG=gnuplot
+#PLOT_FILE="GEO1-MONO-KSGRAV.gnuplot"

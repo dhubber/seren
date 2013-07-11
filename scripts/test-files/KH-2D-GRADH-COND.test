@@ -1,0 +1,54 @@
+# ============================================================================
+# KH-2D-GRADH-COND.TEST
+# ...
+# ============================================================================
+
+# First, set Makefile options for test
+NDIM=2
+PERIODIC=1
+X_BOUNDARY=PERIODIC
+Y_BOUNDARY=PERIODIC
+KERNEL=M4TC
+HFIND=NUMBER
+HYDRO=1
+SPH=GRAD_H_SPH
+THERMAL=ENERGY_EQN
+ARTIFICIAL_VISCOSITY=0
+ARTIFICIAL_CONDUCTIVITY=PRICE2008
+SELF_GRAVITY=0
+SINKS=0
+TREE=BH
+NEIGHBOURLISTS=PARTICLES
+DIMENSIONLESS=1
+
+
+# Next set parameters for params.dat file
+run_id=KH-2D-GRADH-COND
+in_file=ICKH2.df.dat
+in_file_form=dragon_form
+out_file_form=dragon_form
+restart=.FALSE.
+sph_endtime=3.5
+firstsnap=0.07
+snaptime=0.07
+ntempstep=200
+ndiagstep=200
+courant_mult=0.2
+accel_mult=0.2
+nlevels=2
+nspare=1
+periodic_min_x=-0.5
+periodic_max_x=0.5
+periodic_min_y=-0.5
+periodic_max_y=0.5
+periodic_min_z=0.0
+periodic_max_z=0.0
+pp_gather=50
+alpha=1.0
+beta=2.0
+isotemp=1.0
+
+
+# Set some variables for graphing
+PLOT_PROG='./splash'
+PLOT_FILE="KH-2D-GRADH-COND.splash'

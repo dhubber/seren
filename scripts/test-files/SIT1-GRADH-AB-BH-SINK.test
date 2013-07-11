@@ -1,0 +1,87 @@
+# ============================================================================
+# SIT1-GRADH-AB-BH-SINK.TEST
+# ...
+# ============================================================================
+
+# First, set Makefile options for test
+NDIM=3
+INFILE_FORMAT=DRAGON
+OUTFILE_FORMAT=SEREN
+SPH_SIMULATION=1
+SPH=GRAD_H_SPH
+KERNEL=M4
+HYDRO=1
+SPH_INTEGRATION=LFKDK
+ARTIFICIAL_VISCOSITY=AB
+SELF_GRAVITY=KS
+SINKS=SMOOTH_ACC
+SINK_RADIUS=HMULT
+NBODYSINKS=0
+BINARY_STATS=1
+TREE=BH
+MULTIPOLE=QUADRUPOLE
+MAC=GADGET
+REORDER=PARTICLES
+NEIGHBOURLISTS=PARTICLES
+DIMENSIONLESS=0
+CHECK_NEIB_TIMESTEPS=1
+
+
+# Next set parameters for params.dat file
+run_id=SIT1-GRADH-AB-BH-SINK
+in_file=8000_SIT.dat
+in_file_form=dragon_form
+out_file_form=seren_unform
+restart=.FALSE.
+sph_endtime=0.05
+firstsnap=0.01
+snaptime=0.00025
+ntempstep=1024
+noutputstep=32
+ndiagstep=8
+nsinkstep=8
+nsnapstep=5000000
+courant_mult=0.2
+accel_mult=0.4
+sink_mult=0.5
+nlevels=7
+dt_fixed=0.0005
+runit=pc
+munit=m_sun
+tunit=myr
+vunit=km_s
+aunit=km_s2
+rhounit=g_cm3
+Punit=Pa
+funit=N
+Eunit=GJ
+momunit=m_sunkm_s
+angmomunit=m_sunau2_yr
+dmdtunit=m_sun_yr
+Lunit=L_sun
+rscale=1.0
+mscale=1.0
+alpha=1.0
+beta=2.0
+mu_bar=2.29
+abserror=0.1
+nbuildstep=8
+rhosink=2.e-12
+sinkrad=3.0
+nsearchstep=16
+rho_search=.TRUE.
+potmin_search=.TRUE.
+div_v_search=.TRUE.
+gaseos=barotropic
+isotemp=10.0
+rhobary=1.e-14
+gamma=1.4
+nbody_frac=0.95
+nbody_endtime=1.0
+nbody_snaptime=0.001
+nbody_timemult=0.1
+
+
+# Program name
+PROG_NAME=seren
+PROG_EX=seren

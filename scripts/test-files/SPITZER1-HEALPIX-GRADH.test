@@ -1,0 +1,79 @@
+# ============================================================================
+# SPITZER1-HEALPIX-GRADH.TEST
+# Spitzer-ionization test.
+# ============================================================================
+
+
+# First, set Makefile options for test
+NDIM=3
+SPH_SIMULATION=1
+SPH_INTEGRATION=LFKDK
+SPH=GRAD_H_SPH
+KERNEL=M4TC
+HFIND=NUMBER
+HYDRO=1
+IONIZING_RADIATION=SINGLE_STATIC_SOURCE
+ARTIFICIAL_VISCOSITY=MON97
+SELF_GRAVITY=0
+SINKS=0
+TREE=BH
+REORDER=PARTICLES
+TIMESTEP=RESTRICTED
+CHECK_NEIB_TIMESTEPS=2
+NEIGHBOURLISTS=PARTICLES
+DIMENSIONLESS=0
+DFLAGS="-DDEBUG_DIAGNOSTICS -DDEBUG_PLOT_DATA -DDEBUG_TRACK_ENERGY -DDEBUG_HP_OUTPUT"
+
+
+# Next set parameters for params.dat file
+run_id=SPITZER1-HEALPIX-GRADH
+in_file=ICSPITZER1.df.dat
+in_file_form=dragon_form
+out_file_form=seren_unform
+restart=.false.
+sph_endtime=0.15
+firstsnap=0.01
+snaptime=0.01
+ntempstep=1024
+ndiagstep=256
+nsnapstep=5000000
+courant_mult=0.1
+accel_mult=0.2
+runit=pc
+munit=m_sun
+tunit=myr
+vunit=km_s
+rscale=1.0
+mscale=1.0
+nbuildstep=8
+dt_fixed=0.01
+nlevels=5
+h_fac=1.2
+alpha=1.0
+gaseos=isothermal
+mu_bar=2.35
+isotemp=10.0
+gamma=1.66666666
+nionallstep=8
+f1=0.5
+f2=0.8
+f3=1.0
+f4=0.5
+Tneut=10.0
+Tion=10000.0
+Xfrac=0.7
+mu_ion=0.678
+a_star=2.7D-13
+N_LyC=1.0D+49
+rstatic="0.0 0.0 0.0"
+lmax_hp=7
+
+
+# Program name
+PROG_NAME=seren
+PROG_EX=seren
+
+
+# Set some variables for graphing
+PLOT_PROG=gnuplot
+PLOT_FILE="SPITZER1-HEALPIX-GRADH.gnuplot"

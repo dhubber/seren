@@ -1,0 +1,92 @@
+# ============================================================================
+# POLYRAD1-AB.TEST
+# ...
+# ============================================================================
+
+# First, set Makefile options for test
+NDIM=3
+SPH_SIMULATION=1
+SPH=STANDARD
+KERNEL=M4TC
+HFIND=NUMBER
+HYDRO=1
+RAD_WS=1
+AMBIENT_HEATING_WS=1
+ARTIFICIAL_VISCOSITY=AB
+ARTIFICIAL_CONDUCTIVITY=0
+SELF_GRAVITY=KS
+MULTIPOLE=QUADRUPOLE
+MAC=GEOMETRIC
+SINKS=0
+NBODYSINKS=0
+BINARY_STATS=0
+TREE=BH
+NEIGHBOURLISTS=PARTICLES
+DIMENSIONLESS=0
+DFLAGS="-DDEBUG_DIAGNOSTICS -DDEBUG_PLOT_DATA -DTRACK_ENERGY -DDEBUG_RAD"
+
+
+# Next set parameters for params.dat file
+run_id=POLYRAD1-AB
+in_file=ICRAD1.df.dat
+in_file_form=dragon_form
+out_file_form=dragon_form
+restart=.FALSE.
+sph_endtime=0.5
+firstsnap=0.02
+snaptime=0.02
+ntempstep=1024
+ndiagstep=512
+nsinkstep=16
+nsnapstep=8096
+courant_mult=0.2
+accel_mult=0.2
+nlevels=5
+runit=au
+munit=m_sun
+tunit=myr
+vunit=km_s
+aunit=km_s2
+rhounit=g_cm3
+Punit=Pa
+funit=N
+kappaunit=cm2_g
+Eunit=GJ
+momunit=m_sunkm_s
+angmomunit=m_sunau2_yr
+dmdtunit=m_sun_yr
+Lunit=L_sun
+rscale=1.0
+mscale=1.0
+pp_gather=50
+alpha=1.0
+beta=2.0
+mu_bar=2.29
+abserror=0.1
+nbuildstep=8
+gaseos=rad_ws
+boundaryeos=rad_ws
+isotemp=5.0
+rhobary=1.e-14
+gamma=1.4
+eos_opa_file=eos.bell.cc.dat
+ptemp0=300.0
+temp_inf=5.0
+ptemp_r0=0.25
+ptemp_q=0.5
+fcolumn=0.104
+
+
+# Copy over required file due to using polytropic approximation
+cp $SEREN_DIR/eos.bell.cc.dat $TEST_DIR/.
+
+
+# Program name
+PROG_NAME=seren
+PROG_EX=seren
+
+
+# Set some variables for graphing
+ANALYTIC="mmi.denstemp.dat"
+PLOT_PROG=gnuplot
+PLOT_FILE="POLYRAD1-AB.gnuplot"

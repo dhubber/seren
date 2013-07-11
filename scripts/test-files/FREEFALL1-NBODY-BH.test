@@ -1,0 +1,56 @@
+# ============================================================================
+# FREEFALL1-NBODY-BH.TEST
+# ..
+# ============================================================================
+
+
+# First, set Makefile options for test
+NDIM=3
+SPH_INTEGRATION=LFKDK
+SPH=GRAD_H_SPH
+KERNEL=M4
+HFIND=H_RHO
+HYDRO=0
+SELF_GRAVITY=NBODY
+SINKS=0
+TREE=BH
+MULTIPOLE=QUADRUPOLE
+MAC=GEOMETRIC
+TIMESTEP=RESTRICTED
+NEIGHBOURLISTS=PARTICLES
+DIMENSIONLESS=1
+TEST=FREEFALL
+DFLAGS="-DDEBUG_DIAGNOSTICS -DDEBUG_PLOT_DATA -DDEBUG_TRACK_ENERGY"
+
+
+# Next set parameters for params.dat file
+run_id=FREEFALL1-NBODY-BH
+in_file=32000_UDS.df.dat
+in_file_form=dragon_form
+out_file_form=dragon_form
+restart=.FALSE.
+sph_endtime=1.22
+firstsnap=2.0055536036
+snaptime=2.0055536036
+ntempstep=1000
+ndiagstep=1000
+nsnapstep=16
+courant_mult=0.1
+accel_mult=0.1
+abserror=0.001
+thetamaxsqd=0.15
+nbuildstep=8
+dt_fixed=0.0055536036
+nlevels=3
+h_fac=1.2
+
+
+# Program name
+PROG_NAME=seren
+PROG_EX=seren
+
+
+# Set some variables for graphing
+ANALYTIC="freefall.dat"
+PLOT_PROG=gnuplot
+PLOT_FILE="FREEFALL1-NBODY-BH.gnuplot"

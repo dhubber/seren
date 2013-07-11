@@ -1,0 +1,62 @@
+# ============================================================================
+# COL-3D-AB-TD.TEST
+# ...
+# ============================================================================
+
+# First, set Makefile options for test
+NDIM=3
+PERIODIC=1
+X_BOUNDARY=PERIODIC
+Y_BOUNDARY=PERIODIC
+Z_BOUNDARY=PERIODIC
+SPH=STANDARD
+KERNEL=M4TC
+HFIND=NUMBER
+HYDRO=1
+THERMAL=ISOTHERMAL
+ARTIFICIAL_VISCOSITY=AB
+VISC_TD=1
+SELF_GRAVITY=0
+SINKS=0
+TREE=BH
+NEIGHBOURLISTS=PARTICLES
+DIMENSIONLESS=1
+CHECK_NEIB_TIMESTEP=2
+
+
+# Next set parameters for params.dat file
+run_id=COL-3D-AB-TD
+in_file=ICCOL3D-MACH4-M4.df.dat
+in_file_form=dragon_form
+out_file_form=dragon_form
+restart=.FALSE.
+sph_endtime=0.6
+firstsnap=1.0
+snaptime=1.0
+courant_mult=0.1
+accel_mult=0.1
+nlevels=10
+dt_fixed=0.6
+periodic_min_x=-4.0
+periodic_max_x=4.0
+periodic_min_y=0.0
+periodic_max_y=0.2
+periodic_min_z=0.0
+periodic_max_z=0.2
+pp_gather=50
+alpha=2.0
+beta=4.0
+alpha_min=0.1
+isotemp=1.0
+
+
+# Program name
+PROG_NAME=seren
+PROG_EX=seren
+
+
+# Set some variables for graphing
+ANALYTIC="COL.exact"
+PLOT_PROG=gnuplot
+PLOT_FILE="COL-3D-AB-TD.gnuplot"
+

@@ -1,0 +1,63 @@
+# ============================================================================
+# ADSOD-3D-AB-COND.TEST
+# Adiabatic Sod test using standard alpha-beta artificial viscosity 
+# (Lattanzio & Monaghan 1985?) and artificial conductivity (Price 2008)
+# ============================================================================
+
+# First, set Makefile options for test
+NDIM=3
+PERIODIC=1
+X_BOUNDARY=PERIODIC
+Y_BOUNDARY=PERIODIC
+Z_BOUNDARY=PERIODIC
+SPH=GRAD_H_SPH
+KERNEL=M4
+HYDRO=1
+ENERGY_EQN=1
+ARTIFICIAL_VISCOSITY=AB
+ARTIFICIAL_CONDUCTIVITY=PRICE2008
+SELF_GRAVITY=0
+SINKS=0
+TREE=BH
+REORDER=PARTICLES
+NEIGHBOURLISTS=PARTICLES
+DIMENSIONLESS=1
+CHECK_NEIB_TIMESTEPS=1
+
+
+# Next set parameters for params.dat file
+run_id=ADSOD-3D-AB-COND
+in_file=ICADSOD3D.dat
+in_file_form=dragon_form
+out_file_form=seren_unform
+restart=.FALSE.
+sph_endtime=1.0
+firstsnap=1.2
+snaptime=1.2
+noutputstep=32
+ntempstep=1024
+ndiagstep=4
+courant_mult=0.2
+accel_mult=0.2
+nlevels=5
+periodic_min_x=-4.0
+periodic_max_x=4.0
+periodic_min_y=0.0
+periodic_max_y=1.0
+periodic_min_z=0.0
+periodic_max_z=1.0
+alpha=1.0
+beta=2.0
+gaseos=energy_eqn
+gamma=1.4
+
+
+# Set program name here
+PROG_NAME=seren
+PROG_EX=seren
+
+
+# Set some variables for graphing
+ANALYTIC="ADSOD.exact"
+PLOT_PROG=gnuplot
+PLOT_FILE="ADSOD-3D-AB-COND.gnuplot"

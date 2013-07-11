@@ -1,0 +1,64 @@
+# ============================================================================
+# ADSOD-3D-SM2012-MON.TEST
+# Adiabatic Sod test with the grad-h SPH method (Price & Monaghan 2005)
+# using the Riemann solver-type artificial viscosity (Monaghan 1997) 
+# and artificial conductivity (Price 2008)
+# ============================================================================
+
+# First, set Makefile options for test
+NDIM=3
+PERIODIC=1
+X_BOUNDARY=PERIODIC
+Y_BOUNDARY=PERIODIC
+Z_BOUNDARY=PERIODIC
+KERNEL=M4TC
+HFIND=NUMBER
+SPH=SM2012_SPH
+HYDRO=1
+ENERGY_EQN=1
+ARTIFICIAL_VISCOSITY=MON97
+SELF_GRAVITY=0
+SINKS=0
+TREE=BH
+REORDER=PARTICLES
+NEIGHBOURLISTS=PARTICLES
+DIMENSIONLESS=1
+
+
+# Next set parameters for params.dat file
+run_id=ADSOD-3D-SM2012-MON
+in_file=ICADSOD3D.dat
+in_file_form=dragon_form
+out_file_form=seren_form
+restart=.FALSE.
+sph_endtime=1.2
+firstsnap=1.2
+snaptime=1.2
+noutputstep=2
+ntempstep=500
+ndiagstep=4
+courant_mult=0.15
+accel_mult=0.3
+nlevels=5
+periodic_min_x=-4.0
+periodic_max_x=4.0
+periodic_min_y=0.0
+periodic_max_y=1.0
+periodic_min_z=0.0
+periodic_max_z=1.0
+pp_gather=50
+alpha=1.0
+beta=2.0
+gaseos=energy_eqn
+isotemp=1.0
+gamma=1.4
+
+
+PROG_NAME=seren
+PROG_EX=seren
+
+
+# Set some variables for graphing
+ANALYTIC="ADSOD.exact"
+PLOT_PROG=gnuplot
+PLOT_FILE="ADSOD-3D-SM2012-MON.gnuplot"

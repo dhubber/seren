@@ -1,0 +1,62 @@
+# ============================================================================
+# SHEAR-2D-GRADH-AB.TEST
+# Colliding flows test with standard alpha-beta artificial viscosity.
+# ============================================================================
+
+# First, set Makefile options for test
+NDIM=2
+PERIODIC=1
+X_BOUNDARY=PERIODIC
+Y_BOUNDARY=PERIODIC
+KERNEL=M4TC
+HFIND=NUMBER
+SPH=GRAD_H_SPH
+HYDRO=1
+THERMAL=ISOTHERMAL
+ARTIFICIAL_VISCOSITY=AB
+VISC_TD=1
+ARTIFICIAL_CONDUCTIVITY=0
+SELF_GRAVITY=0
+SINKS=0
+TREE=BH
+NEIGHBOURLISTS=PARTICLES
+DIMENSIONLESS=1
+TIMESTEP=RESTRICTED
+CHECK_NEIB_TIMESTEPS=1
+
+
+# Next set parameters for params.dat file
+run_id=SHEAR-2D-GRADH-AB-TD
+in_file=ICSHEAR2D.df.dat
+in_file_form=dragon_form
+out_file_form=dragon_form
+restart=.FALSE.
+sph_endtime=10.0
+firstsnap=0.5
+snaptime=0.5
+dt_fixed=0.5
+courant_mult=0.2
+accel_mult=0.2
+nlevels=15
+nspare=10
+periodic_min_x=0.0
+periodic_max_x=1.0
+periodic_min_y=0.0
+periodic_max_y=1.0
+h_fac=1.2
+alpha_min=0.05
+alpha=1.0
+beta=2.0
+isotemp=1.0
+
+
+# Program name
+PROG_NAME=seren
+PROG_EX=seren
+
+
+# Set some variables for graphing
+ANALYTIC="SHEAR.exact"
+PLOT_PROG=gnuplot
+PLOT_FILE="SHEAR-2D-GRADH-AB-TD.gnuplot"
+

@@ -1,0 +1,47 @@
+# ============================================================================
+# BURRAU1.TEST
+# ...
+# ============================================================================
+
+# First, set Makefile options for test
+NDIM=3
+KERNEL=M4
+HFIND=NUMBER
+HYDRO=0
+SELF_GRAVITY=KS
+SINKS=SIMPLE
+SPH_SIMULATION=0
+NBODY_SIMULATION=1
+NBODY_INTEGRATION=HERMITE4
+BINARY_STATS=1
+TREE=0
+DIMENSIONLESS=1
+DFLAGS="-DDEBUG_DIAGNOSTICS -DDEBUG_PLOT_DATA -DDEBUG_TRACK_ENERGY -DDEBUG_OUTPUT_STAR_DATA"
+
+
+# Next set parameters for params.dat file
+run_id=BURRAU1
+in_file=burrau1.df.dat
+in_file_form=dragon_form
+out_file_form=dragon_unform
+restart=.FALSE.
+sph_endtime=70.0
+firstsnap=0.5
+snaptime=0.5
+ntempstep=1024
+ndiagstep=512
+nsinkstep=2
+nsnapstep=1000000
+nlevels=1
+dt_fixed = 1.0
+rhosink=2.e-12
+sinkrad=3.0
+nbody_frac=0.95
+nbody_endtime=70.0
+nbody_snaptime=0.05
+nbody_timemult=0.01
+
+
+PROG_FILE=seren
+PROG_EX=seren
+
