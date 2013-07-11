@@ -1,0 +1,58 @@
+# ============================================================================
+# COL-2D-MON-TD.TEST
+# ...
+# ============================================================================
+
+# First, set Makefile options for test
+NDIM=2
+PERIODIC=1
+X_BOUNDARY=PERIODIC
+Y_BOUNDARY=PERIODIC
+SPH=GRAD_H_SPH
+KERNEL=M4TC
+HFIND=NUMBER
+HYDRO=1
+ARTIFICIAL_VISCOSITY=MON97
+VISC_TD=1
+SELF_GRAVITY=0
+SINKS=0
+TREE=BH
+CHECK_NEIB_TIMESTEP=2
+NEIGHBOURLISTS=PARTICLES
+DIMENSIONLESS=1
+
+
+# Next set parameters for params.dat file
+run_id=COL-2D-MON-TD
+in_file=ICCOL2D-MACH4-M4.df.dat
+in_file_form=dragon_form
+out_file_form=su
+restart=.false.
+sph_endtime=0.6
+firstsnap=0.1
+snaptime=0.1
+courant_mult=0.2
+accel_mult=0.2
+nlevels=10
+dt_fixed=0.6
+periodic_min_x=-12.0
+periodic_max_x=12.0
+periodic_min_y=0.0
+periodic_max_y=0.2
+pp_gather=50
+alpha=2.0
+beta=4.0
+gaseos=isothermal
+isotemp=1.0
+
+
+# Program name
+PROG_NAME=seren
+PROG_EX=seren
+
+
+# Set some variables for graphing
+ANALYTIC="COL.exact"
+PLOT_PROG=gnuplot
+PLOT_FILE="COL-2D-MON-TD.gnuplot"
+

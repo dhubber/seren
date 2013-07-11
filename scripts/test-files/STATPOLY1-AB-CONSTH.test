@@ -1,0 +1,55 @@
+# ============================================================================
+# STATPOLY1-AB-CONSTH.TEST
+# Relax a polytrope (eta = 5/3, n = 3/2) to static equilibrium.
+# ============================================================================
+
+
+# First, set Makefile options for test
+NDIM=3
+SPH=STANDARD
+KERNEL=M4
+HFIND=CONSTANT
+HYDRO=1
+THERMAL=POLYTROPIC
+ARTIFICIAL_VISCOSITY=AB
+SELF_GRAVITY=KS
+SINKS=0
+TREE=0
+NEIGHBOURLISTS=PARTICLES
+DIMENSIONLESS=1
+DFLAGS="-DDEBUG_DIAGNOSTICS -DDEBUG_PLOT_DATA -DTRACK_ENERGY"
+
+
+# Next set parameters for params.dat file
+run_id=STATPOLY1-AB-CONSTH
+in_file=ICPOLY1.df.dat
+in_file_form=dragon_form
+out_file_form=dragon_form
+restart=.FALSE.
+sph_endtime=100.0
+firstsnap=2.0
+snaptime=2.0
+ntempstep=500
+ndiagstep=50
+nsnapstep=5000
+courant_mult=0.1
+accel_mult=0.2
+nlevels=2
+nspare=1
+alpha=2.0
+beta=4.0
+hmin=0.2
+gamma=1.666666666666
+Kpoly=0.4246
+dof=3.0
+
+
+# Program name
+PROG_NAME=seren
+PROG_EX=seren
+
+
+# Set some variables for graphing
+ANALYTIC="poly1.dat"
+PLOT_PROG=gnuplot
+PLOT_FILE="STATPOLY1-AB-CONSTH.gnuplot"

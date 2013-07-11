@@ -1,0 +1,46 @@
+# ============================================================================
+# FIGURE8.TEST
+# ...
+# ============================================================================
+
+# First, set Makefile options for test
+NDIM=3
+KERNEL=M4
+HFIND=NUMBER
+HYDRO=0
+SELF_GRAVITY=KS
+SINKS=SIMPLE
+SPH_SIMULATION=0
+NBODY_SIMULATION=1
+NBODY_INTEGRATION=HERMITE4
+BINARY_STATS=1
+TREE=0
+DIMENSIONLESS=1
+
+
+# Next set parameters for params.dat file
+run_id=FIGURE8
+in_file=figure8.df.dat
+in_file_form=dragon_form
+out_file_form=dragon_form
+restart=.FALSE.
+sph_endtime=632.591398
+firstsnap=0.632591398
+snaptime=0.632591398
+ntempstep=1024
+ndiagstep=512
+nsinkstep=2
+nsnapstep=10000000
+rhosink=2.e-12
+sinkrad=3.0
+nlevels=1
+nbody_frac=0.95
+nbody_endtime=632.591398
+nbody_snaptime=0.0632591398
+nbody_timemult=0.02
+
+
+
+PROG_FILE=seren
+PROG_EX=seren
+

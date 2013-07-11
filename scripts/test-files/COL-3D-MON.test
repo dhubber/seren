@@ -1,0 +1,58 @@
+# ============================================================================
+# COL-3D-MON.TEST
+# ...
+# ============================================================================
+
+# First, set Makefile options for test
+NDIM=3
+PERIODIC=1
+Y_BOUNDARY=PERIODIC
+Z_BOUNDARY=PERIODIC
+SPH=SM2012_SPH
+KERNEL=M4TC
+HFIND=NUMBER
+HYDRO=1
+ARTIFICIAL_VISCOSITY=MON97
+SELF_GRAVITY=0
+SINKS=0
+TREE=BH
+REORDER=BOTH
+CHECK_NEIB_TIMESTEP=2
+NEIGHBOURLISTS=PARTICLES
+DIMENSIONLESS=1
+
+
+# Next set parameters for params.dat file
+run_id=COL-3D-MON
+in_file=ICCOL3D-MACH4-M4.df.dat
+in_file_form=dragon_form
+out_file_form=su
+restart=.FALSE.
+sph_endtime=0.6
+firstsnap=1.0
+snaptime=1.0
+courant_mult=0.2
+accel_mult=0.2
+nlevels=7
+dt_fixed=0.6
+periodic_min_y=0.0
+periodic_max_y=0.2
+periodic_min_z=0.0
+periodic_max_z=0.2
+pp_gather=50
+alpha=1.0
+beta=2.0
+gaseos=isothermal
+isotemp=1.0
+
+
+# Program name
+PROG_NAME=seren
+PROG_EX=seren
+
+
+# Set some variables for graphing
+ANALYTIC="COL.exact"
+PLOT_PROG=gnuplot
+PLOT_FILE="COL-3D-MON.gnuplot"
+

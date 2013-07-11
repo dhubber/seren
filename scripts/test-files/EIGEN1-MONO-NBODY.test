@@ -1,0 +1,45 @@
+# ============================================================================
+# EIGEN1-MONO-NBODY.TEST
+# ...
+# ============================================================================
+
+# First, set Makefile options for test
+NDIM=3
+KERNEL=M4TC
+HFIND=NUMBER
+HYDRO=0
+SELF_GRAVITY=NBODY
+MAC=EIGEN
+MULTIPOLE=0
+TREE=BH
+DIMENSIONLESS=1
+
+
+# Next set parameters for params.dat file
+run_id=EIGEN1-MONO-NBODY
+in_file=4000_UDS.df.dat
+in_file_form=dragon_form
+out_file_form=dragon_form
+restart=.FALSE.
+pp_gather=50
+
+
+# Create parameters file for specific test and move to correct directory
+echo '4000_UDS.df.dat' >> gravtest.dat
+echo 'dragon_form' >> gravtest.dat
+echo 'EIGEN1-MONO-NBODY' >> gravtest.dat
+echo '11' >> gravtest.dat
+echo '-7.0' >> gravtest.dat
+echo '-2.0' >> gravtest.dat
+mv gravtest.dat $TEST_DIR/.
+
+
+# Set program name here
+PROG_NAME=gravtest
+PROG_EX=gravtest
+
+
+# Set some variables for graphing
+#ANALYTIC=""
+#PLOT_PROG=gnuplot
+#PLOT_FILE="EIGEN1-MONO-NBODY.gnuplot"

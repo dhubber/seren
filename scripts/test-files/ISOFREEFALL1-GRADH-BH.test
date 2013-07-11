@@ -1,0 +1,58 @@
+# ============================================================================
+# ISOFREEFALL1-GRADH-BH.TEST
+# ..
+# ============================================================================
+
+
+# First, set Makefile options for test
+NDIM=3
+SPH_INTEGRATION=LFKDK
+SPH=GRAD_H_SPH
+KERNEL=M4
+HFIND=NUMBER
+HYDRO=1
+THERMAL=ISOTHERMAL
+SELF_GRAVITY=KS
+SINKS=0
+TREE=BH
+MULTIPOLE=QUADRUPOLE
+MAC=GEOMETRIC
+TIMESTEP=RESTRICTED
+NEIGHBOURLISTS=PARTICLES
+DIMENSIONLESS=1
+TEST=FREEFALL
+DFLAGS="-DDEBUG_DIAGNOSTICS -DDEBUG_PLOT_DATA -DDEBUG_TRACK_ENERGY"
+
+
+# Next set parameters for params.dat file
+run_id=ISOFREEFALL1-GRADH-BH
+in_file=100000_UDS.df.dat
+in_file_form=dragon_form
+out_file_form=dragon_form
+restart=.FALSE.
+sph_endtime=1.11
+firstsnap=0.055536036
+snaptime=0.055536036
+ntempstep=1000
+nsnapstep=5000000
+courant_mult=0.1
+accel_mult=0.1
+abserror=0.002
+thetamaxsqd=0.15
+nbuildstep=8
+dt_fixed=0.055536036
+nlevels=3
+h_fac=1.2
+gaseos=isothermal
+isotemp=1.0
+
+
+# Program name
+PROG_NAME=seren
+PROG_EX=seren
+
+
+# Set some variables for graphing
+ANALYTIC="isofreefall.dat"
+PLOT_PROG=gnuplot
+PLOT_FILE="ISOFREEFALL1-GRADH-BH.gnuplot"

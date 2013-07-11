@@ -1,0 +1,59 @@
+# ============================================================================
+# SEDOV3-3D-KINETIC-GRADH.TEST
+# Sedov blast wave test
+# Block timesteps version, but with timestep checking
+# ============================================================================
+
+# First, set Makefile options for test
+NDIM=3
+PERIODIC=0
+SPH_SIMULATION=1
+SPH=GRAD_H_SPH
+SPH_INTEGRATION=LFKDK
+KERNEL=M4TC
+HFIND=H_RHO
+HYDRO=1
+ENERGY_EQN=1
+ARTIFICIAL_VISCOSITY=MON97
+SELF_GRAVITY=0
+SINKS=0
+TREE=BH
+REORDER=PARTICLES
+TIMESTEP=RESTRICTED
+NEIGHBOURLISTS=PARTICLES
+DIMENSIONLESS=1
+CHECK_NEIB_TIMESTEP=2
+
+
+# Next set parameters for params.dat file
+run_id=SEDOV3-3D-KINETIC-GRADH
+in_file=ICSEDOV3D-KINETIC.sf.dat
+in_file_form=seren_form
+out_file_form=dragon_unform
+restart=.FALSE.
+sph_endtime=0.02
+firstsnap=1.0
+snaptime=1.0
+ntempstep=2000
+ndiagstep=2
+courant_mult=0.2
+accel_mult=0.2
+nlevels=15
+dt_fixed=0.02
+h_fac=1.2
+alpha=1.0
+beta=2.0
+gaseos=energy_eqn
+isotemp=1.0
+gamma=1.66666666666
+
+
+# Set program name here
+PROG_NAME=seren
+PROG_EX=seren
+
+
+# Set some variables for graphing
+ANALYTIC="SEDOV.exact"
+PLOT_PROG=gnuplot
+PLOT_FILE="SEDOV3-3D-KINETIC-GRADH.gnuplot"

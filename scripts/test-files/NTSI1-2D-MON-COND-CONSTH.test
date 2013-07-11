@@ -1,0 +1,59 @@
+# ============================================================================
+# NTSI1-2D-MON-COND-CONSTH.TEST
+# ...
+# ============================================================================
+
+# First, set Makefile options for test
+NDIM=2
+PERIODIC=1
+X_BOUNDARY=PERIODIC
+Y_BOUNDARY=PERIODIC
+KERNEL=M4
+HFIND=CONSTANT
+HYDRO=1
+THERMAL=ENERGY_EQN
+ARTIFICIAL_CONDUCTIVITY=PRICE2008
+ARTIFICIAL_VISCOSITY=MON97
+SELF_GRAVITY=0
+SINKS=0
+TREE=BH
+NEIGHBOURLISTS=PARTICLES
+DIMENSIONLESS=1
+CHECK_NEIB_TIMESTEPS=2
+
+
+# Next set parameters for params.dat file
+run_id=NTSI1-2D-MON-COND-CONSTH
+in_file=ICNTSI1.df.dat
+in_file_form=dragon_form
+out_file_form=dragon_form
+restart=.FALSE.
+sph_endtime=0.5
+firstsnap=0.05
+snaptime=0.05
+ntempstep=200
+ndiagstep=200
+courant_mult=0.3
+accel_mult=0.3
+nlevels=20
+nspare=15
+periodic_min_x=-3.0
+periodic_max_x=3.0
+periodic_min_y=0.0
+periodic_max_y=1.0
+periodic_min_z=0.0
+periodic_max_z=0.0
+alpha=1.0
+beta=2.0
+hmin=0.0075
+isotemp=1.0
+
+
+# Program name
+PROG_NAME=seren
+PROG_EX=seren
+
+
+# Set some variables for graphing
+PLOT_PROG='./splash'
+PLOT_FILE="NTSI1-2D-MON-COND-CONSTH.splash"
