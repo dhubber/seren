@@ -279,6 +279,26 @@ SUBROUTINE read_data_seren_unform(out_file,decomp_read)
 #endif
         deallocate(rdummy1)
 
+#if defined(CHEMCOOL)
+     ! Chemistry
+     ! -----------------------------------------------------------------------
+     else if (data_id(i)=="abund") then
+        allocate(rdummy2(1:NCHEM,1:jtot))
+        read(1) rdummy2
+        if (decomp_read) then
+           do j=1,jtot
+              p = pfirst + j - 1
+              minimal_sph(p)%abundances(1:NCHEM) = rdummy2(1:NCHEM,j)
+           end do
+        else
+           do j=1,jtot
+              p = pfirst + j - 1
+              sph(p)%abundances(1:NCHEM) = rdummy2(1:NCHEM,j)
+           end do
+        end if
+        deallocate(rdummy2)
+#endif
+
      ! B-field
      ! -----------------------------------------------------------------------
      else if (data_id(i)=='B') then

@@ -24,6 +24,9 @@ SUBROUTINE timestep_size(p,dt)
 #if defined(TURBULENT_FORCING)
   use turbulence_module, only : turb_dt
 #endif
+#if defined(ENERGY_EQN) && defined(CHEMCOOL)
+  use chemistry_constants
+#endif
   implicit none
 
   integer, intent(in)        :: p    ! Particle counter
@@ -117,6 +120,15 @@ SUBROUTINE timestep_size(p,dt)
      tenergy  = min(accel_mult,courant_mult) * real(sph(p)%u,DP) / &
           & (real(abs(sph(p)%dudt),DP) + SMALL_NUMBER_DP)
      dt = min(dt,tenergy)
+  end if
+#endif
+
+#if defined(ENERGY_EQN) && defined(CHEMCOOL)
+  ! If the chemistry and cooling module is used, then limit the timestep 
+  ! such that the total energy doesn't change by more than some fraction
+  ! over the step. The fraction is given by
+  if (abs(sph(p)%dudt) > 0 ) then 
+     dt = min(energy_rate_limit * sph(p)%u / abs(sph(p)%dudt + SMALL_NUMBER_DP), dt)
   end if
 #endif
 

@@ -13,7 +13,7 @@ X11LIBS = -L/usr/X11R6/lib -lX11
 MODULEDIR = $(SRCDIR)
 HEADERS = $(SRCDIR)/headers
 INCLUDE_DIR += $(MODULEDIR) $(HEADERS)
-VPATH = $(SRCDIR)/advance:$(SRCDIR)/analyse:$(SRCDIR)/BHtree:$(SRCDIR)/binarytree:$(SRCDIR)/devel:$(SRCDIR)/dobs:$(SRCDIR)/ghosts:$(SRCDIR)/gravity:$(SRCDIR)/headers:$(SRCDIR)/ic:$(SRCDIR)/io:$(SRCDIR)/healpix:$(SRCDIR)/main:$(SRCDIR)/mhd:$(SRCDIR)/mpi:$(SRCDIR)/nbody:$(SRCDIR)/nbody_sim:$(SRCDIR)/radiation:$(SRCDIR)/setup:$(SRCDIR)/sinks:$(SRCDIR)/sorts:$(SRCDIR)/sph:$(SRCDIR)/sph_sim:$(SRCDIR)/tests:$(SRCDIR)/timestep:$(SRCDIR)/turbulence:$(SRCDIR)/user:$(SRCDIR)/newstuff
+VPATH = $(SRCDIR)/advance:$(SRCDIR)/analyse:$(SRCDIR)/BHtree:$(SRCDIR)/binarytree:$(SRCDIR)/devel:$(SRCDIR)/dobs:$(SRCDIR)/ghosts:$(SRCDIR)/gravity:$(SRCDIR)/headers:$(SRCDIR)/ic:$(SRCDIR)/io:$(SRCDIR)/healpix:$(SRCDIR)/main:$(SRCDIR)/mhd:$(SRCDIR)/mpi:$(SRCDIR)/nbody:$(SRCDIR)/nbody_sim:$(SRCDIR)/radiation:$(SRCDIR)/setup:$(SRCDIR)/sinks:$(SRCDIR)/sorts:$(SRCDIR)/sph:$(SRCDIR)/sph_sim:$(SRCDIR)/tests:$(SRCDIR)/timestep:$(SRCDIR)/turbulence:$(SRCDIR)/user:$(SRCDIR)/newstuff:$(SRCDIR)/chemcool
 
 
 # Remove trailing whitespace from user options
@@ -265,7 +265,6 @@ else
 ERROR += "Invalid value for NDIM : "$(NDIM)
 endif
 
-
 # Precision of real variables in code
 # ----------------------------------------------------------------------------
 ifeq ($(PRECISION),DOUBLE)
@@ -276,6 +275,17 @@ else ifneq ($(PRECISION),SINGLE)
 ERROR += "Invalid PRECISION option : "$(PRECISION)
 endif
 
+# Chemcool
+# ----------------------------------------------------------------------------
+ifeq ($(CHEMCOOL), 1)
+CFLAGS += -DCHEMCOOL
+ifeq ($(NCHEM), 2)
+CFLAGS += -DNCHEM=2
+endif
+OBJ += chemistry_constants.o chemical_rate_coeff.o \
+        do_chemcool_step.o solve_chem_timestep.o \
+        ism_heat_cool_rate.o compute_stim.o
+endif
 
 # Input file format
 # ----------------------------------------------------------------------------
@@ -539,7 +549,6 @@ OBJ += cooling_heating_rate.o
 else ifneq ($(COOLING_HEATING),0)
 ERROR += "Invalid COOLING_HEATING option selected : "$(COOLING_HEATING)
 endif
-
 
 # HEALPix routines
 # ----------------------------------------------------------------------------

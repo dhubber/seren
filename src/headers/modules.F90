@@ -591,6 +591,9 @@ MODULE particle_module
      real(kind=PR) :: gravity_calcs    ! No. of grav. calcs for particle
 #endif
 #endif
+#if defined(CHEMCOOL)
+     real(kind=PR) :: abundances(1:NCHEM)       ! Chemical abundances
+#endif
   end type sph_particle
   
   type minimal_sph_particle
@@ -604,6 +607,9 @@ MODULE particle_module
      real(kind=PR) :: temp             ! Temperature
 #if defined(ENTROPIC_FUNCTION)
      real(kind=PR) :: Aent             ! Entropic function
+#endif
+#if defined(CHEMCOOL)
+     real(kind=PR) :: abundances(1:NCHEM)       ! Chemical abundances
 #endif
   end type minimal_sph_particle
   

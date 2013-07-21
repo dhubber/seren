@@ -103,6 +103,12 @@ stop
         else if (data_id(i) == "u") then
            pdata(i) = sph(p)%u*real(uscale,PR)
 #endif
+#if defined(CHEMCOOL)
+        else if (data_id(i) == "abundh2") then
+           pdata(i) = sph(p)%abundances(1)
+        else if (data_id(i) == "abundhp") then
+           pdata(i) = sph(p)%abundances(2)
+#endif
         end if
      end do
      write(1,'(I3,100E15.7)') auxtype,pdata(2:ndata)

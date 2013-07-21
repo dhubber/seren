@@ -122,11 +122,14 @@ SUBROUTINE write_data_seren_unform(out_file)
      ndata = ndata + 1;    data_id(ndata) = 'u'
      typedata(1:5,ndata) = (/1,1,ptot,4,20/)
 #endif
+#if defined(CHEMCOOL)
+     ndata = ndata + 1;    data_id(ndata) = 'abund'
+     typedata(1:5,ndata) = (/NCHEM,1,ptot,4,0/)
+#endif 
 #if defined(DEBUG_WRITE_MPI_TASK)
      ndata = ndata + 1;    data_id(ndata) = 'mpitask'
      typedata(1:5,ndata) = (/1,1,ptot,2,0/)
 #endif
-
      if (dimensionless) typedata(5,:) = 0
   end if
 
@@ -261,6 +264,17 @@ SUBROUTINE write_data_seren_unform(out_file)
         rdummy1(p) = sph(p)%u*real(uscale,PR)
      end do
      write(1) rdummy1
+#endif
+
+#if defined(CHEMCOOL)
+     ! Chemical abundances
+     ! -----------------------------------------------------------------------
+     allocate(rdummy3(1:NCHEM,1:ptot))
+     do p=1,ptot
+        rdummy3(1:NCHEM,p) = sph(p)%abundances(1:NCHEM)
+     end do
+     write(1) rdummy3
+     deallocate(rdummy3)
 #endif
 
 #if defined(DEBUG_WRITE_MPI_TASK)

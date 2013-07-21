@@ -301,6 +301,20 @@ SUBROUTINE read_data_seren_form(out_file,decomp_read)
 #endif
         end do
 
+     ! Chemical abundances
+     ! -----------------------------------------------------------------------
+#if defined(CHEMCOOL)
+     else if (data_id(i)=='abund') then
+        do p=pfirst,plast
+           read(1,'(2E18.10)') rtemp(1:2)
+           if (decomp_read) then
+              minimal_sph(p)%abundances = real(rtemp(1),PR)
+           else
+              sph(p)%abundances = real(rtemp(1),PR)
+           end if
+        end do
+#endif
+
      ! B-field
      ! ----------------------------------------------------------------------- 
      else if (data_id(i)=='B') then

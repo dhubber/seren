@@ -74,10 +74,20 @@ SUBROUTINE advance_leapfrog_kdk(p)
      if (dn == nfull) sph(p)%dudt_old = sph(p)%dudt
   end if
 #endif
+! Energy equation is integrated IMPLICITLY in the chemistry module
+! ----------------------------------------------------------------------------
+#if defined(ENERGY_EQN) && defined(CHEMCOOL)
+  if (eos == "chemcool_eos" ) then
+     ! The pdv and shocks are stored in sph(p)%dudt and calculated above. 
+     if (dn == nfull) then
+        call do_chemcool_step(sph(p)%rho, sph(p)%u, sph(p)%abundances, sph(p)%dudt, dt)
+        sph(p)%dudt_old = sph(p)%dudt
+     end if
+  end if
+#endif
 #if defined(ENERGY_EQN)
   if (dn == nfull) sph(p)%u_old = sph(p)%u
 #endif
-
 
 ! Integrate entropy equation if selected
 ! ----------------------------------------------------------------------------
