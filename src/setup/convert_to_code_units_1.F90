@@ -32,8 +32,6 @@ SUBROUTINE convert_to_code_units_1(minimal)
 
   debug1("Converting to dimensionless code units [convert_to_code_units_1.F90]")
 
-  write(6,*) "WTF is minimal? : ",minimal
-
 ! Scale main particle data to code units 
 ! ----------------------------------------------------------------------------
   if (minimal) then

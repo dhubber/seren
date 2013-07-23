@@ -22,15 +22,15 @@ SINKS=0
 TREE=BH
 REORDER=PARTICLES
 NEIGHBOURLISTS=PARTICLES
-DIMENSIONLESS=1
 
 
 # Next set parameters for params.dat file
 run_id=ADSOD-3D-SM2012-MON
 in_file=ICADSOD3D.dat
 in_file_form=dragon_form
-out_file_form=seren_form
+out_file_form=seren_unform
 restart=.FALSE.
+dimensionless=.TRUE.
 sph_endtime=1.2
 firstsnap=1.2
 snaptime=1.2

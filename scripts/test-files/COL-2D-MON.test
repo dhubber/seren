@@ -19,15 +19,15 @@ TREE=BH
 REORDER=PARTICLES
 CHECK_NEIB_TIMESTEP=2
 NEIGHBOURLISTS=PARTICLES
-DIMENSIONLESS=1
 
 
 # Next set parameters for params.dat file
 run_id=COL-2D-MON
 in_file=ICCOL2D-MACH4-M4.df.dat
 in_file_form=dragon_form
-out_file_form=dragon_form
+out_file_form=seren_unform
 restart=.FALSE.
+dimensionless=.TRUE.
 sph_endtime=0.6
 firstsnap=1.0
 snaptime=1.0

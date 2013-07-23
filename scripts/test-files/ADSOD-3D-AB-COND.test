@@ -21,7 +21,6 @@ SINKS=0
 TREE=BH
 REORDER=PARTICLES
 NEIGHBOURLISTS=PARTICLES
-DIMENSIONLESS=1
 CHECK_NEIB_TIMESTEPS=1
 
 
@@ -31,6 +30,7 @@ in_file=ICADSOD3D.dat
 in_file_form=dragon_form
 out_file_form=seren_unform
 restart=.FALSE.
+dimensionless=.TRUE.
 sph_endtime=1.0
 firstsnap=1.2
 snaptime=1.2
@@ -49,6 +49,7 @@ periodic_max_z=1.0
 alpha=1.0
 beta=2.0
 gaseos=energy_eqn
+energy_integration=explicit
 gamma=1.4
 
 

@@ -21,14 +21,13 @@ SINK_RADIUS=HMULT
 BINARY_STATS=1
 TREE=BH
 NEIGHBOURLISTS=PARTICLES
-DIMENSIONLESS=0
 
 
 # Next set parameters for params.dat file
 run_id=SIT1-AB-BH-SINK
 in_file=32000_SIT.dat
 in_file_form=dragon_form
-out_file_form=dragon_unform
+out_file_form=seren_unform
 restart=.FALSE.
 sph_endtime=0.1
 firstsnap=0.01
@@ -40,6 +39,7 @@ nsnapstep=1000
 courant_mult=0.2
 accel_mult=0.4
 nlevels=5
+dimensionless=.FALSE.
 runit=pc
 munit=m_sun
 tunit=myr

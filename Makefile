@@ -206,7 +206,10 @@ include makefiletail.mk
 
 # OPTIMISE                : Compiler optimisation level (0, 1, 2 or 3)
 
-# COMPILER_MODE           : ..
+# COMPILER_MODE           : Select flags for compiler
+#                           STANDARD = Standard 'O3' compilation flags
+#                           FAST     = O3 + fast (potentially unsafe) flags
+#                           DEBUG    = Debugging flags to use gdb
 
 # OUTPUT_LEVEL            : 0 = No standard output
 #                           1 = Simple output to screen (time, snapshots, etc)
@@ -216,9 +219,8 @@ include makefiletail.mk
 # NDIM                    : Number of dimensions (1, 2 or 3)
 
 # PRECISION               : Precision of floating point variables
-#                           SINGLE    = ..
-#                           DOUBLE    = ..
-#                           QUADRUPLE = (not functioning yet)
+#                           SINGLE    = 32-bit floating point precision
+#                           DOUBLE    = 64-bit floating point precision
 
 # INFILE_FORMAT           : Available input file format options in SEREN
 #                           ALL    = All possible file formats enabled
@@ -228,7 +230,6 @@ include makefiletail.mk
 
 # OUTFILE_FORMAT          : Available output file format options in SEREN
 #                           ALL    = All possible file formats enabled
-#                           DRAGON = DRAGON file format
 #                           SEREN  = SEREN file format
 #                           ASCII  = Simple ASCII file format
 
@@ -336,8 +337,6 @@ include makefiletail.mk
 #                                                   in params file.
 #                           SINGLE_SINK_SOURCE    = Sink particle 1 becomes 
 #                                                   source of ionizing rad.
-#                           MULTIPLE_SINK_SOURCES = Sink particles become 
-#                                                   sources of ionizing rad.
 
 # STELLAR_WIND            : Include sources of momentum winds using HEALPix
 #                           0                     = No winds
@@ -346,20 +345,6 @@ include makefiletail.mk
 #                                                   in params file
 #                           SINGLE_SINK_SOURCE    = Sink particle 1 becomes 
 #                                                   source of momentum wind.
-#                           MULTIPLE_SINK_SOURCES = Sink particles become 
-#                                                   sources of wind feedback.
-
-# PARTICLE_INJECTION_WINDS : (0 or 1)
-
-# STELLAR_LUMINOSITY      : Include sources of luminosity using HEALPix
-#                           0                     = No radiation
-#                           SINGLE_STATIC_SOURCE  = Single radiation source 
-#                                                   located at position given 
-#                                                   in params file
-#                           SINGLE_SINK_SOURCE    = Sink particle 1 becomes 
-#                                                   source of radiation.
-#                           MULTIPLE_SINK_SOURCES = Sink particles become 
-#                                                   sources of radiation.
 
 # ARTIFICIAL_VISCOSITY    : Artificial viscosity formulation
 #                           0      = No artificial viscosity used
@@ -422,9 +407,6 @@ include makefiletail.mk
 # BINARY_STATS            : Automatically calculate binary statistics for 
 #                           stars during N-body integrator (0 or 1)
 
-# FORCE SPLITTING         : Different timesteps for computing SPH and star 
-#                           forces in hybrid scheme (0 or 1; experimental)
-
 # TREE                    : Tree options
 #                           0         = No tree (direct-sum only)
 #                           BH        = Barnes-Hut Octal-spatial tree
@@ -468,8 +450,6 @@ include makefiletail.mk
 #                           2 = Reduce timestep in middle of current timestep 
 #                               if required
 
-# SIGNAL_VELOCITY_DT      : (0 or 1)
-
 # NEIGHBOURLISTS          : Store neighbour lists in memory
 #                           0         = Neighbour lists not stored
 #                           PARTICLES = Particle neighbour lists stored
@@ -481,8 +461,6 @@ include makefiletail.mk
 # TURBULENT_FORCING       : Impose time-dependent turbulent forcing (0 or 1)
 
 # TIMING_CODE             : Use internal timing routines (0 or 1)
-
-# DIMENSIONLESS           : Set all units to dimensionless (0 or 1)
 
 # TEST                    : Specific test options
 #                           0        = No test options

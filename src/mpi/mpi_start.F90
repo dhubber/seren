@@ -72,14 +72,14 @@ subroutine mpi_start_seren
       write(6,*) "*                                                                    *"
       write(6,*) "*                            Version " // SEREN_VERSION // &
         & "                           *"
-      write(6,*) "*                              15/01/2013                            *"
+      write(6,*) "*                              17/07/2013                            *"
       write(6,*) "*                                                                    *"
       write(6,*) "*        Coders : David Hubber, Chris Batty & Andrew McLeod          *"
       write(6,*) "*                 Thomas Bisbas, Krisada Rawiraswattana,             *"
       write(6,*) "*                 Dimitrios Stamatellos, Stefanie Walch,             *"
       write(6,*) "*                 Anthony Whitworth                                  *"
       write(6,*) "*                                                                    *"
-      write(6,*) "*               http://www.astro.group.shef.ac.uk/seren              *"
+      write(6,*) "*                   https://github.com/dhubber/seren                 *"
       write(6,*) "**********************************************************************"
 
       write(6,*) "Number of MPI processes: ", numtasks

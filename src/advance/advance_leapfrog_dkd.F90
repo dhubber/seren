@@ -88,8 +88,8 @@ SUBROUTINE advance_leapfrog_dkd(p)
 
 ! Integrate energy equation if selected
 ! ----------------------------------------------------------------------------
-#if defined(ENERGY_EQN) && defined(EXPLICIT_ENERGY_EQN)
-  if (eos == "energy_eqn") then 
+#if defined(ENERGY_EQN)
+  if (eos == "energy_eqn" .and. energy_integration = "explicit") then 
      sph(p)%u = sph(p)%u_old + sph(p)%dudt*dt
      if (sph(p)%u < SMALL_NUMBER) &
           &sph(p)%u = sph(p)%u_old*exp(-sph(p)%u_old/sph(p)%dudt)

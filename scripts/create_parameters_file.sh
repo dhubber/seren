@@ -46,7 +46,7 @@ echo 'dt_fixed = '${dt_fixed:=1.0} >> params.dat
 echo '=====================' >> params.dat
 echo 'Unit parameters' >> params.dat
 echo '=====================' >> params.dat
-echo 'dimensionless = '${dimensionless:=0} >> params.dat
+echo 'dimensionless = '${dimensionless:=.FALSE.} >> params.dat
 echo 'runit = '${runit:=pc} >> params.dat
 echo 'munit = '${munit:=m_sun} >> params.dat
 echo 'tunit = '${tunit:=myr} >> params.dat
@@ -94,6 +94,7 @@ echo '=====================' >> params.dat
 echo 'boundaryeos = '${boundaryeos:=isothermal} >> params.dat
 echo 'icmeos = '${icmeos:=isothermal} >> params.dat
 echo 'gaseos = '${gaseos:=isothermal} >> params.dat
+echo 'energy_integration = '${energy_integration:=explicit} >> params.dat
 echo 'isotemp = '${isotemp:=10.0} >> params.dat
 echo 'rhobary = '${rhobary:=1.e-14} >> params.dat
 echo 'gamma = '${gamma:=1.4} >> params.dat

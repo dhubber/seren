@@ -15,7 +15,6 @@ NBODY_SIMULATION=1
 NBODY_INTEGRATION=HERMITE4
 BINARY_STATS=1
 TREE=0
-DIMENSIONLESS=1
 DFLAGS="-DDEBUG_DIAGNOSTICS -DDEBUG_PLOT_DATA -DDEBUG_TRACK_ENERGY -DDEBUG_OUTPUT_STAR_DATA"
 
 
@@ -23,8 +22,9 @@ DFLAGS="-DDEBUG_DIAGNOSTICS -DDEBUG_PLOT_DATA -DDEBUG_TRACK_ENERGY -DDEBUG_OUTPU
 run_id=BURRAU1
 in_file=burrau1.df.dat
 in_file_form=dragon_form
-out_file_form=dragon_unform
+out_file_form=seren_unform
 restart=.FALSE.
+dimensionless=.TRUE.
 sph_endtime=70.0
 firstsnap=0.5
 snaptime=0.5

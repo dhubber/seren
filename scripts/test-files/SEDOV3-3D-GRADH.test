@@ -8,7 +8,7 @@
 NDIM=3
 PERIODIC=0
 SPH_SIMULATION=1
-SPH=SM2012_SPH
+SPH=GRAD_H_SPH
 SPH_INTEGRATION=LFKDK
 KERNEL=M4TC
 HFIND=H_RHO
@@ -21,7 +21,6 @@ TREE=BH
 REORDER=PARTICLES
 TIMESTEP=RESTRICTED
 NEIGHBOURLISTS=PARTICLES
-DIMENSIONLESS=1
 CHECK_NEIB_TIMESTEP=2
 
 
@@ -31,6 +30,7 @@ in_file=ICSEDOV3D.df.dat
 in_file_form=dragon_form
 out_file_form=seren_unform
 restart=.FALSE.
+dimensionless=.TRUE.
 sph_endtime=0.02
 firstsnap=1.0
 snaptime=1.0
@@ -38,7 +38,7 @@ ntempstep=2000
 ndiagstep=1
 courant_mult=0.2
 accel_mult=0.2
-nlevels=15
+nlevels=10
 dt_fixed=0.02
 h_fac=1.2
 alpha=1.0

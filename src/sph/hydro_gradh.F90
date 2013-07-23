@@ -217,7 +217,7 @@ integer :: j
      end if
 
      ! Artificial conductivity term
-#if defined(EXPLICIT_ENERGY_EQN) && defined(ARTIFICIAL_CONDUCTIVITY)
+#if defined(ENERGY_EQN) && defined(ARTIFICIAL_CONDUCTIVITY)
 #if defined(COND_PRICE2008)
      vsignal = sqrt(abs(sph(p)%press - sph(pp)%press)*invrhomean)
 #elif defined(COND_WADSLEY2008)
@@ -295,7 +295,6 @@ integer :: j
                 &p,pp,ptot,pghost,drmag/(KERNRANGE*sph(p)%h),drmag/(KERNRANGE*sph(pp)%h),sph(p)%h/sph(pp)%h
            stop
         end if
-        !write(6,*) "Particle verified : ",p,pp,ptot,pghost,rp(1:NDIM)
      end if
   end do
 #endif

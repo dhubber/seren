@@ -114,6 +114,7 @@ SUBROUTINE write_data_seren_form(out_file)
      
      ndata = ndata + 1;    data_id(ndata) = 'rho'
      typedata(1:5,ndata) = (/1,1,ptot,4,6/)
+
 #if defined(HYDRO)
      ndata = ndata + 1;    data_id(ndata) = 'temp'
      typedata(1:5,ndata) = (/1,1,ptot,4,21/)

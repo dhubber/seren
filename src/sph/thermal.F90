@@ -70,6 +70,30 @@ SUBROUTINE thermal(p)
      sph(p)%temp  = Kpoly*(sph(p)%rho**(gamma - 1.0_PR))/Pconst
      sph(p)%sound = sqrt(gamma*sph(p)%press/sph(p)%rho)
      sph(p)%u     = sph(p)%press/sph(p)%rho 
+
+
+! Ideal-gas equation of state when using the internal energy equation
+! ----------------------------------------------------------------------------
+#if defined(ENERGY_EQN)
+  else if (eos == "energy_eqn") then
+     sph(p)%temp = (gamma - 1.0_PR)*sph(p)%u / Pconst
+     sph(p)%press = (gamma - 1.0_PR)*sph(p)%rho*sph(p)%u
+     sph(p)%sound = sqrt(gamma*sph(p)%press/sph(p)%rho)
+#if defined(ENTROPIC_FUNCTION) && defined(ENERGY_EQN)
+     sph(p)%Aent = (gamma - 1.0_PR)*sph(p)%u/sph(p)%rho**(gamma - 1.0_PR)
+#endif
+#endif
+
+
+! Ideal-gas equation of state when using the internal energy equation
+! ----------------------------------------------------------------------------
+#if defined(ENTROPY_EQN) && defined(ENTROPIC_FUNCTION)
+  else if (eos == "entropy_eqn") then
+     sph(p)%u = (sph(p)%Aent*sph(p)%rho**(gamma - 1.0_PR))/(gamma - 1.0_PR)
+     sph(p)%press = (gamma - 1.0_PR)*sph(p)%rho*sph(p)%u
+     sph(p)%temp  = sph(p)%press / (Pconst*sph(p)%rho)
+     sph(p)%sound = sqrt(gamma*sph(p)%press/sph(p)%rho)
+#endif
   
   
 ! Polytropic-cooling approximation
@@ -96,30 +120,6 @@ SUBROUTINE thermal(p)
      mu_bar_p      = eosmu(sph(p)%rho,sph(p)%temp,sph(p)%idens,sph(p)%itemp)
      sph(p)%press  = Pconst2*sph(p)%temp*sph(p)%rho/mu_bar_p
      sph(p)%sound  = sqrt(sph(p)%press/sph(p)%rho)
-#endif
-  
-
-! Ideal-gas equation of state when using the internal energy equation
-! ----------------------------------------------------------------------------
-#if defined(ENERGY_EQN)
-  else if (eos == "energy_eqn") then
-     sph(p)%temp = (gamma - 1.0_PR)*sph(p)%u / Pconst
-     sph(p)%press = (gamma - 1.0_PR)*sph(p)%rho*sph(p)%u
-     sph(p)%sound = sqrt(gamma*sph(p)%press/sph(p)%rho)
-#if defined(ENTROPIC_FUNCTION) && defined(ENERGY_EQN)
-     sph(p)%Aent = (gamma - 1.0_PR)*sph(p)%u/sph(p)%rho**(gamma - 1.0_PR)
-#endif
-#endif
-
-
-! Ideal-gas equation of state when using the internal energy equation
-! ----------------------------------------------------------------------------
-#if defined(ENTROPY_EQN) && defined(ENTROPIC_FUNCTION)
-  else if (eos == "entropy_eqn") then
-     sph(p)%u = (sph(p)%Aent*sph(p)%rho**(gamma - 1.0_PR))/(gamma - 1.0_PR)
-     sph(p)%press = (gamma - 1.0_PR)*sph(p)%rho*sph(p)%u
-     sph(p)%temp  = sph(p)%press / (Pconst*sph(p)%rho)
-     sph(p)%sound = sqrt(gamma*sph(p)%press/sph(p)%rho)
 #endif
   
 

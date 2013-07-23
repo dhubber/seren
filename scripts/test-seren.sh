@@ -265,7 +265,7 @@ cd ..
 SEREN_DIR=$(pwd)
 SCRIPT_DIR=$SEREN_DIR/scripts
 #IC_DIR=$SCRIPT_DIR/IC
-IC_DIR=../../seren-IC-files
+IC_DIR=./icfiles
 TESTFILE_DIR=$SCRIPT_DIR/test-files
 PLOTFILE_DIR=$SCRIPT_DIR/plot-files
 cd $SCRIPT_DIR
