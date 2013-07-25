@@ -72,8 +72,8 @@ SUBROUTINE BHgrav_node_accel(node,rp,atemp,dpot)
        & + node%q(5)*dr(3))*invdr5 &
        & - 2.5_PR*qscalar*dr(2)*invdr5*invdrsqd
   atemp(3) = atemp(3) + (node%q(4)*dr(1) + node%q(5)*dr(2)&
-                & - (node%q(1)+node%q(3))*dr(3))*invdr5 &
-                & - 2.5_PR*qscalar*dr(3)*invdr5*invdrsqd
+       & - (node%q(1)+node%q(3))*dr(3))*invdr5 &
+       & - 2.5_PR*qscalar*dr(3)*invdr5*invdrsqd
 #endif
   dpot = dpot + 0.5_PR*qscalar*invdr5 
 #endif
