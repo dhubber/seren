@@ -16,10 +16,10 @@ DIAGNOSTIC_OUTPUT         = 1
 NDIM                      = 3
 PRECISION                 = DOUBLE
 PERIODIC                  = 1
-X_BOUNDARY                = 0
-Y_BOUNDARY                = 0
-Z_BOUNDARY                = 0
-GHOST_PARTICLES           = 1
+X_BOUNDARY                = PERIODIC
+Y_BOUNDARY                = PERIODIC
+Z_BOUNDARY                = PERIODIC
+GHOST_PARTICLES           = 0
 
 # ----------------------------------------------------------------------------
 # Simulation selection options
