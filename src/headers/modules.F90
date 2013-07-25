@@ -308,6 +308,7 @@ MODULE hydro_module
   use definitions
 
   character(len=256) :: cooling_law           ! Cooling law
+  character(len=256) :: energy_integration    ! Energy equation integration 
   real(kind=PR) :: alpha                      ! alpha viscosity parameter
   real(kind=PR) :: alpha_min                  ! alpha_min
   real(kind=PR) :: beta                       ! beta viscosity parameter
@@ -484,6 +485,7 @@ MODULE particle_module
      real(kind=PR) :: hfactor          ! (1 / h)^(NDIM + 1)
 #endif
      real(kind=PR) :: u                ! Specific internal energy
+     real(kind=PR) :: Aent             ! Entropic function
      real(kind=PR) :: press            ! Pressure
      real(kind=PR) :: sound            ! Sound speed
      real(kind=PR) :: temp             ! Temperature
@@ -537,7 +539,7 @@ MODULE particle_module
 #if defined(HYDRO)
 #if defined(ENERGY_EQN)
      real(kind=PR) :: u_old            ! Old internal energy
-     real(kind=PR) :: dudt             ! Cooling rate
+     real(kind=PR) :: dudt             ! Compressional heating rate
 #if defined(LEAPFROG_KDK)
      real(kind=PR) :: dudt_old         ! Old dudt
 #endif
@@ -550,7 +552,6 @@ MODULE particle_module
 #endif
 #endif
 #if defined(ENTROPIC_FUNCTION)
-     real(kind=PR) :: Aent             ! Entropic function
      real(kind=PR) :: Aold             ! Old entropic function
      real(kind=PR) :: dAdt             ! Rate of change of entropic fn.
 #if defined(LEAPFROG_KDK)

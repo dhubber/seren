@@ -20,7 +20,7 @@ SUBROUTINE default_parameters
   use type_module
   use neighbour_module, only : pp_gather,hmin,h_fac
   use hydro_module, only : alpha,beta,alpha_min,cooling_law,&
-       &gamma,isotemp,Kpoly,mu_bar,mu_ion,rhobary,Pext
+       &energy_integration,gamma,isotemp,Kpoly,mu_bar,mu_ion,rhobary,Pext
   use Nbody_module, only : gammapertmax,nbody_endtime,&
        &nbody_frac,nbody_timemult,npec
   use tree_module, only : thetamaxsqd, abserror
@@ -111,6 +111,7 @@ SUBROUTINE default_parameters
        &typeinfo(boundaryid)%eos,"isothermal")
   call add_string_parameter("icmeos",typeinfo(icmid)%eos,"isothermal")
   call add_string_parameter("gaseos",typeinfo(gasid)%eos,"isothermal")
+  call add_string_parameter("energy_integration",energy_integration,"explicit")
   call add_real_parameter("isotemp",isotemp,10.0_PR)
   call add_real_parameter("rhobary",rhobary,1.0E-14_PR)
   call add_real_parameter("gamma",gamma,1.4_PR)

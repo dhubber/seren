@@ -21,7 +21,6 @@ TREE=BH
 REORDER=PARTICLES
 TIMESTEP=RESTRICTED
 NEIGHBOURLISTS=PARTICLES
-DIMENSIONLESS=1
 CHECK_NEIB_TIMESTEP=0
 
 
@@ -31,6 +30,7 @@ in_file=ICSEDOV3D.df.dat
 in_file_form=dragon_form
 out_file_form=seren_unform
 restart=.FALSE.
+dimensionless=.TRUE.
 sph_endtime=0.02
 firstsnap=1.0
 snaptime=1.0

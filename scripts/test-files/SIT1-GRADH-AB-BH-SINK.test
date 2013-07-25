@@ -29,7 +29,7 @@ CHECK_NEIB_TIMESTEPS=1
 
 # Next set parameters for params.dat file
 run_id=SIT1-GRADH-AB-BH-SINK
-in_file=8000_SIT.dat
+in_file=32000_SIT.dat
 in_file_form=dragon_form
 out_file_form=seren_unform
 restart=.FALSE.
@@ -44,8 +44,9 @@ nsnapstep=5000000
 courant_mult=0.2
 accel_mult=0.4
 sink_mult=0.5
-nlevels=7
+nlevels=5
 dt_fixed=0.0005
+dimensionless=.FALSE.
 runit=pc
 munit=m_sun
 tunit=myr

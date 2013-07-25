@@ -92,7 +92,7 @@ SETUP_OBJ += set_default_particle_types.o types.o units.o
 SETUP_OBJ += write_makefile_options.o write_column_info.o
 IO_OBJ += read_data.o write_data.o
 IO_OBJ += write_rad_ws_test_data.o
-IC_OBJ += ic_subroutines.o velfield.o
+IC_OBJ += ic_subroutines.o
 GENERIC_OBJ += allocate_memory.o active_particle_list.o clean_up.o COM.o
 GENERIC_OBJ += create_particle_list.o debug_tests.o distance2.o
 GENERIC_OBJ += distance2_dp.o distance3.o distance3_dp.o errors.o heapsort.o
@@ -491,9 +491,6 @@ SPH_OBJ += update_thermal_properties.o thermal.o thermal_properties.o
 
 ifeq ($(ENERGY_EQN),1)
 CFLAGS += -DINTERNAL_ENERGY -DENERGY_EQN
-ifneq ($(COOLING_HEATING),EXPONENTIAL)
-CFLAGS += -DEXPLICIT_ENERGY_EQN
-endif
 else ifneq ($(ENERGY_EQN),0)
 ERROR += "Invalid ENERGY_EQN option selected : "$(ENERGY_EQN)
 endif

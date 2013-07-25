@@ -459,9 +459,7 @@ SUBROUTINE add_turbulent_velocity_field(eturb,vpower,&
      allocate(vtable(1:NDIM,1:ngrid,1:ngrid,1:ngrid))
      call turbsub(2,1.0_PR,vpower/2.0_PR,ngrid,ngrid,vtable)
 #else
-     allocate(vtable(1:4,1:ngrid,1:ngrid,1:ngrid))
-     ngridtemp = ngrid/2
-     call velfield(real(vpower,DP),iseed1,iseed2,ngridtemp,vtable)
+     stop 'FFTW flag not activated.  Cannot generate turbulent velocity field'
 #endif
      allocate(r(1:NDIM,1:ptot))
      do p=pstart,pend

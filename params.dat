@@ -100,6 +100,7 @@ Thermal parameters
 Boundary particle EOS                     : boundaryeos = isothermal
 Intercloud particle EOS                   : icmeos = isothermal
 Gas particle EOS                          : gaseos = barotropic
+Energy equation integration scheme        : energy_eqn = explicit
 Isothermal temperature of gas (Kelvin)    : isotemp = 10.0
 Adiabatic density in barotropic EOS       : rhobary = 1.0e-14
 Ratio of specific heats                   : gamma = 1.4

@@ -15,15 +15,15 @@ NBODY_SIMULATION=1
 NBODY_INTEGRATION=HERMITE4
 BINARY_STATS=1
 TREE=0
-DIMENSIONLESS=1
 
 
 # Next set parameters for params.dat file
 run_id=FIGURE8
 in_file=figure8.df.dat
 in_file_form=dragon_form
-out_file_form=dragon_form
+out_file_form=seren_unform
 restart=.FALSE.
+dimensionless=.TRUE.
 sph_endtime=632.591398
 firstsnap=0.632591398
 snaptime=0.632591398

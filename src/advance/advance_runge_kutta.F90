@@ -93,8 +93,8 @@ SUBROUTINE advance_runge_kutta(p)
 
 ! Integrate energy equation if selected
 ! ----------------------------------------------------------------------------
-#if defined(EXPLICIT_ENERGY_EQN) && defined(ENERGY_EQN)
-  if (eos == "energy_eqn") then 
+#if defined(ENERGY_EQN)
+  if (eos == "energy_eqn" .and. energy_integration == "explicit") then 
      sph(p)%u = sph(p)%u_old + sph(p)%dudt*dt
   end if
 #endif

@@ -12,6 +12,7 @@ SUBROUTINE leapfrog_kdk_correction_terms
   use particle_module
   use type_module
   use sink_module
+  use hydro_module
   use time_module
   implicit none
 
@@ -65,13 +66,14 @@ SUBROUTINE leapfrog_kdk_correction_terms
   do i=1,acctot
      p = acclist(i)
 #if defined(ENTROPIC_FUNCTION) && defined(ENTROPY_EQN)
-     if (typeinfo(sph(p)%ptype)%eos == "entropy_eqn") then
+     if (typeinfo(sph(p)%ptype)%eos == "entropy_eqn" .and. &
+          &energy_integration == "explicit") then
         sph(p)%Aold = &
              &sph(p)%Ahalf + 0.5_PR*sph(p)%dAdt*real(sph(p)%laststep,PR)
         sph(p)%Aent = sph(p)%Aold
         call thermal(p)
      end if
-#elif defined(HYDRO) && defined(EXPLICIT_ENERGY_EQN)
+#elif defined(HYDRO) && defined(ENERGY_EQN)
      if (typeinfo(sph(p)%ptype)%eos == "energy_eqn") then
         sph(p)%u_old = sph(p)%u_old + &
              & 0.5_PR*(sph(p)%dudt - sph(p)%dudt_old)*real(sph(p)%laststep,PR)
