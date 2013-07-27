@@ -14,12 +14,12 @@ COMPILER_MODE             = FAST
 OUTPUT_LEVEL              = 2
 DIAGNOSTIC_OUTPUT         = 1
 NDIM                      = 3
-PRECISION                 = SINGLE
-PERIODIC                  = 0
-X_BOUNDARY                = 0
-Y_BOUNDARY                = 0
-Z_BOUNDARY                = 0
-GHOST_PARTICLES           = 1
+PRECISION                 = DOUBLE
+PERIODIC                  = 1
+X_BOUNDARY                = PERIODIC
+Y_BOUNDARY                = PERIODIC
+Z_BOUNDARY                = PERIODIC
+GHOST_PARTICLES           = 0
 
 # ----------------------------------------------------------------------------
 # Simulation selection options
@@ -56,18 +56,24 @@ COOLING_HEATING           = 0
 IONIZING_RADIATION        = 0
 STELLAR_WIND              = 0
 
+#-----------------------------------------------------------------------------
+# Chemistry and ISM module -- Stripped down version of Glover & Mac Low 2007 
+#                             and Glover et al. 2010
+#-----------------------------------------------------------------------------
+CHEMCOOL                  = 1
+NCHEM                     = 2
 # ----------------------------------------------------------------------------
 # SPH gravity options
 # ----------------------------------------------------------------------------
 EXTERNAL_FORCE            = 0
-SELF_GRAVITY              = KS
+SELF_GRAVITY              = 0
 MEANH_GRAVITY             = 0
 EWALD                     = 0
 
 # ----------------------------------------------------------------------------
 # Sink and N-body options
 # ----------------------------------------------------------------------------
-SINKS                     = SIMPLE
+SINKS                     = 0
 SINK_RADIUS               = HMULT
 SINK_REMOVE_ANGMOM        = 0
 SINK_GRAVITY_ONLY         = 0

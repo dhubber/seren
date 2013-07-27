@@ -24,6 +24,9 @@ SUBROUTINE thermal(p)
 #if defined(IONIZING_UV_RADIATION)
   use HP_module
 #endif
+#if defined(CHEMCOOL)
+  use chemistry_constants
+#endif
   implicit none
 
   integer, intent(in) :: p     ! particle id
@@ -40,6 +43,9 @@ SUBROUTINE thermal(p)
   integer       :: j           ! Aux. loop counter
   real(kind=PR) :: dr(1:NDIM)  ! Relative displacement
   real(kind=PR) :: drsqd       ! Distance squared 
+#endif
+#if defined(CHEMCOOL)
+  double precision :: numdens, numdens_tot
 #endif
 
   eos = typeinfo(sph(p)%ptype)%eos
@@ -120,6 +126,42 @@ SUBROUTINE thermal(p)
      mu_bar_p      = eosmu(sph(p)%rho,sph(p)%temp,sph(p)%idens,sph(p)%itemp)
      sph(p)%press  = Pconst2*sph(p)%temp*sph(p)%rho/mu_bar_p
      sph(p)%sound  = sqrt(sph(p)%press/sph(p)%rho)
+#endif
+  
+
+! Ideal-gas equation of state when using the internal energy equation
+! ----------------------------------------------------------------------------
+#if defined(ENERGY_EQN)
+  else if (eos == "energy_eqn") then
+     sph(p)%temp = (gamma - 1.0_PR)*sph(p)%u / Pconst
+     sph(p)%press = (gamma - 1.0_PR)*sph(p)%rho*sph(p)%u
+     sph(p)%sound = sqrt(gamma*sph(p)%press/sph(p)%rho)
+#if defined(ENTROPIC_FUNCTION) && defined(ENERGY_EQN)
+     sph(p)%Aent = (gamma - 1.0_PR)*sph(p)%u/sph(p)%rho**(gamma - 1.0_PR)
+#endif
+#endif
+
+! Ideal-gas equation of state when using the internal energy equation
+! ----------------------------------------------------------------------------
+#if defined(ENERGY_EQN) && defined(CHEMCOOL)
+  else if (eos == "chemcool_eos") then
+     gamma = GAMMA_GAS
+     sph(p)%press = (gamma - 1.0_PR)*sph(p)%rho*sph(p)%u
+     numdens = sph(p)%rho * rhoscale * rhocgs /  ((1.0 + 4.0 * ABHE) * PROTONMASS)
+     numdens_tot = (1.0D0 + ABHE - sph(p)%abundances(1) + sph(p)%abundances(2)) * numdens
+     sph(p)%temp = sph(p)%press/ ( numdens_tot * KBOLTZ )
+     sph(p)%sound = sqrt(gamma*sph(p)%press/sph(p)%rho)
+#endif
+
+
+! Ideal-gas equation of state when using the internal energy equation
+! ----------------------------------------------------------------------------
+#if defined(ENTROPY_EQN) && defined(ENTROPIC_FUNCTION)
+  else if (eos == "entropy_eqn") then
+     sph(p)%u = (sph(p)%Aent*sph(p)%rho**(gamma - 1.0_PR))/(gamma - 1.0_PR)
+     sph(p)%press = (gamma - 1.0_PR)*sph(p)%rho*sph(p)%u
+     sph(p)%temp  = sph(p)%press / (Pconst*sph(p)%rho)
+     sph(p)%sound = sqrt(gamma*sph(p)%press/sph(p)%rho)
 #endif
   
 

@@ -304,6 +304,15 @@ SUBROUTINE write_data_seren_form(out_file)
      end do
 #endif
 
+     ! Chemical abundances
+     ! -----------------------------------------------------------------------
+#if defined(CHEMCOOL)
+     i = i + 1
+     do p=1,ptot
+        write(1,'(2E18.10)') sph(p)%abundances
+     end do
+#endif
+
 #if defined(DEBUG_WRITE_MPI_TASK)
      ! MPI tasks
      ! -----------------------------------------------------------------------

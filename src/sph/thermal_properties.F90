@@ -31,6 +31,10 @@ FUNCTION pressure(p)
      pressure = Kpoly*(sph(p)%rho**gamma)
   else if (typeinfo(sph(p)%ptype)%eos == "energy_eqn") then
      pressure = gammaone*sph(p)%rho*specific_internal_energy(p)
+#if defined(CHEMCOOL)
+  else if (typeinfo(sph(p)%ptype)%eos == "chemcool_eos") then
+     pressure = gammaone*sph(p)%rho*specific_internal_energy(p)
+#endif
 #if defined(RAD_WS)
   else if (typeinfo(sph(p)%ptype)%eos == "rad_ws") then
      mu_bar_p = eosmu(sph(p)%rho,sph(p)%temp,sph(p)%idens,sph(p)%itemp)
@@ -78,6 +82,10 @@ FUNCTION sound_speed(p)
      sound_speed = sqrt(gamma*sph(p)%press/sph(p)%rho)
   else if (typeinfo(sph(p)%ptype)%eos == "stellar_heat") then
      sound_speed = sqrt(gamma*sph(p)%press/sph(p)%rho)
+#if defined (CHEMCOOL)
+  else if (typeinfo(sph(p)%ptype)%eos == "chemcool_eos") then
+     sound_speed = sqrt(gamma*sph(p)%press/sph(p)%rho)
+#endif
   end if
 
 END FUNCTION sound_speed
@@ -111,6 +119,10 @@ FUNCTION specific_internal_energy(p)
      specific_internal_energy = Pconst*sph(p)%temp/gammaone
   else if (typeinfo(sph(p)%ptype)%eos == "stellar_heat") then
      specific_internal_energy = Pconst*sph(p)%temp/gammaone
+#if defined(CHEMCOOL)
+  else if (typeinfo(sph(p)%ptype)%eos == "chemcool_eos") then
+     specific_internal_energy = sph(p)%u
+#endif
   end if
 
 END FUNCTION specific_internal_energy

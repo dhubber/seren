@@ -168,6 +168,12 @@ SUBROUTINE read_data_ascii(in_file,decomp_read)
               sph(p)%u = pdata(i)
 #endif
 #endif
+#if defined(CHEMCOOL)
+           else if (data_id(i) == "abundh2") then
+              sph(p)%abundances(1) = pdata(i)
+           else if (data_id(i) == "abundhp") then
+              sph(p)%abundances(2) = pdata(i)
+#endif
            end if
         end do
 
