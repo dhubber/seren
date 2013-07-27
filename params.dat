@@ -142,7 +142,6 @@ Sink energy criterion                     : energy_search      = .FALSE.
 Sink thermal energy criterion             : thermal_search     = .FALSE.
 Sink velocity divergence criterion        : div_v_search       = .FALSE.
 Sink acceleration divergence criterion    : div_a_search       = .FALSE.
-Sink timescale criterion                  : timescale_search   = .FALSE.
 
 ==============================================================================
 Sink accretion and feedback parameters

@@ -7,7 +7,7 @@
 \usepackage{array}
 \usepackage[latex2html,colorlinks,final]{hyperref}
 
-\newcommand{\VERNO}{1.5.1 }
+\newcommand{\VERNO}{1.6.0 }
 \newcommand{\var}[1]{\texttt{#1}}
 
 \textheight 9.2in 
@@ -18,7 +18,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 
-\title{SEREN - Version 1.5.1}
+\title{SEREN - Version 1.6.0}
 \author{David Hubber, Christopher Batty \& Andrew McLeod}
 
 \maketitle
@@ -736,8 +736,7 @@ SEREN contains all simulation information in a single parameter file, called \va
 \var{energy\_search}  & logical & Only create sinks from bound objects \\
 \var{thermal\_search}  & logical & Only create sinks from thermally bound objects \\
 \var{div\_v\_search}  & logical & Only create sinks from converging objects \\
-\var{div\_a\_search}  & logical & Do not create sinks if particles are accelerating apart \\
-\var{timescale\_search} & logical & Compare timescales for sink formation \\ \hline
+\var{div\_a\_search}  & logical & Do not create sinks if particles are accelerating apart \\ \hline
 \var{energy\_accrete} & logical & Only accrete bound particles \\
 \var{alpha\_ss}       & PR       & Sunyaev-Shakura viscosity parameter \\
 \var{smooth\_accrete\_frac} & PR & Fraction of mass for instant accretion \\
@@ -792,7 +791,46 @@ SEREN contains various additional physics modules which can be activated/deactiv
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Sink particles}
-To be written
+Sink particles are used to approximate the formation of bound protostars, or proto-binaries, without following the time-consuming evolution of the protostar to stellar densities.  SEREN contains two different implementations of sink particles; a variation of the original Bate, Bonnell \& Price (1995) sinks (described in the SEREN paper; Hubber et al. 2011), and an improved algorithm as described by Hubber, Walch \& Whitworth (2013).
+
+\subsubsection{Formation criteria}
+A number of sink formation criteria are available to select in the parameters file.
+\begin{itemize}
+\item \var{rho\_search} : Form a sink if an SPH particle exceeds the sink density, \var{rhosink}.
+\item \var{potmin\_search} : Form a sink if it lies at a local potential minima
+\item \var{hill\_sphere\_search} : Form a sink if an SPH particles' Hill sphere does not overlap with existing sinks Hill spheres.
+\item \var{energy\_search} : Form a sink if the total mechanical energy (kinetic + gravitational) of a particle plus its neighbours is negative
+\item \var{thermal\_search} : Form a sink if the thermal energy of a particle plus its neighbours is less than the gravitational potential energy.
+\item \var{div\_v\_search} : Form a sink if the velocity divergence of a particle is negative (i.e. local contraction)
+\item \var{div\_a\_search} : Form a sink if the acceleration divergene of a particle is negative (i.e. no strong tidal forces).
+\end{itemize}
+More details of all sink criteria in SEREN are discussed in Hubber et al. (2011) and Hubber, Walch \& Whitworth (2013).  
+
+
+\subsubsection{Basic sink accretion}
+We have implemented the sink algorithm described by Hubber et al. (2011), which is itself a variation of the original sink particle algorithm described by Bate, Bonnell \& Price (1995).  These sinks can be activated by selecting \newline
+
+SINKS = SIMPLE \newline
+
+\noindent in the Makefile.  In this algorithm, sink particles readily accrete all SPH particles that enter the sink accretion radius.  If the \var{energy\_accrete} parameter is \var{.true.}, then a particle is only accreted if it is gravitationally bound to the sink particle (i.e. kinetic energy is less than the gravitational potential energy; thermal energy is ignored).  If \var{energy\_accrete} is set to \var{.false.}, then all particles that enter the sink are accreted.
+
+
+\subsubsection{Sinks with smooth accretion}
+The improved sink accretion can be activated by selecting \newline
+
+SINKS = SMOOTH\_ACC \newline
+
+\noindent in the Makefile.  An extra feature, where angular momentum is 'fed-back' into the surrounding gas, can be activated by selecting \newline
+
+SINK\_ANG\_MOM = 1 \newline
+
+\noindent SEREN contains a number of parameters that control the smooth accretion.
+\begin{itemize}
+\item \var{alpha\_ss} : Shakura-Sunyaev alpha parameter for disc accretion and controlling the anglar momentum feedback rate.
+\item \var{smooth\_accrete\_frac} : Fraction of original particles mass where the particle is wholly accreted (to prevent very small mass particles from existing in the simulation).
+\item \var{smooth\_accrete\_dt} : If particle timestep falls lower than \var{smooth\_accrete\_dt} times the sink orbital period (the orbital period at the sink boundary), then the particle is wholly accreted (to prevent extremely smooth timestep particles from existing inside the sink).
+\end{itemize}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
