@@ -1,0 +1,86 @@
+=====================
+SEREN parameters file
+=====================
+Contains all input parameters to perform a simulation using Seren.
+
+=====================
+File parameters
+=====================
+run_id = SEDOV-3D
+run_dir = "."
+in_file = ICSEDOV3D.sf.dat
+in_file_form = seren_form
+out_file_form = ascii
+
+=====================
+Misc. parameters
+=====================
+restart = .FALSE.
+com_frame = .FALSE.
+rseed =  1
+ptrack = 1
+
+=====================
+Time parameters
+=====================
+sph_endtime = 0.02
+nbody_sph_endtime = 1.0
+nbody_endtime = 1.0
+firstsnap = 1.0
+snaptime = 1.0
+noutputstep =16
+ntempstep = 2000
+ndiagstep = 1
+nsinkstep = 2
+nsnapstep = 20000
+courant_mult = 0.2
+accel_mult = 0.2
+sink_mult = 0.5
+nbody_timemult = 0.1
+nlevels = 10
+dt_fixed = 0.02
+
+=====================
+Unit parameters
+=====================
+dimensionless = .TRUE.
+
+=====================
+SPH parameters
+=====================
+pp_gather = 50
+hmin = 0.0
+h_fac = 1.2
+
+=====================
+Thermal parameters
+=====================
+gaseos = energy_eqn
+energy_integration = explicit
+isotemp = 1.0
+rhobary = 1.e-14
+gamma = 1.66666666666
+mu_bar = 2.35
+
+=====================
+Viscosity parameters
+=====================
+alpha = 1.0
+beta = 2.0
+alpha_min = 0.1
+
+=====================
+Tree parameters
+=====================
+abserror = 0.1
+thetamaxsqd = 0.2
+nbuildstep = 8
+
+===============================
+SPH particle removal parameters
+===============================
+rho_remove = .FALSE.
+energy_remove = .FALSE.
+rad_remove = .FALSE.
+rholost = 0.0
+rad_lost = 0.0

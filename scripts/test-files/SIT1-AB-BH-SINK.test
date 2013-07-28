@@ -6,12 +6,11 @@
 # First, set Makefile options for test
 NDIM=3
 SPH_SIMULATION=1
-SPH=STANDARD
-SPH_INTEGRATION=LFKDK
+SPH=GRAD_H_SPH
+SPH_INTEGRATION=LFDKD
 KERNEL=M4TC
-HFIND=NUMBER
+HFIND=H_RHO
 HYDRO=1
-THERMAL=BAROTROPIC
 ARTIFICIAL_VISCOSITY=AB
 SELF_GRAVITY=KS
 MULTIPOLE=QUADRUPOLE
@@ -21,23 +20,24 @@ SINK_RADIUS=HMULT
 BINARY_STATS=1
 TREE=BH
 NEIGHBOURLISTS=PARTICLES
+CHECK_NEIB_TIMESTEP=1
 
 
 # Next set parameters for params.dat file
 run_id=SIT1-AB-BH-SINK
-in_file=32000_SIT.dat
-in_file_form=dragon_form
+in_file=3200_BBSIT.sf.dat
+in_file_form=seren_form
 out_file_form=seren_unform
 restart=.FALSE.
-sph_endtime=0.1
+sph_endtime=0.05
 firstsnap=0.01
 snaptime=0.0005
-ntempstep=200
-ndiagstep=200
-nsinkstep=8
-nsnapstep=1000
-courant_mult=0.2
-accel_mult=0.4
+ntempstep=9999999
+ndiagstep=256
+nsinkstep=16
+nsnapstep=9999999
+courant_mult=0.15
+accel_mult=0.3
 nlevels=5
 dimensionless=.FALSE.
 runit=pc
@@ -58,20 +58,18 @@ mscale=1.0
 pp_gather=50
 alpha=1.0
 beta=2.0
-mu_bar=2.29
 abserror=0.1
 nbuildstep=8
 rhosink=2.e-12
-sinkrad=3.0
+sinkrad=2.0
 rho_search=.true.
 potmin_search=.true.
-nbody_frac=0.95
-nbody_endtime=1.0
-nbody_snaptime=0.001
-nbody_timemult=0.1
+hill_sphere_search=.true.
+gaseos=barotropic
 isotemp=10.0
 rhobary=1.e-14
 gamma=1.4
+mu_bar=2.29
 
 
 PROG_FILE=seren
