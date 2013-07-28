@@ -1,0 +1,89 @@
+=====================
+SEREN parameters file
+=====================
+Contains all input parameters to perform a simulation using Seren.
+
+=====================
+File parameters
+=====================
+run_id = SOD-3D-GRADH-MON-COND
+run_dir = "."
+in_file = ICSOD2D.sf.dat
+in_file_form = seren_form
+out_file_form = ascii
+
+=====================
+Misc. parameters
+=====================
+restart = .FALSE.
+com_frame = .FALSE.
+rseed =  1
+ptrack = 1
+
+=====================
+Time parameters
+=====================
+sph_endtime = 1.0
+nbody_sph_endtime = 1.0
+nbody_endtime = 1.0
+firstsnap = 1.2
+snaptime = 1.2
+noutputstep = 8
+ntempstep = 500
+ndiagstep = 8
+nsinkstep = 2
+nsnapstep = 20000
+courant_mult = 0.15
+accel_mult = 0.3
+sink_mult = 0.5
+nbody_timemult = 0.1
+nlevels = 5
+dt_fixed = 1.0
+
+=====================
+Unit parameters
+=====================
+dimensionless = .TRUE.
+
+=====================
+Periodic parameters
+=====================
+periodic_min(1) = -4.0
+periodic_max(1) = 4.0
+periodic_min(2) = 0.0
+periodic_max(2) = 1.0
+
+=====================
+SPH parameters
+=====================
+pp_gather = 50
+hmin = 0.0
+h_fac = 1.2
+
+=====================
+Thermal parameters
+=====================
+boundaryeos = isothermal
+icmeos = isothermal
+gaseos = energy_eqn
+energy_integration = explicit
+isotemp = 1.0
+rhobary = 1.e-14
+gamma = 1.4
+mu_bar = 2.35
+Kpoly = 1.0
+Pext = 0.0
+
+=====================
+Viscosity parameters
+=====================
+alpha = 1.0
+beta = 2.0
+alpha_min = 0.1
+
+=====================
+Tree parameters
+=====================
+abserror = 0.1
+thetamaxsqd = 0.2
+nbuildstep = 8

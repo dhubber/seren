@@ -1,0 +1,154 @@
+=====================
+SEREN parameters file
+=====================
+Contains all input parameters to perform a simulation using Seren.
+
+=====================
+File parameters
+=====================
+run_id = BOSSBODENHEIMER-3200
+run_dir = "."
+in_file = 3200_BBSIT.sf.dat
+in_file_form = seren_form
+out_file_form = ascii
+
+=====================
+Misc. parameters
+=====================
+restart = .FALSE.
+com_frame = .FALSE.
+rseed =  1
+ptrack = 1
+
+=====================
+Time parameters
+=====================
+sph_endtime = 0.05
+nbody_sph_endtime = 1.0
+nbody_endtime = 1.0
+firstsnap = 0.01
+snaptime = 0.0005
+noutputstep =16
+ntempstep = 9999999
+ndiagstep = 256
+nsinkstep = 16
+nsnapstep = 9999999
+courant_mult = 0.15
+accel_mult = 0.3
+sink_mult = 0.5
+nbody_timemult = 0.1
+nlevels = 5
+dt_fixed = 1.0
+
+=====================
+Unit parameters
+=====================
+dimensionless = .FALSE.
+runit = pc
+munit = m_sun
+tunit = myr
+vunit = km_s
+aunit = km_s2
+rhounit = g_cm3
+sigmaunit = g_cm2
+Punit = Pa
+funit = N
+Eunit = GJ
+momunit = m_sunkm_s
+angmomunit = m_sunau2_yr
+angvelunit = rad_s
+dmdtunit = m_sun_yr
+Lunit = L_sun
+kappaunit = cm2_g
+Bunit = tesla
+Qunit = C
+Junit = C_s_m2
+uunit = J_kg
+tempunit = K
+dudtunit = J_kg_s
+rscale = 1.0
+mscale = 1.0
+
+=====================
+SPH parameters
+=====================
+pp_gather = 50
+hmin = 0.0
+h_fac = 1.2
+
+=====================
+Thermal parameters
+=====================
+boundaryeos = isothermal
+icmeos = isothermal
+gaseos = barotropic
+energy_integration = explicit
+isotemp = 10.0
+rhobary = 1.e-14
+gamma = 1.4
+mu_bar = 2.29
+Kpoly = 1.0
+Pext = 0.0
+
+=====================
+Viscosity parameters
+=====================
+alpha = 1.0
+beta = 2.0
+alpha_min = 0.1
+
+=====================
+Tree parameters
+=====================
+abserror = 0.1
+thetamaxsqd = 0.2
+nbuildstep = 8
+
+========================
+Sink creation parameters
+========================
+rhosink = 2.e-12
+sinkrad = 2.0
+nsearchstep = 16
+rho_search = .true.
+potmin_search = .true.
+hill_sphere_search = .true.
+energy_search = .FALSE.
+thermal_search = .FALSE.
+div_v_search = .FALSE.
+div_a_search = .FALSE.
+timescale_search = .FALSE.
+
+======================================
+Sink accretion and feedback parameters
+======================================
+energy_accrete = .FALSE.
+alpha_ss = 0.01
+smooth_accrete_frac = 0.005
+smooth_accrete_dt = 0.005
+f_accretion = 0.75
+feedback_tdelay = 0.0
+feedback_minmass = 10.0
+star_radius = 3.0
+alpha_EA = 0.1
+dmdt_regular = 1.0e-7
+z_factor = 1.0
+
+===============================
+SPH particle removal parameters
+===============================
+rho_remove = .FALSE.
+energy_remove = .FALSE.
+rad_remove = .FALSE.
+rholost = 0.0
+rad_lost = 0.0
+
+=============================
+Polytropic cooling parameters
+=============================
+eos_opa_file = eos.bell.cc.dat
+ptemp0 = 250.0
+temp_inf = 10.0
+ptemp_r0 = 0.25
+ptemp_q = 0.75
+fcolumn = 0.104
