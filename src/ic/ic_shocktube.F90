@@ -33,7 +33,6 @@ PROGRAM ic_shocktube
   use filename_module
   use time_module
   use periodic_module
-  use mhd_module
   use type_module
   implicit none
  

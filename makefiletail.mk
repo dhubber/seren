@@ -1165,9 +1165,6 @@ ic_binary :: check_errors $(OBJ) ic_binary.o
 ic_binform :: check_errors $(OBJ) ic_binform.o
 	$(F90) $(OPT) $(CFLAGS) -o $(EXEDIR)/ic_binform $(OBJ) ic_binform.o
 
-ic_blob :: check_errors $(OBJ) $(IC_OBJ) ic_blob.o
-	$(F90) $(OPT) $(CFLAGS) -o $(EXEDIR)/ic_blob $(OBJ) $(IC_OBJ) ic_blob.o
-
 ic_bondi :: check_errors $(OBJ) $(IC_OBJ) Bondi.o ic_bondi.o
 	$(F90) $(OPT) $(CFLAGS) -o $(EXEDIR)/ic_bondi $(OBJ) $(IC_OBJ) Bondi.o ic_bondi.o
 
@@ -1176,12 +1173,6 @@ ic_bondi_hoyle :: check_errors $(OBJ) $(IC_OBJ) ic_bondi_hoyle.o
 
 ic_core :: check_errors $(OBJ) $(IC_OBJ) ic_core.o
 	$(F90) $(OPT) $(CFLAGS) -o $(EXEDIR)/ic_core $(OBJ) $(IC_OBJ) ic_core.o
-
-ic_deflection_cube :: check_errors $(OBJ) $(IC_OBJ) ic_deflection_cube.o
-	$(F90) $(OPT) $(CFLAGS) -o $(EXEDIR)/ic_deflection_cube $(OBJ) $(IC_OBJ) ic_deflection_cube.o
-
-ic_entropy_test :: check_errors $(OBJ) $(IC_OBJ) ic_entropy_test.o
-	$(F90) $(OPT) $(CFLAGS) -o $(EXEDIR)/ic_entropy_test $(OBJ) $(IC_OBJ) ic_entropy_test.o
 
 ic_hcp :: check_errors $(OBJ) ic_hcp.o
 	$(F90) $(OPT) $(CFLAGS) -o $(EXEDIR)/ic_hcp $(OBJ) ic_hcp.o
@@ -1224,9 +1215,6 @@ ic_RT :: check_errors $(OBJ) $(IC_OBJ) ic_RT.o
 
 ic_sedov :: check_errors $(OBJ) ic_sedov.o
 	$(F90) $(OPT) $(CFLAGS) -o $(EXEDIR)/ic_sedov $(OBJ) ic_sedov.o
-
-ic_shear_flow :: check_errors $(OBJ) $(IC_OBJ) ic_shear_flow.o
-	$(F90) $(OPT) $(CFLAGS) -o $(EXEDIR)/ic_shear_flow $(OBJ) $(IC_OBJ) ic_shear_flow.o
 
 ic_shocktube :: check_errors $(OBJ) smoothed_velocity.o ic_shocktube.o
 	$(F90) $(OPT) $(CFLAGS) -o $(EXEDIR)/ic_shocktube $(OBJ) smoothed_velocity.o ic_shocktube.o
