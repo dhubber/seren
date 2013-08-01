@@ -36,7 +36,7 @@ PROGRAM ic_KH
   use neighbour_module, only : h_fac
   implicit none
 
-  character(len=256) :: outfile          ! KH IC file
+  character(len=256) :: out_file         ! KH IC file
   character(len=50) :: pertmode          ! Perturbation type
   integer :: i                           ! Aux. counter
   integer :: k                           ! Dimension counter
@@ -76,7 +76,7 @@ PROGRAM ic_KH
 ! Read in parameter file 
   write(6,*) "Opening KHparams file"
   open(unit=1,file="KHparams.dat",status='old')
-  read(1,*) outfile
+  read(1,*) out_file
   read(1,*) out_file_form
   read(1,*) nx1, nx2
   read(1,*) ny1, ny2
@@ -126,7 +126,7 @@ PROGRAM ic_KH
   kpert  = 2.0_PR*PI/lambda
 
 ! Output parameters to screen for verification
-  write(6,*) "outfile :",trim(outfile),"   ",trim(out_file_form)
+  write(6,*) "outfile :",trim(out_file),"   ",trim(out_file_form)
   write(6,*) "Number of particles :",p1,p2
   write(6,*) "vx1 :",vx1,"    vx2 ",vx2
   write(6,*) "rho1 :",rho1,"    rho2 :",rho2
@@ -269,7 +269,7 @@ PROGRAM ic_KH
   call initialize_sph_variables_2
 
 ! Write everything to file 
-  call write_data(outfile,out_file_form)
+  call write_data(out_file,out_file_form)
 #if defined(DEBUG_PLOT_DATA)
   rcentre(1:NDIM) = 0.0_PR
   call write_data_debug("ICKH.debug.dat",rcentre(1:NDIM))

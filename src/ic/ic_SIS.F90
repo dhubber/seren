@@ -21,6 +21,7 @@
 PROGRAM ic_SIS
   use interface_module, only : comperror,create_sink,distance2,&
        &paramerror,read_data,write_data
+  use hydro_module, only : isotemp
   use particle_module
   use filename_module
   use scaling_module
@@ -29,7 +30,6 @@ PROGRAM ic_SIS
   use neighbour_module
   use constant_module
   use sink_module
-  use hydro_module, only : isotemp, temp
   implicit none
   
   character(len=256) :: out_file    ! Name of output file
@@ -103,7 +103,7 @@ PROGRAM ic_SIS
   out_file_form = trim(adjustl(out_file_form))
   restart       = .false.
   run_id        = ''
-  rcentre(1:3)  = 0.0_PR
+  rcentre(1:NDIM)  = 0.0_PR
 
 ! Calculate scaling variables
   call units
@@ -113,7 +113,7 @@ PROGRAM ic_SIS
   a0        = a0 / vscale
   menvelope = menvelope / mscale
   micmenv   = micmenv / mscale
-  mcloud      = 2.0_PR*a0*a0*radmax
+  mcloud    = 2.0_PR*a0*a0*radmax
   rhoenv    = a0*a0/(TWOPI*radmax*radmax)
 
   write(6,*) "Radius of cloud   : ",radmax*rscale,runit

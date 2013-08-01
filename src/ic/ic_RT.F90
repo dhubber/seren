@@ -151,7 +151,7 @@ PROGRAM ic_RT
            sph(p)%m = mp1
            sph(p)%h = 1.0_PR
            sph(p)%v(1:VDIM)    = 0.0_PR
-           if (j <= nwall1) ptype(p) = BOUNDARYID
+           if (j <= nwall1) sph(p)%ptype = BOUNDARYID
         end do
      end do
      
@@ -166,7 +166,7 @@ PROGRAM ic_RT
            sph(p)%m = mp2
            sph(p)%h = 1.0_PR
            sph(p)%v(1:VDIM)    = 0.0_PR
-           if (j > nlayers2) ptype(p) = BOUNDARYID
+           if (j > nlayers2) sph(p)%ptype = BOUNDARYID
         end do
      end do
      
@@ -181,7 +181,7 @@ PROGRAM ic_RT
         !end if
 
         ! Springel one
-        v(2,p) = amp*(1.0_PR - cos(2.0_PR*PI*(sph(p)%r(1))/lambda))*&
+        sph(p)%v(2) = amp*(1.0_PR - cos(2.0_PR*PI*(sph(p)%r(1))/lambda))*&
              &(1.0_PR - cos(2.0_PR*PI*(sph(p)%r(2))/(y1 + y2)))
 
         ! Simple one
@@ -228,7 +228,7 @@ PROGRAM ic_RT
      ! Set velocity perturbation
      ! -----------------------------------------------------------------------
      do p=1,ptot
-        v(2,p) = amp*(1.0_PR - cos(2.0_PR*PI*(sph(p)%r(1))/lambda))*&
+        sph(p)%v(2) = amp*(1.0_PR - cos(2.0_PR*PI*(sph(p)%r(1))/lambda))*&
              &(1.0_PR - cos(2.0_PR*PI*(sph(p)%r(2))/(y1 + y2)))
      end do
  
@@ -236,7 +236,7 @@ PROGRAM ic_RT
 ! ============================================================================
 
 ! Sort particles in correct type order in memory
-  call sort_particle_types(ptype(1:ptot))
+  call sort_particle_types(sph(1:ptot)%ptype)
   call types
 
 ! Setting up scaling units for simulation
@@ -279,7 +279,7 @@ PROGRAM ic_RT
   call sph_hydro_forces
 
 ! Initialize other variables
-  call initialize_variables_2
+  call initialize_sph_variables_2
 
 ! Write everything to file 
   call write_data(out_file,out_file_form)
