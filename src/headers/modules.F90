@@ -1014,7 +1014,6 @@ END MODULE turbulence_module
 MODULE tree_module
   use definitions
 
-  logical :: build_tree              ! Build tree immediately?
   real(kind=PR) :: thetamaxsqd       ! Opening angle criterion squared
   real(kind=PR) :: abserror          ! Absolute error parameter (Gadget MAC)
 

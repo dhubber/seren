@@ -151,6 +151,7 @@ SUBROUTINE redistribute_sink_angmom
         cmean = cmean / menc
         sink(s)%tvisc = &
              &sqrt(sink(s)%m*sink(s)%radius)/(alpha_ss*cmean*cmean)
+        write(6,*) "cmean : ",cmean*vscale,"   menc : ",menc*mscale
 #endif
         
         ! Assume Shakura-Sunyaev type viscosity

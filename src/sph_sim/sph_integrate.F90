@@ -118,15 +118,15 @@ SUBROUTINE sph_integrate
 
 ! Updating tree properties
 #if defined(BH_TREE) && defined(SELF_GRAVITY)
-  if (nstock <= nsteps) call BHgrav_stock
+  if (nstock == nsteps) call BHgrav_stock
 #endif
 #if defined(BH_TREE)
 #if defined(EULER) || defined(RUNGE_KUTTA2)
-  if (nstock <= nsteps) nstock = nsteps + 1
+  if (nstock == nsteps) nstock = nstock + 1
 #else
-  if (nstock <= nsteps) nstock = nsteps + 2
+  if (nstock == nsteps) nstock = nstock + 2
 #endif
-  if (nbuild <= nsteps) nbuild = nsteps + nbuildstep
+  if (nbuild == nsteps) nbuild = nbuild + nbuildstep
 #endif
 
 #if defined(USE_MPI) && defined(SELF_GRAVITY)

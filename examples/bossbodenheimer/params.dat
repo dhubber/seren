@@ -6,11 +6,11 @@ Contains all input parameters to perform a simulation using Seren.
 =====================
 File parameters
 =====================
-run_id = BOSSBODENHEIMER-3200-LFKDKg
+run_id = BOSSBODENHEIMER-3200
 run_dir = "."
 in_file = 3200_BBSIT.sf.dat
 in_file_form = seren_form
-out_file_form = seren_form
+out_file_form = ascii
 
 =====================
 Misc. parameters
@@ -101,8 +101,8 @@ alpha_min = 0.1
 Tree parameters
 =====================
 abserror = 0.1
-thetamaxsqd = 0.1
-nbuildstep = 1
+thetamaxsqd = 0.2
+nbuildstep = 8
 
 ========================
 Sink creation parameters
