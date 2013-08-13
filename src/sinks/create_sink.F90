@@ -11,11 +11,13 @@
 SUBROUTINE create_sink(psink)
   use interface_module, only : distance3_dp,gather_neib_on_fly,&
        &insertion_sort_int,remove_from_list,write_accreted_particles
+  use time_module, only : nbuild,nsteps,nstock,time
+  use tree_module, only : build_tree
   use particle_module
   use neighbour_module
   use sink_module
   use type_module
-  use time_module, only : nbuild,nsteps,nstock,time
+  use scaling_module
 #if defined(USE_MPI)
   use mpi_communication_module
   use mpi
@@ -297,6 +299,7 @@ SUBROUTINE create_sink(psink)
 ! Need to re-build trees immediately on next timestep
   nbuild = nsteps 
   nstock = nsteps
+  build_tree = .TRUE.
 
 ! If a sink is created when using smooth accretion, set hmin = hp
 #if defined(SMOOTH_ACCRETION) && defined(MINIMUM_H) && NDIM==3
@@ -312,6 +315,7 @@ SUBROUTINE create_sink(psink)
   write(6,*) "stot : ",stot
   call diagnostics
 #endif
+  write(6,*) "Initial sink properties : ",s,sink(stot)%m,sink(stot)%v(1:NDIM)*vscale
 
   return
 END SUBROUTINE create_sink

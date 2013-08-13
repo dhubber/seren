@@ -13,6 +13,7 @@ SUBROUTINE sph_sink_forces
   use particle_module
   use sink_module
   use time_module
+  use scaling_module
 #if defined(OPENMP)
   use omp_lib
 #endif
