@@ -31,6 +31,7 @@ SUBROUTINE sph_integrate
   use tree_module
   use type_module
   use neighbour_module
+  use tree_module
 #if defined(USE_MPI)
   use mpi
   use mpi_communication_module
@@ -122,16 +123,17 @@ SUBROUTINE sph_integrate
 #endif
 #if defined(BH_TREE)
 #if defined(EULER) || defined(RUNGE_KUTTA2)
-  if (nstock == nsteps) nstock = nstock + 1
+  if (nstock <= nsteps) nstock = nsteps + 1
 #else
-  if (nstock == nsteps) nstock = nstock + 2
+  if (nstock <= nsteps) nstock = nsteps + 2
 #endif
-  if (nbuild == nsteps) nbuild = nbuild + nbuildstep
+  if (nbuild <= nsteps) nbuild = nsteps + nbuildstep
 #endif
 
 #if defined(USE_MPI) && defined(SELF_GRAVITY)
 ! Slice off top levels of gravity tree
   call BHgrav_slice
+
 ! Share pruned gravity trees
   call share_pruned_gravtrees
 #endif
