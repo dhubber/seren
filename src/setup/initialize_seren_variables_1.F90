@@ -17,6 +17,7 @@ SUBROUTINE initialize_seren_variables_1
   use timing_module
   use periodic_module
   use diagnostics_module
+  use tree_module
   use time_module
   use turbulence_module
 #ifdef USE_MPI
@@ -229,6 +230,7 @@ MPI_END
   rzero(1:NDIM) = 0.0_PR
   gammaone = gamma - 1.0_PR
   etot0 = 2.0_DP*BIG_NUMBER_DP
+  build_tree = .TRUE.
 #if defined(ARTIFICIAL_CONDUCTIVITY)
   alpha_cond = 1.0_PR
 #endif

@@ -10,7 +10,7 @@ run_id = BOSSBODENHEIMER-3200
 run_dir = "."
 in_file = 3200_BBSIT.sf.dat
 in_file_form = seren_form
-out_file_form = ascii
+out_file_form = seren_form
 
 =====================
 Misc. parameters
@@ -101,7 +101,7 @@ alpha_min = 0.1
 Tree parameters
 =====================
 abserror = 0.1
-thetamaxsqd = 0.2
+thetamaxsqd = 0.1
 nbuildstep = 8
 
 ========================

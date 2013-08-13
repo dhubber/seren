@@ -28,17 +28,14 @@ SUBROUTINE tree_update(nbuild,nstock)
 
 ! Build new hydro tree
 ! ----------------------------------------------------------------------------
-  if (nbuild == nsteps) then
+  if (nbuild == nsteps .or. build_tree) then
      call BHhydro_build
 #if defined(REORDER_PARTICLES)
      call BH_reorder_particles
 #endif
-     if (nstock /= nsteps) call BHhydro_stock(cmax_hydro,ctot_hydro,&
-          &ltot_hydro,first_cell_hydro,last_cell_hydro,BHhydro)
   end if
 
 ! Stock trees on every acceleration step
-  !if (nstock == nsteps) 
   call BHhydro_stock(cmax_hydro,ctot_hydro,&
        &ltot_hydro,first_cell_hydro,last_cell_hydro,BHhydro)
 
@@ -46,7 +43,7 @@ SUBROUTINE tree_update(nbuild,nstock)
 ! Build new gravity tree
 ! ----------------------------------------------------------------------------
 #if defined(SELF_GRAVITY)
-  if (nbuild == nsteps) then
+  if (nbuild == nsteps .or. build_tree) then
 
      ! If all particles are gas or cdm particles, copy the hydro tree 
      ! to the gravity tree.  Else, build the gravity tree from scratch.
@@ -56,11 +53,10 @@ SUBROUTINE tree_update(nbuild,nstock)
         call BHgrav_build
      end if
 
-     if (nstock /= nsteps) call BHgrav_stock
   end if
 
 ! Stock trees on every acceleration step
-  if (nstock == nsteps) call BHgrav_stock
+  call BHgrav_stock
 #endif
 
 
