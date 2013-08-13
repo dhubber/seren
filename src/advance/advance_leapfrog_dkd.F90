@@ -11,10 +11,12 @@ SUBROUTINE advance_leapfrog_dkd(p)
   use particle_module
   use time_module
   use hydro_module
+  use type_module
   implicit none
 
   integer, intent(in) :: p      ! Particle id
 
+  character(len=256) :: eos     ! Equation of state for particle p
   integer :: dn                 ! Integer timestep since beginning of timestep
   integer :: nfull              ! Full integer timestep
   integer :: nhalf              ! Half the full integer timestep
@@ -26,10 +28,11 @@ SUBROUTINE advance_leapfrog_dkd(p)
 
 ! Work out integer and real time intervals from beginning of step 
   sph(p)%accdo = .false.
-  dn       = n - sph(p)%nlast
-  nfull    = 2**(level_step - sph(p)%nlevel)
-  nhalf    = nfull / 2
-  dt       = real(timestep,PR)*real(dn,PR)
+  dn    = n - sph(p)%nlast
+  nfull = 2**(level_step - sph(p)%nlevel)
+  nhalf = nfull / 2
+  dt    = real(timestep,PR)*real(dn,PR)
+  eos   = typeinfo(sph(p)%ptype)%eos
 
 
 ! Advance particles that are below the full timestep
@@ -89,11 +92,10 @@ SUBROUTINE advance_leapfrog_dkd(p)
 ! Integrate energy equation if selected
 ! ----------------------------------------------------------------------------
 #if defined(ENERGY_EQN)
-  if (eos == "energy_eqn" .and. energy_integration = "explicit") then 
+  if (eos == "energy_eqn" .and. energy_integration == "explicit") then 
      sph(p)%u = sph(p)%u_old + sph(p)%dudt*dt
      if (sph(p)%u < SMALL_NUMBER) &
           &sph(p)%u = sph(p)%u_old*exp(-sph(p)%u_old/sph(p)%dudt)
-     if (dn == nfull) sph(p)%dudt_old = sph(p)%dudt
   end if
 #endif
 #if defined(ENERGY_EQN)

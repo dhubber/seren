@@ -31,7 +31,7 @@ NBODY_SIMULATION          = 0
 # SPH simulation options
 # ----------------------------------------------------------------------------
 SPH                       = GRAD_H_SPH
-SPH_INTEGRATION           = LFKDK
+SPH_INTEGRATION           = LFDKD
 KERNEL                    = M4
 HFIND                     = H_RHO
 MINIMUM_H                 = 0
@@ -39,7 +39,7 @@ HYDRO                     = 1
 ENERGY_EQN                = 1
 ENTROPY_EQN               = 0
 ARTIFICIAL_VISCOSITY      = MON97
-VISC_TD                   = 0
+VISC_TD                   = 1
 BALSARA                   = 0
 ARTIFICIAL_CONDUCTIVITY   = 0
 EXTERNAL_PRESSURE         = 0
