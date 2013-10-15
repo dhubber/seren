@@ -2,7 +2,7 @@
 # Seren Makefile version 1.5.1
 # Date : 01/07/2013
 # ----------------------------------------------------------------------------
-F90                       = gfortran
+F90                       = ifort
 MPIF90                    = mpif90
 VERSION_NO                = 1.5.1
 SRCDIR                    = $(PWD)/src
@@ -10,7 +10,7 @@ EXEDIR                    = $(PWD)
 OPENMP                    = 1
 MPI                       = 0
 MPI_LIBRARY               = mpich2
-COMPILER_MODE             = FAST
+COMPILER_MODE             = FASTDEBUG
 OUTPUT_LEVEL              = 2
 DIAGNOSTIC_OUTPUT         = 1
 NDIM                      = 3
@@ -19,7 +19,7 @@ PERIODIC                  = 0
 X_BOUNDARY                = 0
 Y_BOUNDARY                = 0
 Z_BOUNDARY                = 0
-GHOST_PARTICLES           = 1
+GHOST_PARTICLES           = 0
 
 # ----------------------------------------------------------------------------
 # Simulation selection options
@@ -31,12 +31,13 @@ NBODY_SIMULATION          = 0
 # SPH simulation options
 # ----------------------------------------------------------------------------
 SPH                       = GRAD_H_SPH
+MHD                       = 1
 SPH_INTEGRATION           = LFDKD
 KERNEL                    = M4
 HFIND                     = H_RHO
 MINIMUM_H                 = 0
 HYDRO                     = 1
-ENERGY_EQN                = 1
+ENERGY_EQN                = 0
 ENTROPY_EQN               = 0
 ARTIFICIAL_VISCOSITY      = MON97
 VISC_TD                   = 1

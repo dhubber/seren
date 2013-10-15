@@ -111,6 +111,11 @@ SUBROUTINE write_data_seren_form(out_file)
      
      ndata = ndata + 1;    data_id(ndata) = 'v'
      typedata(1:5,ndata) = (/VDIM,1,ptot,4,4/)
+
+#if defined(MHD)
+     ndata = ndata + 1;    data_id(ndata) = 'B'
+     typedata(1:5,ndata) = (/BDIM,1,ptot,4,4/)
+#endif
      
      ndata = ndata + 1;    data_id(ndata) = 'rho'
      typedata(1:5,ndata) = (/1,1,ptot,4,6/)
@@ -271,6 +276,22 @@ SUBROUTINE write_data_seren_form(out_file)
              &sph(p)%v(3)*vscale
 #endif
      end do
+
+#if defined(MHD)
+     ! Magnetic field
+     ! -----------------------------------------------------------------------
+     i = i + 1
+     do p=1,ptot
+#if BDIM==1
+        write(1,'(E18.10)') sph(p)%B(1)*Bscale
+#elif BDIM==2
+        write(1,'(2E18.10)') sph(p)%B(1)*Bscale, sph(p)%B(2)*Bscale
+#else
+        write(1,'(3E18.10)') sph(p)%B(1)*Bscale, sph(p)%B(2)*Bscale, &
+             &sph(p)%B(3)*Bscale
+#endif
+     end do
+#endif
 
      ! Density
      ! -----------------------------------------------------------------------

@@ -60,18 +60,18 @@
 
 ! No. of velocity and B-field dimensions depending on compiler options
 ! ----------------------------------------------------------------------------
-#if NDIM == 1 && defined(IDEAL_MHD)
+#if NDIM == 1 && defined(MHD)
 #define BDIM 2
 #define VDIM 2
-#elif NDIM == 1 && !defined(IDEAL_MHD)
+#elif NDIM == 1 && !defined(MHD)
 #define BDIM 1
-#define VDIM 1 
-#elif NDIM == 2 && defined(IDEAL_MHD)
+#define VDIM 1
+#elif NDIM == 2 && defined(MHD)
 #define BDIM 3
 #define VDIM 3
-#elif NDIM == 2 && !defined(IDEAL_MHD)
+#elif NDIM == 2 && !defined(MHD)
 #define BDIM 2
-#define VDIM 2 
+#define VDIM 2
 #elif NDIM == 3
 #define BDIM 3
 #define VDIM 3

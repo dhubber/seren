@@ -50,6 +50,9 @@ SUBROUTINE read_data_seren_form(out_file,decomp_read)
   integer :: s                               ! Sink counter
   real(kind=PR) :: raux(1:sink_data_length)  ! Aux. time variable
 #endif
+#if defined(MHD)
+  logical :: has_B                           ! File has magnetic fields
+#endif
 
   debug1("Reading in formatted data file : "//trim(out_file)//" [read_data_seren_form.F90]")
 
@@ -166,6 +169,10 @@ SUBROUTINE read_data_seren_form(out_file,decomp_read)
 ! If MPI decomposition read, allocate 'minimal = TRUE'
   call allocate_memory(decomp_read)
 
+#if defined(MHD)
+  has_B = .FALSE.
+#endif
+
 
 ! Now loop through array ids and read each array in turn
 ! ============================================================================
@@ -247,6 +254,27 @@ SUBROUTINE read_data_seren_form(out_file,decomp_read)
            end if
         end do
 
+#if defined(MHD)
+     ! Magnetic field
+     ! -----------------------------------------------------------------------
+     else if (data_id(i)=='B') then
+        has_B = .TRUE.
+        do p=pfirst,plast
+#if BDIM==1
+           read(1,'(E18.10)') rtemp(1)
+#elif BDIM==2
+           read(1,'(2E18.10)') rtemp(1:2)
+#elif BDIM==3
+           read(1,'(3E18.10)') rtemp(1:3)
+#endif
+           if (decomp_read) then
+              minimal_sph(p)%B(1:BDIM) = real(rtemp(1:BDIM),PR)
+           else
+              sph(p)%B(1:BDIM) = real(rtemp(1:BDIM),PR)
+           end if
+        end do
+#endif
+
      ! Density
      ! ----------------------------------------------------------------------- 
      else if (data_id(i)=='rho') then
@@ -298,19 +326,6 @@ SUBROUTINE read_data_seren_form(out_file,decomp_read)
            else
               sph(p)%Aent = real(rtemp(1),PR)
            end if
-#endif
-        end do
-
-     ! B-field
-     ! ----------------------------------------------------------------------- 
-     else if (data_id(i)=='B') then
-        do p=pfirst,plast
-#if BDIM==1
-           read(1,'(E18.10)') rtemp(1)
-#elif BDIM==2
-           read(1,'(2E18.10)') rtemp(1:2)
-#elif BDIM==3
-           read(1,'(3E18.10)') rtemp(1:3)
 #endif
         end do
 
@@ -387,11 +402,24 @@ SUBROUTINE read_data_seren_form(out_file,decomp_read)
   end do
 ! ============================================================================
 
+#if defined(MHD)
+  if (.NOT. has_B) then
+     do p=1,ptot
+        if (decomp_read) then
+           minimal_sph(p)%B(1:BDIM) = 0.0_PR
+        else
+           sph(p)%B(1:BDIM) = 0.0_PR
+        end if
+     end do
+  end if
+#endif
+
 #if defined(RTSPH) && defined(HYDRO) && !defined(INTERNAL_ENERGY)
   temp(1:ptot) = 1.0_PR
 #endif
 
 ! Close file once finished
+! ----------------------------------------------------------------------------
   close(1)
 
 #if defined(USE_MPI) && defined(SINKS)

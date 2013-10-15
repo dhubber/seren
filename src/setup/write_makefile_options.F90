@@ -126,6 +126,12 @@ SUBROUTINE write_makefile_options(unitno)
   write(unitno,'(A)') "SPH                         = STANDARD"
 #endif
 
+#if defined(MHD)
+  write(unitno,'(A)') "MHD                         = 1"
+#else
+  write(unitno,'(A)') "MHD                         = 0"
+#endif
+
 #if defined(EULER)
   write(unitno,'(A)') "SPH_INTEGRATION             = EULER"
 #elif defined(RUNGE_KUTTA2)

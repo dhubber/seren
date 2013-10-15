@@ -32,11 +32,14 @@ SUBROUTINE create_new_sph_particle(ptype,pnew,part)
   sph(pnew)%ptype     = ptype
   sph(pnew)%nlast     = n
   sph(pnew)%nlevel    = level_max
-#if defined(CHECK_NEIGHBOUR_STEPS) 
+#if defined(CHECK_NEIGHBOUR_STEPS)
   sph(pnew)%nminneib  = level_max
 #endif
   sph(pnew)%laststep  = 0.0_DP
   sph(pnew)%a(1:VDIM) = 0.0_DP
+#if defined(MHD)
+  sph(pnew)%B(1:BDIM) = 0.0_DP
+#endif
   sph(pnew)%rho       = part%m*(1.2_PR/part%h)**(NDIM)
 #if !defined(LOW_MEM)
   sph(pnew)%invrho    = 1.0_PR/sph(pnew)%rho

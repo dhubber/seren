@@ -36,6 +36,7 @@ GHOST_PARTICLES          := $(strip $(GHOST_PARTICLES))
 SPH_SIMULATION           := $(strip $(SPH_SIMULATION))
 NBODY_SIMULATION         := $(strip $(NBODY_SIMULATION))
 SPH                      := $(strip $(SPH))
+MHD                      := $(strip $(MHD))
 SPH_INTEGRATION          := $(strip $(SPH_INTEGRATION))
 KERNEL                   := $(strip $(KERNEL))
 HFIND                    := $(strip $(HFIND))
@@ -402,6 +403,15 @@ else ifeq ($(SPH),RTSPH)
 CFLAGS += -DRTSPH
 else ifneq ($(SPH),STANDARD)
 ERROR += "Invalid SPH option selected : "$(SPH)
+endif
+
+
+# Magnetic fields
+# ----------------------------------------------------------------------------
+ifeq ($(MHD), 1)
+CFLAGS += -DMHD
+else ifneq ($(MHD),0)
+ERROR += "Invalid MHD option selected : "$(MHD)
 endif
 
 

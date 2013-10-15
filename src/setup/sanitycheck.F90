@@ -56,6 +56,11 @@ SUBROUTINE sanitycheck
   call comperror("No valid SPH integration scheme selected")
 #endif
 
+#if defined(MHD)
+  call compwarning("WARNING : MHD is experimental and almost certainly does &
+                   &not work yet.")
+#endif
+
 #if defined(EULER)
   call comperror("WARNING : The Euler integration scheme is a RUBBISH &
        &integration scheme and should not be used unless you want to find &
@@ -185,6 +190,10 @@ SUBROUTINE sanitycheck
   call compwarning("Use of MPI and periodic boundary conditions is &
      &even more experimental!")
 #endif
+#endif
+
+#if defined(MHD)
+  call compwarning("MHD may or may not work with MPI (untested)")
 #endif
 
 #if defined(NEIGHBOUR_LISTS)

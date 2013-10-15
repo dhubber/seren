@@ -57,6 +57,9 @@ SUBROUTINE read_data_seren_unform(out_file,decomp_read)
   integer :: s                                ! Sink counter
   real(kind=PR), allocatable :: raux(:)       ! Aux. variable
 #endif
+#if defined(MHD)
+  logical :: has_B                            ! File has magnetic fields
+#endif
 
   debug2("Reading snapshot [read_data_seren_unform.F90]")
 
@@ -158,6 +161,10 @@ SUBROUTINE read_data_seren_unform(out_file,decomp_read)
 ! If MPI decomposition read, allocate 'minimal = TRUE'
   call allocate_memory(decomp_read)
 
+#if defined(MHD)
+  has_B = .FALSE.
+#endif
+
 
 ! Now loop through array ids and read each array in turn
 ! ============================================================================
@@ -239,6 +246,27 @@ SUBROUTINE read_data_seren_unform(out_file,decomp_read)
         end if
         deallocate(rdummy2)
 
+#if defined(MHD)
+     ! Magnetic fields
+     ! -----------------------------------------------------------------------
+     else if (data_id(i)=="B") then
+        has_B = .TRUE.
+        allocate(rdummy2(1:BDIM,1:jtot))
+        read(1) rdummy2
+        if (decomp_read) then
+           do j=1,jtot
+              p = pfirst + j - 1
+              minimal_sph(p)%B(1:BDIM) = rdummy2(1:BDIM,j)
+           end do
+        else
+           do j=1,jtot
+              p = pfirst + j - 1
+              sph(p)%B(1:BDIM) = rdummy2(1:BDIM,j)
+           end do
+        end if
+        deallocate(rdummy2)
+#endif
+
      ! Density
      ! -----------------------------------------------------------------------
      else if (data_id(i)=="rho") then
@@ -278,13 +306,6 @@ SUBROUTINE read_data_seren_unform(out_file,decomp_read)
         end if
 #endif
         deallocate(rdummy1)
-
-     ! B-field
-     ! -----------------------------------------------------------------------
-     else if (data_id(i)=='B') then
-        allocate(rdummy2(1:BDIM,pfirst:plast))
-        read(1) rdummy2
-        deallocate(rdummy2)
 
      ! Sinks
      ! -----------------------------------------------------------------------
@@ -395,6 +416,18 @@ SUBROUTINE read_data_seren_unform(out_file,decomp_read)
   end do
 ! ============================================================================
 
+#if defined(MHD)
+  if (.NOT. has_B) then
+     do p=1,ptot
+        if (decomp_read) then
+           minimal_sph(p)%B(1:BDIM) = 0.0_PR
+        else
+           sph(p)%B(1:BDIM) = 0.0_PR
+        end if
+     end do
+  end if
+#endif
+
 #if defined(RTSPH) && defined(HYDRO) && !defined(INTERNAL_ENERGY)
   temp(1:ptot) = 1.0_PR
 #endif
@@ -411,7 +444,6 @@ SUBROUTINE read_data_seren_unform(out_file,decomp_read)
      if (.NOT. decomp_read) call sink_share
   end if
 #endif
-
 
   return
 END SUBROUTINE read_data_seren_unform

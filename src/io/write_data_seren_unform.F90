@@ -112,6 +112,11 @@ SUBROUTINE write_data_seren_unform(out_file)
      
      ndata = ndata + 1;    data_id(ndata) = 'v' 
      typedata(1:5,ndata) = (/VDIM,1,ptot,4,4/)
+
+#if defined(MHD)
+     ndata = ndata + 1;    data_id(ndata) = 'B' 
+     typedata(1:5,ndata) = (/BDIM,1,ptot,4,4/)
+#endif
      
      ndata = ndata + 1;    data_id(ndata) = 'rho'
      typedata(1:5,ndata) = (/1,1,ptot,4,6/)
@@ -239,6 +244,17 @@ SUBROUTINE write_data_seren_unform(out_file)
      end do
      write(1) rdummy3
      deallocate(rdummy3)
+     
+#if defined(MHD)
+     ! Magnetic field
+     ! -----------------------------------------------------------------------
+     allocate(rdummy3(1:BDIM,1:ptot))
+     do p=1,ptot
+        rdummy3(1:BDIM,p) = sph(p)%B(1:BDIM)*real(Bscale,PR)
+     end do
+     write(1) rdummy3
+     deallocate(rdummy3)
+#endif
      
      ! Density
      ! -----------------------------------------------------------------------

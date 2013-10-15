@@ -523,7 +523,7 @@ SUBROUTINE decomposition
   unit_data(1:50) = ''
   data_id(1:50)   = ''
   ndata           = 0
-     
+  
 ! Set unit character ids
   unit_data(1)  = runit
   unit_data(2)  = munit
@@ -565,6 +565,11 @@ SUBROUTINE decomposition
      
      ndata = ndata + 1;    data_id(ndata) = 'v' 
      typedata(1:5,ndata) = (/VDIM,1,ptot,4,4/)
+     
+#if defined(MHD)
+     ndata = ndata + 1;    data_id(ndata) = 'B' 
+     typedata(1:5,ndata) = (/BDIM,1,ptot,4,4/)
+#endif
      
      ndata = ndata + 1;    data_id(ndata) = 'rho'
      typedata(1:5,ndata) = (/1,1,ptot,4,6/)
@@ -720,6 +725,21 @@ SUBROUTINE decomposition
      end do
      write(1) rdummy3(1:VDIM,1:i)
      deallocate(rdummy3)
+
+#if defined(MHD)
+! Magnetic fields
+! ----------------------------------------------------------------------------
+     allocate(rdummy3(1:BDIM,1:ptot))
+     i = 0
+     do p=1,ptot
+        if (domain(p) == d) then
+           i = i + 1
+           rdummy3(1:BDIM,i) = minimal_sph(p)%B(1:BDIM)*Bscale
+        end if
+     end do
+     write(1) rdummy3(1:BDIM,1:i)
+     deallocate(rdummy3)
+#endif
 
 ! Density
 ! ----------------------------------------------------------------------------

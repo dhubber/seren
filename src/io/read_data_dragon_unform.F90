@@ -313,6 +313,21 @@ SUBROUTINE read_data_dragon_unform(in_file,decomp_read)
         minimal_sph(p)%u = Pconst*minimal_sph(p)%temp/(gamma - 1.0_PR)
      end if
   end do
+  
+! Initialise some variables not recorded by Dragon format
+! ----------------------------------------------------------------------------
+#if defined(MHD)
+  do p=1,ptot
+     minimal_sph(p)%B = 0.0_DP
+  end do
+#endif
+
+#if defined(SINKS)
+  do s=1,stot_file
+     sink(s)%accrete = .true.
+     sink(s)%static  = .false.
+     sink(s)%radius  = KERNRANGE*sink(s)%h
+  end do
 
 ! Copy data from minimal_sph array to sph array if not an MPI decomp read
 ! ----------------------------------------------------------------------------
@@ -329,15 +344,6 @@ SUBROUTINE read_data_dragon_unform(in_file,decomp_read)
      end do
      deallocate(minimal_sph)
   end if
-  
-! Initialise some sink variables not recorded by Dragon format
-! ----------------------------------------------------------------------------
-#if defined(SINKS)
-  do s=1,stot_file
-     sink(s)%accrete = .true.
-     sink(s)%static  = .false.
-     sink(s)%radius  = KERNRANGE*sink(s)%h
-  end do
 
 #if defined(USE_MPI)
 ! If this is MPI and we have sinks, load them now from the root task

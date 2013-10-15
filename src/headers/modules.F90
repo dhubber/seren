@@ -473,6 +473,9 @@ MODULE particle_module
      real(kind=PR) :: r(1:NDIM)        ! Position
      real(kind=PR) :: v(1:VDIM)        ! Velocity vector
      real(kind=PR) :: a(1:VDIM)        ! Acceleration vector
+#if defined(MHD)
+     real(kind=PR) :: B(1:BDIM)        ! Magnetic field
+#endif
      real(kind=PR) :: m                ! Mass
      real(kind=PR) :: div_v            ! Velocity divergence
      real(kind=PR) :: rho              ! Density
@@ -598,6 +601,9 @@ MODULE particle_module
      integer :: porig                  ! Original id
      real(kind=PR) :: r(1:NDIM)        ! Position
      real(kind=PR) :: v(1:VDIM)        ! Velocity vector
+#if defined(MHD)
+     real(kind=PR) :: B(1:NDIM)        ! Magnetic field
+#endif
      real(kind=PR) :: m                ! Mass
      real(kind=PR) :: rho              ! Density
      real(kind=PR) :: h                ! Smoothing length
