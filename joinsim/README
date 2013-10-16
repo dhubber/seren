@@ -1,0 +1,64 @@
+How to use the 'joinsims' and 'joinlots.py' program and script
+==============================================================
+
+joinsims joins a single set of MPI files together. If you have,
+say, the following files from a run with 4 tasks:
+
+FF.0001.MPI.0
+FF.0001.MPI.1
+FF.0001.MPI.2
+FF.0001.MPI.3
+
+The 'basename' is FF.0001 for this set of files.
+
+Joinsims can be run with no arguments, in which case the
+program will prompt for the required information.
+
+The syntax for calling joinsims on the command line is:
+
+joinsims BASENAME N OUTPUTNAME [overwrite]
+
+BASENAME - The basename of the files to join (see above)
+N - The number of tasks used (the number of files to join)
+OUTPUTNAME - The output file wanted (often this is best
+             set to the same thing as BASENAME
+overwrite - Set to 'yes' or 'no' if you want the program
+            to overwrite existing files or not. The
+            default is to prompt if a file already exists.
+            You can also set to 'r', which overwrites an
+            existing file and DELETES the old files.
+
+==============================================================
+
+joinlots.py
+
+Joinlots.py is a Python script to automate usage of joinsims
+for cases where you have lots of files. For example, if you
+have files:
+
+FF.0001.MPI.xx
+FF.0002.MPI.xx
+FF.0003.MPI.xx
+FF.0004.MPI.xx
+
+where xx represents all of the MPI task files for each output
+of a simulation, then all of these outputs can be combined with
+one command. Here the BASENAME would be FF instead of FF.0001
+as we want to combine multiple sets of files into files which
+will be named (to follow the previous example:
+
+FF.0001
+FF.0002
+FF.0003
+FF.0004
+
+The syntax for calling joinlots.py is:
+
+joinlots.py BASENAME [overwrite]
+
+BASENAME - generally the run_id of the simulation, see above
+overwrite - Set to 'yes' or 'no' if you want the script to
+            overwrite existing files or not. Alternatively use
+            'r' to overwrite files and remove the originals.
+            THE DEFAULT WILL OVERWRITE WITHOUT PROMPTING, AND
+            REMOVE ALL FILES OLDER THAN 120 SECONDS.
