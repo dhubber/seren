@@ -94,6 +94,19 @@ SUBROUTINE initialize_sph_variables_1
 #endif
 
 
+! MHD arrays
+! ----------------------------------------------------------------------------
+#if defined(MHD)
+  do p=1,ptot
+     sph(p)%B_old = sph(p)%B
+     sph(p)%dBdt = 0.0_PR
+     sph(p)%phi = 0.0_PR
+     sph(p)%dphi_dt = 0.0_PR
+     sph(p)%phi_old = 0.0_PR
+  end do
+#endif
+
+
 ! Misc variables
 ! ----------------------------------------------------------------------------
   do p=1,ptot

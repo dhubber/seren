@@ -475,6 +475,9 @@ MODULE particle_module
      real(kind=PR) :: a(1:VDIM)        ! Acceleration vector
 #if defined(MHD)
      real(kind=PR) :: B(1:BDIM)        ! Magnetic field
+     real(kind=PR) :: dBdt(1:BDIM)     ! Time derivative of magnetic field
+     real(kind=PR) :: phi              ! Scalar field (hyperbolic cleaning)
+     real(kind=PR) :: dphi_dt          ! Time derivative of scalar field
 #endif
      real(kind=PR) :: m                ! Mass
      real(kind=PR) :: div_v            ! Velocity divergence
@@ -519,6 +522,10 @@ MODULE particle_module
 #endif
 #if defined(LEAPFROG_KDK)
      real(kind=PR) :: a_old(1:VDIM)    ! Old particle accelerations
+#endif
+#if defined(MHD)
+     real(kind=PR) :: B_old(1:BDIM)    ! Old magnetic field
+     real(kind=PR) :: phi_old          ! Old scalar field (hyperbolic cleaning)
 #endif
 #if defined(SMOOTHED_VELOCITY)
      real(kind=PR) :: v_smooth(1:VDIM) ! Smoothed velocity
