@@ -115,6 +115,10 @@ SUBROUTINE sanitycheck
   call comperror("GRAVITY and HYDRO flags both off")
 #endif
 
+#if defined(MHD) && !defined(HYDRO)
+  call comperror("MHD activated but not HYDRO")
+#endif
+
 #endif
 ! ----------------------------------------------------------------------------
 
