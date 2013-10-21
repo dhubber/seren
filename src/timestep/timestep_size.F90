@@ -35,6 +35,9 @@ SUBROUTINE timestep_size(p,dt)
   real(kind=DP) :: hp                ! Local copy of smoothing length
   real(kind=DP) :: tacc              ! Acceleration timestep
   real(kind=DP) :: tcour             ! Courant time
+#if defined(MHD)
+  real(kind=DP) :: tmag              ! Magnetic courant time
+#endif
   real(kind=DP) :: vsignal           ! Signal speed of particle p
 #if defined(PERIODIC)
   real(kind=DP) :: vp(1:VDIM)        ! Local copy of velocity
@@ -102,6 +105,12 @@ SUBROUTINE timestep_size(p,dt)
 #elif !defined(HYDRO)
   tcour = courant_mult / (div_v_p + SMALL_NUMBER)
   dt = min(dt,tcour)
+#endif
+
+! Magnetic courant time
+#if defined(MHD)
+  tmag = courant_mult * sph(p)%B_t_signal
+  dt = min(dt,tmag)
 #endif
 
 ! Periodic boundary timestep - prevents particles crossing more than

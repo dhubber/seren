@@ -531,6 +531,7 @@ MODULE particle_module
      real(kind=PR) :: dBdt_old         ! Old dBdt
      real(kind=PR) :: dphi_dt_old      ! Old dphi_dt
 #endif
+     real(kind=PR) :: B_t_signal       ! minimum of h / vsig
 #endif
 #if defined(RAD_WS) && defined(SELF_GRAVITY)
      integer :: idens                  ! Indices for dens from table
