@@ -334,6 +334,7 @@ module progmodule
          is_temp = .TRUE.
          is_rho = .TRUE.
          is_u = .TRUE.
+         is_B = .TRUE.
          is_sink_v1 = .FALSE.
       else
          threadptot = iheader(1)
@@ -417,7 +418,7 @@ module progmodule
 
     if (seren_format) then
        allocate(porig(1:ptot), parray(1:NDIM+2,1:ptot), v(1:NDIM,1:ptot), &
-          & temp(1:ptot), rho(1:ptot), u(1:ptot))
+          & temp(1:ptot), rho(1:ptot), u(1:ptot), B(1:BDIM, 1:ptot))
        allocate(sink_array(1:stot))
        do i=1,stot
           allocate(sink_array(i)%tacc(1:dmdt_range))
@@ -425,7 +426,8 @@ module progmodule
        end do
        sink_slot = 1
     else
-       allocate(r(1:NDIM,1:ptot), v(1:NDIM,1:ptot), h(1:ptot), m(1:ptot), temp(1:ptot), rho(1:ptot), ptype(1:ptot))
+       allocate(r(1:NDIM,1:ptot), v(1:NDIM,1:ptot), h(1:ptot),&
+               &m(1:ptot), temp(1:ptot), rho(1:ptot), ptype(1:ptot))
        ! Allocate ptype array on assumption particles are correctly ordered
        if (numtypes(6) > 0) ptype(1:numtypes(6)) = 6
        if (numtypes(9) > 0) ptype(slot(9):slot(9)+numtypes(9)-1) = 9
@@ -576,6 +578,7 @@ module progmodule
     t_is_temp = .FALSE.
     t_is_rho = .FALSE.
     t_is_u = .FALSE.
+    t_is_B = .FALSE.
     t_is_sink_v1 = .FALSE.
 
     do i=1,ndata
@@ -856,13 +859,13 @@ module progmodule
                  & dummy(1:VDIMtemp,t_pboundary+1:t_pboundary+t_picm)
               v(1:VDIMtemp,tempslot(1):tempslot(1)+t_pgas-1) = &
                  & dummy(1:VDIMtemp,t_pboundary+t_picm+1:t_pboundary+t_picm+t_pgas)
-              v(1:NDIMtemp,tempslot(10):tempslot(10)+t_pcdm-1) = &
+              v(1:VDIMtemp,tempslot(10):tempslot(10)+t_pcdm-1) = &
                  & dummy(1:VDIMtemp,t_pboundary+t_picm+t_pgas+1:&
                  &t_pboundary+t_picm+t_pgas+t_pcdm)
-              v(1:NDIMtemp,tempslot(11):tempslot(11)+t_pdust-1) = &
+              v(1:VDIMtemp,tempslot(11):tempslot(11)+t_pdust-1) = &
                  & dummy(1:VDIMtemp,t_pboundary+t_picm+t_pgas+t_pcdm+1:&
                  &t_pboundary+t_picm+t_pgas+t_pcdm+t_pdust)
-              v(1:NDIMtemp,tempslot(12):tempslot(12)+t_pion-1) = &
+              v(1:VDIMtemp,tempslot(12):tempslot(12)+t_pion-1) = &
                  & dummy(1:VDIMtemp,t_pboundary+t_picm+t_pgas+t_pcdm+t_pdust+1:&
                  &t_pboundary+t_picm+t_pgas+t_pcdm+t_pdust+t_pion)
               if (ierr /= 0) then
@@ -1012,7 +1015,57 @@ module progmodule
               end if
            case ("B")
               ! Magnetic fields
-              stop "No support for magnetic fields yet!"
+              if (new_format) then
+                 pfirst = typedata(2,i); plast = typedata(3,i)
+                 if (pfirst /= 1) stop "Invalid range of particle data for MPI joining"
+                 if (plast /= threadptot) stop "Invalid range of particle data for MPI joining"
+                 unit_B = typedata(5,i)
+              end if
+              allocate(dummy(1:BDIMtemp,1:threadptot))
+              if (allocated(dummy_scalar)) then
+                 deallocate(dummy_scalar)
+                 if (doubleprec) deallocate(dummy_dp_scalar)
+                 if (.NOT. doubleprec) deallocate(dummy_sp_scalar)
+              end if
+              t_is_B = .TRUE.
+              ! Velocities
+              if (doubleprec) allocate(dummy_dp(1:BDIMtemp,1:threadptot))
+              if (.NOT. doubleprec) allocate(dummy_sp(1:BDIMtemp,1:threadptot))
+              if (.NOT.formatted) then
+                 if (doubleprec) then
+                    read(10,iostat=ierr) dummy_dp(1:BDIMtemp,1:threadptot)
+                    dummy(1:BDIMtemp,1:threadptot) = real(dummy_dp(1:BDIMtemp,1:threadptot),PR)
+                 else
+                    read(10,iostat=ierr) dummy_sp(1:BDIMtemp,1:threadptot)
+                    dummy(1:BDIMtemp,1:threadptot) = real(dummy_sp(1:BDIMtemp,1:threadptot),PR)
+                 end if
+              else
+                 do k=1,threadptot
+                    read(10,*,iostat=ierr) dummy(1:BDIMtemp,k)
+                 end do
+              end if
+              B(1:BDIMtemp,tempslot(6):tempslot(6)+t_pboundary-1) = &
+                 & dummy(1:BDIMtemp,1:t_pboundary)
+              B(1:BDIMtemp,tempslot(9):tempslot(9)+t_picm-1) = &
+                 & dummy(1:BDIMtemp,t_pboundary+1:t_pboundary+t_picm)
+              B(1:BDIMtemp,tempslot(1):tempslot(1)+t_pgas-1) = &
+                 & dummy(1:BDIMtemp,t_pboundary+t_picm+1:t_pboundary+t_picm+t_pgas)
+              B(1:BDIMtemp,tempslot(10):tempslot(10)+t_pcdm-1) = &
+                 & dummy(1:BDIMtemp,t_pboundary+t_picm+t_pgas+1:&
+                 &t_pboundary+t_picm+t_pgas+t_pcdm)
+              B(1:BDIMtemp,tempslot(11):tempslot(11)+t_pdust-1) = &
+                 & dummy(1:BDIMtemp,t_pboundary+t_picm+t_pgas+t_pcdm+1:&
+                 &t_pboundary+t_picm+t_pgas+t_pcdm+t_pdust)
+              B(1:BDIMtemp,tempslot(12):tempslot(12)+t_pion-1) = &
+                 & dummy(1:BDIMtemp,t_pboundary+t_picm+t_pgas+t_pcdm+t_pdust+1:&
+                 &t_pboundary+t_picm+t_pgas+t_pcdm+t_pdust+t_pion)
+              if (ierr /= 0) then
+                 print*,' WARNING: errors reading magnetic fields '
+                 ierr_out = -1
+              end if
+              if (doubleprec) deallocate(dummy_dp)
+              if (.NOT. doubleprec) deallocate(dummy_sp)
+              deallocate(dummy)
            case ("sink_v1")
               if (allocated(dummy_scalar)) then
                  deallocate(dummy_scalar)
@@ -1291,6 +1344,7 @@ module progmodule
      if (.NOT.t_is_temp) is_temp = .FALSE.
      if (.NOT.t_is_rho) is_rho = .FALSE.
      if (.NOT.t_is_u) is_u = .FALSE.
+     if (.NOT.t_is_B) is_B = .FALSE.
      if (t_is_sink_v1) is_sink_v1 = .TRUE.
 
      if (doubleprec.AND.allocated(dummy_dp_scalar)) deallocate(dummy_dp_scalar)

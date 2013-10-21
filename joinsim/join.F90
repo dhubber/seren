@@ -265,6 +265,11 @@ program join
         data_id(ndata) = 'u'
         if (new_format) typedata(1:5,ndata) = (/1,1,ptot,4,unit_u/)
      end if
+     if (is_B) then
+        ndata = ndata + 1
+        data_id(ndata) = 'B'
+        if (new_format) typedata(1:5,ndata) = (/BDIM,1,ptot,4,unit_B/)
+     end if
      if (is_sink_v1) then
         ndata = ndata + 1
         data_id(ndata) = 'sink_v1'
@@ -528,7 +533,25 @@ program join
               end if
            case ("B")
               ! Magnetic fields
-              stop "No support for magnetic fields yet!"
+              if (allocated(rdummy1)) deallocate(rdummy1)
+              if (formatted_files) then
+                 do p=1,ptot
+#if VDIM==1
+                    write(10,'(E18.10)') B(1:BDIM,p)
+#elif VDIM==2
+                    write(10,'(2E18.10)') B(1:BDIM,p)
+#else
+                    write(10,'(3E18.10)') B(1:BDIM,p)
+#endif
+                 end do
+              else
+                 allocate(rdummy3(1:BDIM,1:ptot))
+                 do p=1,ptot
+                    rdummy3(1:BDIM,p) = B(1:BDIM,p)
+                 end do
+                 write(10) rdummy3
+                 deallocate(rdummy3)
+              end if
            case ("sink_v1")
               if (allocated(rdummy1)) deallocate(rdummy1)
               ! Sinks

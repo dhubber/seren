@@ -37,8 +37,10 @@ module datamodule
 #endif
 
   integer              :: i, ptot ! Particle counter, particle number
-  real (kind=PR), allocatable :: parray(:,:), r(:,:), v(:,:), h(:), m(:), temp(:), rho(:)
-                               ! Particle positions, smoothing length, mass, temperature, density
+  real (kind=PR), allocatable :: parray(:,:), r(:,:), v(:,:), h(:)
+  real (kind=PR), allocatable :: m(:), temp(:), rho(:)
+                               ! Particle positions, smoothing length
+                               ! mass, temperature, density, B
   integer, allocatable :: ptype(:)
 
   !integer              :: nsteps, snapshot
@@ -56,6 +58,7 @@ module datamodule
   integer              :: t_stot, t_pboundary, t_picm, t_pgas, t_pcdm, t_pdust, t_pion
   logical              :: t_is_porig, t_is_parray, t_is_r, t_is_m, t_is_h
   logical              :: t_is_v, t_is_temp, t_is_rho, t_is_u, t_is_sink_v1
+  logical              :: t_is_B
 
 end module datamodule
 
@@ -85,13 +88,14 @@ module seren_data_store
   real (kind=DP)    :: time, lastsnap, mgas_orig ! Simulation variables
 
   logical           :: is_porig, is_parray, is_r, is_m, is_h
-  logical           :: is_v, is_temp, is_rho, is_u, is_sink_v1
+  logical           :: is_v, is_temp, is_rho, is_u, is_B, is_sink_v1
 
   integer           :: unit_r, unit_m, unit_h, unit_v
-  integer           :: unit_temp, unit_rho, unit_u
+  integer           :: unit_temp, unit_rho, unit_u, unit_B
 
   integer, allocatable :: porig(:)             ! Original particle IDs
   real(kind=PR), allocatable :: u(:)           ! Internal energy
+  real(kind=PR), allocatable :: B(:,:)         ! Magnetic fields
   type unknown_type
       integer                    :: width
       integer                    :: type_id
