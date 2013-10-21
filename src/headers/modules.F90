@@ -473,12 +473,6 @@ MODULE particle_module
      real(kind=PR) :: r(1:NDIM)        ! Position
      real(kind=PR) :: v(1:VDIM)        ! Velocity vector
      real(kind=PR) :: a(1:VDIM)        ! Acceleration vector
-#if defined(MHD)
-     real(kind=PR) :: B(1:BDIM)        ! Magnetic field
-     real(kind=PR) :: dBdt(1:BDIM)     ! Time derivative of magnetic field
-     real(kind=PR) :: phi              ! Scalar field (hyperbolic cleaning)
-     real(kind=PR) :: dphi_dt          ! Time derivative of scalar field
-#endif
      real(kind=PR) :: m                ! Mass
      real(kind=PR) :: div_v            ! Velocity divergence
      real(kind=PR) :: rho              ! Density
@@ -523,12 +517,20 @@ MODULE particle_module
 #if defined(LEAPFROG_KDK)
      real(kind=PR) :: a_old(1:VDIM)    ! Old particle accelerations
 #endif
-#if defined(MHD)
-     real(kind=PR) :: B_old(1:BDIM)    ! Old magnetic field
-     real(kind=PR) :: phi_old          ! Old scalar field (hyperbolic cleaning)
-#endif
 #if defined(SMOOTHED_VELOCITY)
      real(kind=PR) :: v_smooth(1:VDIM) ! Smoothed velocity
+#endif
+#if defined(MHD)
+     real(kind=PR) :: B(1:BDIM)        ! Magnetic field
+     real(kind=PR) :: dBdt(1:BDIM)     ! Time derivative of magnetic field
+     real(kind=PR) :: phi              ! Scalar field (hyperbolic cleaning)
+     real(kind=PR) :: dphi_dt          ! Time derivative of scalar field
+     real(kind=PR) :: B_old(1:BDIM)    ! Old magnetic field
+     real(kind=PR) :: phi_old          ! Old scalar field (hyperbolic cleaning)
+#if defined(LEAPFROG_KDK)
+     real(kind=PR) :: dBdt_old         ! Old dBdt
+     real(kind=PR) :: dphi_dt_old      ! Old dphi_dt
+#endif
 #endif
 #if defined(RAD_WS) && defined(SELF_GRAVITY)
      integer :: idens                  ! Indices for dens from table
