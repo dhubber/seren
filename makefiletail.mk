@@ -410,6 +410,7 @@ endif
 # ----------------------------------------------------------------------------
 ifeq ($(MHD), 1)
 CFLAGS += -DMHD
+SPH_OBJ += mhd.o
 else ifneq ($(MHD),0)
 ERROR += "Invalid MHD option selected : "$(MHD)
 endif

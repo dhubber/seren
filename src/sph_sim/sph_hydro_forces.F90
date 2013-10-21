@@ -68,6 +68,9 @@ SUBROUTINE sph_hydro_forces
 #else
         call hydro(p)
 #endif
+#if defined(MHD)
+        call mhd(p)
+#endif
      end do
      !$OMP END PARALLEL DO
      ! -----------------------------------------------------------------------
