@@ -115,6 +115,17 @@ SUBROUTINE advance_leapfrog_dkd(p)
   if (dn == nfull) sph(p)%Aold = sph(p)%Aent
 #endif
 
+! Integrate magnetic fields
+! ----------------------------------------------------------------------------
+#if defined(MHD)
+  sph(p)%B = sph(p)%B_old + sph(p)%dBdt*dt
+  sph(p)%phi = sph(p)%phi_old + sph(p)%dphi_dt*dt
+  if (dn == nfull) then
+     sph(p)%B_old = sph(p)%B
+     sph(p)%phi_old = sph(p)%phi
+  end if
+#endif
+
 
   return
 END SUBROUTINE advance_leapfrog_dkd

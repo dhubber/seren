@@ -81,6 +81,15 @@ SUBROUTINE leapfrog_kdk_correction_terms
         call thermal(p)
      end if
 #endif
+#if defined(MHD)
+     sph(p)%B_old = sph(p)%B_old + &
+          & 0.5_PR*(sph(p)%dBdt - sph(p)%dBdt_old)*real(sph(p)%laststep,PR)
+     sph(p)%B = sph(p)%B_old
+     sph(p)%phi_old = sph(p)%phi_old + &
+          & 0.5_PR*(sph(p)%dphi_dt - &
+          & sph(p)%dphi_dt_old)*real(sph(p)%laststep,PR)
+     sph(p)%phi = sph(p)%phi_old
+#endif
   end do
 
   deallocate(acclist)
