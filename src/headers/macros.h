@@ -159,6 +159,7 @@
 #define C_1 0.1_PR
 #define TVISC_FAC 0.6_DP
 #define BAL_DENOM 1.0E-3_PR
+#define ALPHA_RESIST_MAX 1.0_PR
 
 ! BH tree variables
 ! ----------------------------------------------------------------------------

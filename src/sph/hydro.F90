@@ -77,6 +77,11 @@ SUBROUTINE hydro(p)
   real(kind=PR) :: vsignal_u             ! Second signal velocity for cond
 #endif
 #endif
+#if defined(MHD)
+  integer :: xi                          ! dimension counter
+  real(kind=PR) :: alpha_p               ! alpha for particle p (resistivity)
+  real(kind=PR) :: gradB(1:NDIM,1:BDIM)  ! Gradient of B
+#endif
 
   debug3("Calculating hydro forces [hydro.F90] for particle ", p)
 
@@ -246,6 +251,17 @@ SUBROUTINE hydro(p)
 #endif
      ! -----------------------------------------------------------------------
 
+     ! Calculate magnetic resistivity switch
+     ! -----------------------------------------------------------------------
+#if defined(MHD)
+     ! Gradient matrix of B
+     do xi=1,NDIM
+        gradB(xi,1:BDIM) = gradB(xi,1:BDIM) + &
+             & mpp * (sph(p)%B - sph(pp)%B) * hfactor_p * &
+                                            &w1(drmag*invhp) * dr_unit(xi)
+     end do
+#endif
+
   end do
 ! ============================================================================
 
@@ -293,6 +309,15 @@ SUBROUTINE hydro(p)
 #if defined(COOLING_HEATING) && defined(EXPLICIT_COOLING_HEATING)
   sph(p)%dudt = sph(p)%dudt + cooling_rate(p)
 #endif
+#endif
+
+! Magnetic resistivity
+! ----------------------------------------------------------------------------
+#if defined(MHD)
+  gradB = gradB / rho_p
+  alpha_p = hp * sqrt(sum(gradB**2) / sum(sph(p)%B**2))
+  alpha_p = min(max(alpha_p, 0.0_PR), ALPHA_RESIST_MAX)
+  sph(p)%alpha_resist = alpha_p
 #endif
 
   deallocate(pp_templist)

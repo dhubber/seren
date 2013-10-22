@@ -74,6 +74,11 @@ SUBROUTINE hydro_gradh(p)
   real(kind=PR) :: pattrec_p             ! Patern recognition factor for p
 #endif
 #endif
+#if defined(MHD)
+  integer :: xi                          ! dimension counter
+  real(kind=PR) :: alpha_p               ! alpha for particle p (resistivity)
+  real(kind=PR) :: gradB(1:NDIM,1:BDIM)  ! Gradient of B
+#endif
 integer :: j
   debug3("Calculating hydro forces [hydro_gradh.F90] for particle ", p)
 
@@ -110,6 +115,9 @@ integer :: j
 #if defined(ARTIFICIAL_VISCOSITY) || defined(ARTIFICIAL_CONDUCTIVITY)
   dudt_diss = 0.0_PR
 #endif
+#endif
+#if defined(MHD)
+  gradB = 0.0_PR
 #endif
 
 ! Copy neighbour lists if recorded in arrays, or recompute the neighbour list
@@ -230,6 +238,18 @@ integer :: j
 #endif
      ! -----------------------------------------------------------------------
 
+
+     ! Calculate magnetic resistivity switch
+     ! -----------------------------------------------------------------------
+#if defined(MHD)
+     ! Gradient matrix of B
+     do xi=1,NDIM
+        gradB(xi,1:BDIM) = gradB(xi,1:BDIM) + &
+             & mpp * (sph(p)%B - sph(pp)%B) * hfactor_p * &
+                                            &w1(drmag*invhp) * dr_unit(xi)
+     end do
+#endif
+
   end do
 ! ============================================================================
 
@@ -273,6 +293,15 @@ integer :: j
 #if defined(COOLING_HEATING) && defined(EXPLICIT_COOLING_HEATING)
   sph(p)%dudt = sph(p)%dudt + cooling_rate(p)
 #endif
+#endif
+
+! Magnetic resistivity
+! ----------------------------------------------------------------------------
+#if defined(MHD)
+  gradB = gradB / (sph(p)%omega * rho_p)
+  alpha_p = hp * sqrt(sum(gradB**2) / sum(sph(p)%B**2))
+  alpha_p = min(max(alpha_p, 0.0_PR), ALPHA_RESIST_MAX)
+  sph(p)%alpha_resist = alpha_p
 #endif
 
 ! MPI loadbalancing instrumentation

@@ -534,6 +534,10 @@ MODULE particle_module
      real(kind=PR) :: dphi_dt_old      ! Old dphi_dt
 #endif
      real(kind=PR) :: B_t_signal       ! minimum of h / vsig
+     real(kind=PR) :: alpha_resist     ! resistivity value
+#if defined(DIV_B)
+     real(kind=PR) :: div_B            ! Divergence of magnetic field
+#endif
 #endif
 #if defined(RAD_WS) && defined(SELF_GRAVITY)
      integer :: idens                  ! Indices for dens from table

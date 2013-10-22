@@ -68,11 +68,15 @@ SUBROUTINE sph_hydro_forces
 #else
         call hydro(p)
 #endif
-#if defined(MHD)
-        call mhd(p)
-#endif
      end do
      !$OMP END PARALLEL DO
+#if defined(MHD)
+     !$OMP PARALLEL DO SCHEDULE(DYNAMIC,chunksize) DEFAULT(SHARED) PRIVATE(p)
+     do i=1,acctot
+        call mhd(p)
+     end do
+     !$OMP END PARALLEL DO
+#endif
      ! -----------------------------------------------------------------------
 
   end if
