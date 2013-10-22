@@ -47,7 +47,8 @@ MODULE constant_module
   real(kind=DP),parameter :: k_boltzmann = 1.3807E-23_DP ! Boltzmann constant 
   real(kind=DP),parameter :: stefboltz = 5.6704E-8_DP    ! Stefan-boltzmann
   real(kind=DP),parameter :: e_charge = 1.6021765E-19_DP ! Electron charge
-  real(kind=DP),parameter :: mu_0 = 1.25663706144E-6_DP  ! Permeability of
+  real(kind=DP),parameter :: mu_0_SI = 1.25663706144E-6_DP
+                                                         ! Permeability of
                                                          ! free space
   real(kind=DP),parameter :: kappa_const = 2.09E-4_DP    ! Opacity kappa (cgs)
   real(kind=DP),parameter :: L_sun = 3.839E26_DP         ! Solar luminosity
@@ -316,6 +317,7 @@ MODULE hydro_module
   real(kind=PR) :: gammaone                   ! (gamma - 1)
   real(kind=PR) :: isotemp                    ! Isothermal temperature
   real(kind=PR) :: Kpoly                      ! Polytropic constant
+  real(kind=PR) :: mu_0                       ! Permeability of free space
   real(kind=PR) :: mu_bar                     ! Mean mol. weight
   real(kind=PR) :: mu_ion                     ! mu of ionised gas
   real(kind=PR) :: newsound_const             ! Sound speed scale

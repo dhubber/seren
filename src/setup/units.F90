@@ -60,6 +60,7 @@ SUBROUTINE units
      rad_const   = 1.0_PR
      sound_const = 1.0_PR
      newsound_const = 1.0_PR
+     mu_0        = 1.0_PR
      
 ! ----------------------------------------------------------------------------
 else
@@ -338,7 +339,7 @@ else
    
    
    ! Charge units in S.I. units (i.e. coulombs)
-   Qscale = sqrt(mscale*m_SI*rscale*r_SI / mu_0)
+   Qscale = sqrt(mscale*m_SI*rscale*r_SI / mu_0_SI)
    if (Qunit=="C") then
       Q_SI = 1.0_DP
    else if (Qunit=="e") then
@@ -436,6 +437,11 @@ else
    intmax = N_LyC*(m_hydrogen/(mscale*m_SI*Xfrac))**2/(4.*PI*a_star) 
    ! NEED TO DIVIDE BY X^2 WHICH IS FRACTION OF MASS OF HYDROGEN (ASK TB)
    !  intmax = intmax / auxscale
+   
+   
+   ! Permeability of free space
+   mu_0 = mu_0_SI * (Qscale * Q_SI) / &
+          & (Bscale * B_SI * rscale * r_SI * tscale * t_SI)
    
 end if
 ! ----------------------------------------------------------------------------
