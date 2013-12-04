@@ -46,6 +46,9 @@ SUBROUTINE hydro_gradh(p)
   real(kind=PR) :: up                    ! Specific internal energy of p
   real(kind=PR) :: vp(1:NDIM)            ! velocity of particle p
   real(kind=PR) :: wmean                 ! (W(p) + W(pp)) / 2
+#if defined(SIGNAL_VELOCITY)
+  real(kind=PR) :: vsigmax_p             ! Max. signal velocity of p
+#endif
 #if defined(RIEMANN_SOLVER)
   real(kind=PR) :: gamma_eff             ! Effective ratio of specific heats
   real(kind=PR) :: Pstar                 ! Mean pressure variable
@@ -87,8 +90,10 @@ integer :: j
   sound_p    = sph(p)%sound
   rho_p      = sph(p)%rho
   up         = sph(p)%u
-#ifndef RIEMANN_SOLVER
-  pfactor_p  = sph(p)%press / rho_p / rho_p / sph(p)%omega
+#if defined(EXTERNAL_PRESSURE)
+  pfactor_p  = (sph(p)%press - Pext)*sph(p)%invrho*sph(p)%invrho/sph(p)%omega
+#else
+  pfactor_p  = sph(p)%press*sph(p)%invrho*sph(p)%invrho/sph(p)%omega
 #endif
 #if defined(ARTIFICIAL_VISCOSITY) && defined(VISC_TD)
   talpha_p = sph(p)%talpha
@@ -102,6 +107,9 @@ integer :: j
 
 ! Zero arrays
   ahydro_temp(1:NDIM) = 0.0_PR
+#if defined(SIGNAL_VELOCITY)
+  vsigmax_p = 0.0_PR
+#endif
 #if defined(ARTIFICIAL_VISCOSITY)
   ahydro_diss(1:VDIM) = 0.0_PR
 #endif
@@ -151,6 +159,10 @@ integer :: j
      dvdr = dot_product(dv,dr_unit)
      invdrmag = 1.0_PR / drmag
      dr_unit(1:NDIM) = dr_unit(1:NDIM)*invdrmag
+#if defined(SIGNAL_VELOCITY)
+     vsigmax_p = max(vsigmax_p,sound_p,&
+          &sound_p + sph(pp)%sound - beta*dvdr*invdrmag)
+#endif
 
      ! Add gather-neighbour contribution
      if (drmag < KERNRANGE*hp) then
@@ -163,7 +175,12 @@ integer :: j
      if (drmag < KERNRANGE*hpp) then
         invhpp = 1.0_PR / hpp
         hfactor_pp = invhpp**(NDIMPLUS1)
-        pfactor_pp = sph(pp)%press / rho_pp / rho_pp / sph(pp)%omega
+#if defined(EXTERNAL_PRESSURE)
+        pfactor_pp = (sph(pp)%press - pext)*&
+             &sph(pp)%invrho*sph(pp)%invrho/sph(pp)%omega
+#else
+        pfactor_pp = sph(pp)%press*sph(pp)%invrho*sph(pp)%invrho/sph(pp)%omega
+#endif
         wmean  = wmean + 0.5_PR*hfactor_pp*w1(drmag*invhpp)
         ahydro_temp(1:NDIM) = ahydro_temp(1:NDIM) + &
              & mpp*pfactor_pp*hfactor_pp*w1(drmag*invhpp)*dr_unit(1:NDIM)
@@ -217,7 +234,7 @@ integer :: j
      end if
 
      ! Artificial conductivity term
-#if defined(ENERGY_EQN) && defined(ARTIFICIAL_CONDUCTIVITY)
+#if defined(EXPLICIT_ENERGY_EQN) && defined(ARTIFICIAL_CONDUCTIVITY)
 #if defined(COND_PRICE2008)
      vsignal = sqrt(abs(sph(p)%press - sph(pp)%press)*invrhomean)
 #elif defined(COND_WADSLEY2008)
@@ -239,6 +256,9 @@ integer :: j
 #endif
 #if defined(DEBUG_FORCES) && defined(ARTIFICIAL_VISCOSITY)
   sph(p)%a_visc(1:VDIM) = ahydro_diss(1:VDIM)
+#endif
+#if defined(SIGNAL_VELOCITY)
+  sph(p)%vsigmax = vsigmax_p
 #endif
 
 ! Record hydro acceleration in main array
@@ -295,6 +315,7 @@ integer :: j
                 &p,pp,ptot,pghost,drmag/(KERNRANGE*sph(p)%h),drmag/(KERNRANGE*sph(pp)%h),sph(p)%h/sph(pp)%h
            stop
         end if
+        !write(6,*) "Particle verified : ",p,pp,ptot,pghost,rp(1:NDIM)
      end if
   end do
 #endif
