@@ -138,10 +138,10 @@ SUBROUTINE read_data_seren_form(out_file,decomp_read)
 
 ! Read in real information
   do p=1,50
-     read(1,'(E18.10)') rdata(p)
+     read(1,*) rdata(p)
   end do
   do p=1,50
-     read(1,'(E18.10)') dpdata(p)
+     read(1,*) dpdata(p)
   end do
   time      = dpdata(1)
   lastsnap  = dpdata(2)
@@ -192,11 +192,11 @@ SUBROUTINE read_data_seren_form(out_file,decomp_read)
      else if (data_id(i)=='r') then
         do p=pfirst,plast
 #if NDIM==1
-           read(1,'(E18.10)') rtemp(1)
+           read(1,*) rtemp(1)
 #elif NDIM==2
-           read(1,'(2E18.10)') rtemp(1:2)
+           read(1,*) rtemp(1:2)
 #elif NDIM==3
-           read(1,'(3E18.10)') rtemp(1:3)
+           read(1,*) rtemp(1:3)
 #endif
            if (decomp_read) then
               minimal_sph(p)%r(1:NDIM) = real(rtemp(1:NDIM),PR)
@@ -209,7 +209,7 @@ SUBROUTINE read_data_seren_form(out_file,decomp_read)
      ! ----------------------------------------------------------------------- 
      else if (data_id(i)=='m') then
         do p=pfirst,plast
-           read(1,'(E18.10)') rtemp(1)
+           read(1,*) rtemp(1)
            if (decomp_read) then
               minimal_sph(p)%m = real(rtemp(1),PR)
            else
@@ -221,7 +221,7 @@ SUBROUTINE read_data_seren_form(out_file,decomp_read)
      ! ----------------------------------------------------------------------- 
      else if (data_id(i)=='h') then
         do p=pfirst,plast
-           read(1,'(E18.10)') rtemp(1)
+           read(1,*) rtemp(1)
            if (decomp_read) then
               minimal_sph(p)%h = real(rtemp(1),PR)
            else
@@ -234,11 +234,11 @@ SUBROUTINE read_data_seren_form(out_file,decomp_read)
      else if (data_id(i)=='v') then
         do p=pfirst,plast
 #if VDIM==1
-           read(1,'(E18.10)') rtemp(1)
+           read(1,*) rtemp(1)
 #elif VDIM==2
-           read(1,'(2E18.10)') rtemp(1:2)
+           read(1,*) rtemp(1:2)
 #elif VDIM==3
-           read(1,'(3E18.10)') rtemp(1:3)
+           read(1,*) rtemp(1:3)
 #endif
            if (decomp_read) then
               minimal_sph(p)%v(1:VDIM) = real(rtemp(1:VDIM),PR)
@@ -251,7 +251,7 @@ SUBROUTINE read_data_seren_form(out_file,decomp_read)
      ! ----------------------------------------------------------------------- 
      else if (data_id(i)=='rho') then
         do p=pfirst,plast
-           read(1,'(E18.10)') rtemp(1)
+           read(1,*) rtemp(1)
            if (decomp_read) then
               minimal_sph(p)%rho = real(rtemp(1),PR)
            else
@@ -263,7 +263,7 @@ SUBROUTINE read_data_seren_form(out_file,decomp_read)
      ! ----------------------------------------------------------------------- 
      else if (data_id(i)=='temp') then
         do p=pfirst,plast
-           read(1,'(E18.10)') rtemp(1)
+           read(1,*) rtemp(1)
 #if defined(HYDRO)
            if (decomp_read) then
               minimal_sph(p)%temp = real(rtemp(1),PR)
@@ -277,7 +277,7 @@ SUBROUTINE read_data_seren_form(out_file,decomp_read)
      ! ----------------------------------------------------------------------- 
      else if (data_id(i)=='u') then
         do p=pfirst,plast
-           read(1,'(E18.10)') rtemp(1)
+           read(1,*) rtemp(1)
 #if defined(HYDRO)
            if (decomp_read) then
               minimal_sph(p)%u = real(rtemp(1),PR)
@@ -291,7 +291,7 @@ SUBROUTINE read_data_seren_form(out_file,decomp_read)
      ! ----------------------------------------------------------------------- 
      else if (data_id(i)=='Aent') then
         do p=pfirst,plast
-           read(1,'(E18.10)') rtemp(1)
+           read(1,*) rtemp(1)
 #if defined(ENTROPIC_FUNCTION)
            if (decomp_read) then
               minimal_sph(p)%Aent = real(rtemp(1),PR)
@@ -306,11 +306,11 @@ SUBROUTINE read_data_seren_form(out_file,decomp_read)
      else if (data_id(i)=='B') then
         do p=pfirst,plast
 #if BDIM==1
-           read(1,'(E18.10)') rtemp(1)
+           read(1,*) rtemp(1)
 #elif BDIM==2
-           read(1,'(2E18.10)') rtemp(1:2)
+           read(1,*) rtemp(1:2)
 #elif BDIM==3
-           read(1,'(3E18.10)') rtemp(1:3)
+           read(1,*) rtemp(1:3)
 #endif
         end do
 

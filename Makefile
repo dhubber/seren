@@ -7,14 +7,14 @@ MPIF90                    = mpif90
 VERSION_NO                = 1.5.1
 SRCDIR                    = $(PWD)/src
 EXEDIR                    = $(PWD)
-OPENMP                    = 1
+OPENMP                    = 0
 MPI                       = 0
 MPI_LIBRARY               = mpich2
 COMPILER_MODE             = FAST
-OUTPUT_LEVEL              = 2
+OUTPUT_LEVEL              = 1
 DIAGNOSTIC_OUTPUT         = 1
 NDIM                      = 3
-PRECISION                 = SINGLE
+PRECISION                 = DOUBLE
 PERIODIC                  = 0
 X_BOUNDARY                = 0
 Y_BOUNDARY                = 0
@@ -31,7 +31,7 @@ NBODY_SIMULATION          = 0
 # SPH simulation options
 # ----------------------------------------------------------------------------
 SPH                       = GRAD_H_SPH
-SPH_INTEGRATION           = LFDKD
+SPH_INTEGRATION           = LFKDK
 KERNEL                    = M4
 HFIND                     = H_RHO
 MINIMUM_H                 = 0
@@ -39,7 +39,7 @@ HYDRO                     = 1
 ENERGY_EQN                = 1
 ENTROPY_EQN               = 0
 ARTIFICIAL_VISCOSITY      = MON97
-VISC_TD                   = 1
+VISC_TD                   = 0
 BALSARA                   = 0
 ARTIFICIAL_CONDUCTIVITY   = 0
 EXTERNAL_PRESSURE         = 0
@@ -79,8 +79,8 @@ BINARY_STATS              = 0
 # ----------------------------------------------------------------------------
 TREE                      = BH
 MULTIPOLE                 = QUADRUPOLE
-MAC                       = GADGET
-REORDER                   = 0
+MAC                       = GEOMETRIC
+REORDER                   = PARTICLES
 
 # ----------------------------------------------------------------------------
 # Misc. options
