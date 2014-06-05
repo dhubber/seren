@@ -495,12 +495,12 @@ ifeq ($(RAD_WS),1)
 CFLAGS += -DRAD_WS -DRAD -DINTERNAL_ENERGY -DENERGY_EQN -DU_IMPLICIT_SOLVER
 SPH_OBJ += rad_ws_update.o find_equilibrium_temp_ws.o
 SPH_OBJ += read_cooling_table_ws.o ambienttemp.o
-ifeq ($(MPI),1)
-ERROR += "RAD_WS not MPI parallelized"
-endif
 ifeq ($(FLUX_LIMITED_DIFFUSION),1)
 CFLAGS += -DFLUX_LIMITED_DIFFUSION -DDIFFUSION
 SPH_OBJ += conductivity.o diffusion.o
+ifeq ($(MPI),1)
+ERROR += "FLUX_LIMITED_DIFFUSION not MPI parallelized"
+endif
 endif
 ifeq ($(AMBIENT_HEATING_WS),1)
 CFLAGS += -DAMBIENT_HEATING -DCONST_HEATING

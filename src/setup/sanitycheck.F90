@@ -220,8 +220,8 @@ SUBROUTINE sanitycheck
   call comperror("NBODY gravity not supported with MPI")
 #endif
 
-#if defined(RAD_WS)
-  call comperror("RAD_WS not supported with MPI")
+#if defined(FLUX_LIMITED_DIFFUSION)
+  call comperror("FLUX_LIMITED_DIFFUSION not supported with MPI")
 #endif
 
 #if defined(NBODY_SPH_SIMULATION) || defined(NBODY_SIMULATION)

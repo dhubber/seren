@@ -14,6 +14,10 @@ SUBROUTINE write_rad_ws_test_data
   use Eos_module
   use filename_module, only : run_id, run_dir
   use time_module, only : nsteps, time
+#if defined(USE_MPI)
+  use mpi_communication_module
+  use mpi
+#endif
   implicit none
 
 #if defined(DEBUG_RAD)
@@ -24,6 +28,12 @@ SUBROUTINE write_rad_ws_test_data
   real(kind=PR) :: rhomax          ! Maximum density
   real(kind=PR) :: taumax          ! Optical depth of most dense particle
   real(kind=PR) :: Tmax            ! Temperature of most dense particle
+#if defined(USE_MPI)
+  integer       :: ierr            ! MPI error value
+  integer       :: max_rho_rank(1) ! rank of task with densest particle
+  real(kind=PR) :: data_send(1:5)  ! data of densest particle for each task
+  real(kind=PR) :: data_recv(1:5, 0:lastrank) ! receive array for above data
+#endif
 
   debug2("Writing data for polytropic cooling test [write_rad_ws_test_data.F90]")
 
@@ -38,6 +48,24 @@ SUBROUTINE write_rad_ws_test_data
         radmax   = rad_info(8,p)
      end if
   end do
+  
+#if defined(USE_MPI)
+  ! Send the data from each task to the root task
+  data_send = (/rhomax, Tmax, kappamax, taumax, radmax/)
+  call MPI_GATHER(data_send, 5, MPI_REAL_PR, data_recv, &
+     &5, MPI_REAL_PR, 0, MPI_COMM_WORLD, ierr)
+  
+  if (rank/=0) return
+  
+  max_rho_rank = maxloc(data_recv(1, :)) - 1
+    ! minus 1 to account for maxloc counting from 1
+  
+  rhomax = data_recv(1, max_rho_rank(1))
+  Tmax = data_recv(2, max_rho_rank(1))
+  kappamax = data_recv(3, max_rho_rank(1))
+  taumax = data_recv(4, max_rho_rank(1))
+  radmax = data_recv(5, max_rho_rank(1))
+#endif
   
   out_file = trim(adjustl(run_dir))//trim(adjustl(run_id))//".rad"
 

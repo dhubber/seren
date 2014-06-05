@@ -44,6 +44,9 @@ subroutine expand(newsize)
   integer, allocatable :: pptot_temp(:)        ! number of neighbours
   integer, allocatable :: pplist_temp(:,:)     ! list of neighbours
 #endif
+#if defined(RAD_WS) && defined(DEBUG_RAD)
+  real(kind=PR), allocatable :: rad_info_temp(:,:)  ! RAD_WS debug info
+#endif
   integer              :: ierr                 ! Error value for allocation
 
   debug_timing("EXPAND_ALL_ARRAYS")
@@ -121,6 +124,25 @@ subroutine expand(newsize)
   if (ierr /= 0) call err_stop("Unable to allocate pplist in expand!")
   pplist(1:pp_limit,1:oldsize) = pplist_temp(1:pp_limit,1:oldsize)
   deallocate(pplist_temp)
+#endif
+#endif
+
+#if defined(RAD_WS) && defined(DEBUG_RAD)
+#if defined(F2003)
+  allocate(rad_info_temp(1:10,1:newsize), stat=ierr)
+#else
+  allocate(rad_info_temp(1:10,1:oldsize), stat=ierr)
+#endif
+  if (ierr /= 0) call err_stop("Unable to allocate rad_info_temp in expand!")
+  rad_info_temp(1:10,1:oldsize) = rad_info(1:10,1:oldsize)
+#if defined(F2003)
+  call move_alloc(rad_info_temp, rad_info)
+#else
+  deallocate(rad_info)
+  allocate(rad_info(1:10,1:newsize), stat=ierr)
+  if (ierr /= 0) call err_stop("Unable to allocate rad_info in expand!")
+  rad_info(1:10,1:oldsize) = rad_info_temp(1:10,1:oldsize)
+  deallocate(rad_info_temp)
 #endif
 #endif
   
